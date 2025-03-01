@@ -1,0 +1,101 @@
+.bg-light-blue {
+    background-color: #0096FF	 !important;
+}
+
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+.form-control {
+    width: 200px;
+}
+
+.btn-outline-primary {
+    border-color: black;
+    color: white;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+.customb-btn{
+    color: black;
+}
+
+/* Logo Styling */
+.logo {
+    width: 50px;
+    cursor: pointer;
+}
+
+/* Sidebar Menu */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background: #cce7ff;
+    padding-top: 60px;
+    transition: 0.3s;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.sidebar.open {
+    left: 0; /* Slide in */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    font-size: 18px;
+}
+
+.sidebar ul li a {
+    color: #000;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background: #b3d9ff;
+    padding-left: 10px;
+}
+.overlay {
+    position: fixed;
+    top: 2%;
+    left: 2%;
+    width: 3%;
+    height: 4%;
+    background: rgba(105, 57, 57, 0.5);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 950px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .account {
+        margin-top: 10px;
+    }
+}

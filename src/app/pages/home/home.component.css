@@ -1,0 +1,243 @@
+/*  NORMAL USER'S HOMEPAGE */
+
+/* HERO SECTION */
+.hero-section {
+    padding: 45px 0;
+    height: 100%;
+}
+
+/* LEFT SIDE */
+.left-side {
+    text-align: left;
+    animation: fadeIn 0.5s ease-in-out;
+}
+.right-side{
+    width: 50%;
+}
+.hero-title {
+    font-size: 5.5rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: -7px;
+}
+
+.hero-description {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* FEATURES LIST */
+.features-list {
+    list-style: none;
+    padding: 0;
+}
+
+.features-list li {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    color: #444;
+}
+
+h3{
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    color: #444;
+    margin-bottom: -2px;
+}
+.features-list i {
+    font-size: 30px;
+}
+
+/* BUTTON */
+.hero-btn {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    border-top-left-radius: 0px;        /* isse top left mai radius 0px hoga */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+    background-color: #0056b3;
+    color: white;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* RIGHT SIDE IMAGE */
+.right-side img {
+    max-width: 80%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#line{
+    width: 18rem;
+    height: 4px;
+    background-color: #007bff;
+    margin-bottom: 20px;
+
+}
+
+#line_2{
+    width: 12rem;
+    height: 4px;
+    background-color: #444;
+    margin-bottom: 5px;
+
+}
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+/* MEMBER'S HOMEPAGE  */
+/* Sky Blue Theme & General Styling */
+body {
+    background: linear-gradient(135deg, #e0f2ff, #b3d9ff);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Greeting Section */
+.greeting {
+    background: white;
+    border-left: 5px solid #007bff;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Notifications */
+.notifications {
+    background: white;
+    border-left: 5px solid #f1c40f;
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+.notifications ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.notifications ul li:last-child {
+    border-bottom: none;
+}
+
+/* Task & Project Cards */
+.task-card, .project-card {
+    background: white;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.task-card{
+    animation: fadeInLeft 0.7s ease-in-out;
+}
+
+.project-card{
+    animation: fadeInRight 0.7s ease-in-out;
+}
+
+.task-card:hover, .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Issues Section */
+.issues {
+    background: white;
+    border-left: 5px solid #dc3545;
+    animation: fadeIn 1.4s ease-in-out;
+}
+
+.issues ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.issues ul li:last-child {
+    border-bottom: none;
+}
+
+/* Button Styling */
+.btn {
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft{
+    from{
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight{
+    from{
+        opacity: 0;
+        transform: translateX(+20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+
+    /* NORMAL USER'S HOMEPAGE  */
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .right-side img {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    #line{
+        width: 7.5rem;
+        height: 4px;
+        background-color: #007bff;
+        margin-bottom: 10px;
+    
+    }
+
+    /* MEMBER'S HOMEPAGE  */
+    .task-card, .project-card {
+        margin-bottom: 15px;
+    }
+}

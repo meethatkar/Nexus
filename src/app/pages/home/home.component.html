@@ -1,0 +1,149 @@
+@if(role=="not assigned"){
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <!-- Left Side: Title, Description, Features -->
+            <div class="col-md-6 left-side">
+                <h1 class="hero-title">NEXUS</h1>
+                <div id="line"></div>
+                <p class="hero-description">
+                    Welcome to Nexus, your all-in-one solution for software project management.  
+                    Stay organized, collaborate in real-time, and manage projects efficiently.
+                </p>
+
+                <h3> *Features of Nexus* </h3>
+                <div id="line_2"></div>
+                <ul class="features-list">
+                    <li><i class=" fa fa-solid fa-chart-pie text-info me-2"></i> Visual Representation of Tasks</li>
+                    <li><i class="fa fa-tasks text-success me-2"></i> Easy Tracking & Monitoring</li>
+                    <li><i class="fa fa-desktop text-warning me-2"></i> Simple, User-Friendly GUI</li>
+                    <li><i class="fa fa-users text-danger me-2"></i> Real-Time Collaboration</li>
+                    <li><i class="fa fa-chart-line text-primary me-2"></i> Data-Driven Insights & Reports</li>
+                </ul>
+
+                <button class="btn btn-primary hero-btn" routerLink="/Signup">Get Started</button>
+            </div>
+
+            <!-- Right Side: Image -->
+            <div class="col-md-6 text-center right-side">
+                <img src="homePage.webp" alt="Project Management" class="img-fluid">
+            </div>
+
+        </div>
+    </div>
+</section>
+}
+
+
+@else if(role=="member"){
+<div class="container mt-4">
+        <!-- Greeting Section -->
+        <div class="greeting p-4 shadow-sm rounded">
+            <h2>Welcome, <span id="memberName">John Doe</span> 👋</h2>
+            <p class="last-commit"><i class="fa fa-code me-2"></i>Last Commit: <span id="lastCommit">Fixed login bug & improved UI</span></p>
+        </div>
+
+        <!-- Notifications Section -->
+        <div class="notifications mt-4 p-3 shadow rounded">
+            <h4><i class="fa fa-bell text-warning me-2"></i> Notifications</h4>
+            <ul id="notificationList" class="list-unstyled">
+                <li><i class="fa fa-tasks text-success me-2"></i> New Task Assigned: "UI Design Update"</li>
+                <li><i class="fa fa-check-circle text-primary me-2"></i> Task Status Updated: "Database Migration Completed"</li>
+                <li><i class="fa fa-comments text-info me-2"></i> New Comment on Issue: "Bug in Payment Gateway"</li>
+                <li><i class="fa fa-calendar text-danger me-2"></i> Deadline Alert: "API Integration - Due Tomorrow"</li>
+            </ul>
+        </div>
+
+<!-- Task Summary Section -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="task-card p-4 shadow rounded">
+            <h4><i class="fa fa-check-square me-2"></i> Task Summary</h4>
+            <!-- <p>You have <strong>5 pending</strong> and <strong>8 completed</strong> tasks.</p> -->
+
+            <!-- Task Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Design UI</td>
+                        <td>March 5, 2025</td>
+                        <td class="text-warning">Pending</td>
+                    </tr>
+                    <tr>
+                        <td>Database Setup</td>
+                        <td>March 3, 2025</td>
+                        <td class="text-success">Completed</td>
+                    </tr>
+                    <tr>
+                        <td>API Integration</td>
+                        <td>March 10, 2025</td>
+                        <td class="text-danger">Overdue</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary">View More</button>
+        </div>
+    </div>
+
+    <!-- Project Summary Section -->
+    <div class="col-md-6">
+        <div class="project-card p-4 shadow rounded">
+            <h4><i class="fa fa-folder-open me-2"></i> Project Summary</h4>
+            <!-- <p>Currently working on <strong>3 active projects</strong>.</p> -->
+
+            <!-- Project Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Website Redesign</td>
+                        <td>April 15, 2025</td>
+                        <td class="text-info">In Progress</td>
+                    </tr>
+                    <tr>
+                        <td>IoT Smart Home</td>
+                        <td>May 1, 2025</td>
+                        <td class="text-warning">Pending</td>
+                    </tr>
+                    <tr>
+                        <td>Angular Dashboard</td>
+                        <td>March 20, 2025</td>
+                        <td class="text-success">Completed</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary">View More</button>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Issues Section -->
+        <div class="issues mt-4 p-3 shadow rounded">
+            <h4><i class="fa-solid fa-bug text-danger me-2"></i> Issues Assigned</h4>
+            <ul id="issuesList" class="list-unstyled">
+                <li><i class="fa-solid fa-exclamation-circle text-warning me-2"></i> "Login page keeps crashing" - High Priority</li>
+                <li><i class="fa-solid fa-exclamation-circle text-danger me-2"></i> "Data sync issue in Reports" - Medium Priority</li>
+                <li><i class="fa-solid fa-exclamation-circle text-info me-2"></i> "Minor UI glitch on Dashboard" - Low Priority</li>
+            </ul>
+        </div>
+    </div>
+
+}
+
