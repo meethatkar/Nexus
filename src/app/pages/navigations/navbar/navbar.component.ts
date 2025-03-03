@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { userDetails } from '../../../models/userDetails.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent  implements OnInit{
-  isMenuOpen = false;
-  username="";
-  password="";
+  isMenuOpen = false;   //used for side menubar opening
   // authService=inject(AuthService);
-  role:any;
-  isManager:boolean=false;
-  isMember:boolean=false;
-  
+  // role:any;
+  userDetailsObj:userDetails = new userDetails();
 
   ngOnInit(): void {
     // this.role=localStorage.getItem('role');
     // console.log(this.role)
-    // if(this.role=="manager"){
+    // if(this.role=="manager"){w
     //   this.isManager=true;
     // }
     // else if(this.role=="member"){
@@ -31,7 +29,7 @@ export class NavbarComponent  implements OnInit{
   }
   //METHODS
   constructor(){
-    
+    this.userDetailsObj.role="member";
   }
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -40,10 +38,18 @@ export class NavbarComponent  implements OnInit{
   //   return this.authService.isAutheticated();
   // }
 
-  isLoggedIn(){return true}
+  isLoggedIn():boolean{
+    if(this.userDetailsObj.token==""){
+      console.log(this.userDetailsObj.token+"token number");
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
   logout(){
     // this.userObj.isLogin=false;
-    console.log(this.role);
+    console.log(this.userDetailsObj.role);
     // this.authService.logout();
   }
 

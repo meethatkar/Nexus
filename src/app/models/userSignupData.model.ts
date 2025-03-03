@@ -10,8 +10,9 @@ export class userSignupData{
 }
 
 
-export interface IResult{
-    data:any,
-    result:boolean,
-    message:string,
+export interface IResultSignup{
+    // data:any,
+    // result:boolean,
+    // message:string,
+    token:string;
 }

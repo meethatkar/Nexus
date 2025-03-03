@@ -1,0 +1,140 @@
+@if(userDetailsObj.role==="manager"){
+<div class="container mt-4">
+    <h2 class="text-center text-primary">Project List</h2>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>Project Name</th>
+                    <th>No. of Members</th>
+                    <th>No. of Tasks</th>
+                    <th>Completion (%)</th>
+                    <th>Details</th>
+                    <th>Assign Task</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let project of projectObj.projectName; let i=index">
+                <tr (click)="toggleDetails(i)" class="project-row">
+                    <td>{{ projectObj.projectName[i] }}</td>
+                    <td>{{ projectObj.memberCount[i] }}</td>
+                    <td>{{ projectObj.taskCount[i] }}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" [class.bg-success]="projectObj.completionPercent[i] >= 70"
+                                [class.bg-warning]="projectObj.completionPercent[i] >= 40 && projectObj.completionPercent[i] < 70"
+                                [class.bg-danger]="projectObj.completionPercent[i] < 40" [style.width.%]="projectObj.completionPercent[i]">
+                                {{ projectObj.completionPercent[i] }}%
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-sm">View</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" routerLink="/assignTask">Add</button>
+                    </td>
+                </tr>
+                <!-- Dropdown section -->
+                @if(expandedIndex===i){
+                <tr>
+                    <td colspan="6">
+                        <div class="task-dropdown">
+                            <h3 class="text-primary">Project Details </h3>
+                            <ul class="list-group">
+                                <li class="list-group-item" class="list-group-item">
+                                    <table border="solid 1 black">
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Project Name:</strong> </th>
+                                            <td> {{ projectObj.projectName[i] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Description:</strong> </th>
+                                            <td> {{ projectObj.projectDescription[i] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Due Date:</strong> </th>
+                                            <td> {{ projectObj.projectDuedate[i] | date }}  </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Status:</strong> </th>
+                                            <td> {{ projectObj.projectStatus[i] }} </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}
+
+
+@else if(userDetailsObj.role=="member"){
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">Project List</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>Project Name</th>
+                    <th>Project Manager</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let project of projectObj.projectName; let i = index">
+                <tr class="project-row">
+                    <td>{{ projectObj.projectName[i] }}</td>
+                    <td>{{ projectObj.pmanagerName[i] }}</td>
+                    <td>{{ projectObj.projectDuedate[i] | date }}</td>
+                    <td>
+                        <span class="status-badge">
+                            {{ projectObj.projectStatus[i] }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-sm" (click)="toggleTaskView(i)">
+                            View Tasks
+                        </button>
+                    </td>
+                </tr>
+                <!-- Task List Dropdown -->
+                @if(selectedProjectIndex===i){
+                <tr>
+                    <td colspan="5">
+                        <div class="task-dropdown">
+                            <h5 class="text-primary">Tasks for {{ projectObj.projectName[i] }}</h5>
+                            <ul class="list-group">
+                                <li *ngFor="let task of taskObj.taskName; let i=index" class="list-group-item" class="list-group-item">
+                                    <table border="solid 1 black">
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Task:</strong> </th>
+                                            <td> {{ taskObj.taskName[i] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Description:</strong> </th>
+                                            <td> {{ taskObj.taskDescription[i] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Status:</strong> </th>
+                                            <td> {{ taskObj.taskStatus[i] }} </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+}

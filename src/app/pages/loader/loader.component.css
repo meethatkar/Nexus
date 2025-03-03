@@ -1,0 +1,150 @@
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 999;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+/*  RIPPLE EFFECT  */
+/* .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 999;
+}
+
+.loader {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.loader div {
+    position: absolute;
+    border: 4px solid #3498db;
+    opacity: 1;
+    border-radius: 50%;
+    animation: ripple 1.5s infinite;
+}
+
+.loader div:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+} */
+
+
+/* LOADING TEXT EFFECT */
+/* .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 999;
+}
+
+.loader {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    color: #3498db;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    animation: typing 1s ease-in-out infinite alternate;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 120px;
+    }
+} */
+
+
+/* PULSE EFFECT */
+/* .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 999;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader span {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    background-color: #3498db;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loader span:nth-child(1) {
+    animation-delay: 0s;
+}
+.loader span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.loader span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+} */

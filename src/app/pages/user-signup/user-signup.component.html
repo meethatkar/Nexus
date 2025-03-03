@@ -1,3 +1,4 @@
+<app-loader [isLoading]="isLoading"></app-loader>
 @if(showUserDetailForm){
 <div class="container mt-5">
     <div class="card p-4 shadow-lg bg-light">
@@ -13,6 +14,7 @@
                     placeholder="Enter first name" 
                     required
                     name="fname" 
+                    [(ngModel)]="userDetailsObj.firstName"
                     ngModel 
                     #fname="ngModel">
                     @if(fname.invalid && fname.touched){
@@ -30,6 +32,7 @@
                     placeholder="Enter last name" 
                     required
                     name="lname" 
+                    [(ngModel)]="userDetailsObj.lastName"
                     ngModel 
                     #lname="ngModel">
                     @if(lname.invalid && lname.touched){
@@ -51,6 +54,7 @@
                 required
                 name="phoneNumber" 
                 pattern="^[6789]\d{9}$" 
+                [(ngModel)]="userDetailsObj.phoneNumber"
                 ngModel 
                 #phoneNumber="ngModel">
             </div>
@@ -70,6 +74,7 @@
                     placeholder="Enter state name" 
                     required
                     name="state" 
+                    [(ngModel)]="userDetailsObj.state"
                     ngModel 
                     #state="ngModel">
                     @if(state.invalid && state.touched){
@@ -85,7 +90,7 @@
                         name="City" ngModel #City="ngModel">
                     @if(City.invalid && City.touched){
                     <p class="error-message-sm">
-                        last name is required
+                        City name is required
                     </p>
                     }
                 </div>
@@ -94,8 +99,15 @@
 
             <div class="mb-3">
                 <label for="address" class="form-label">Address:</label>
-                <textarea class="form-control" id="address" rows="3" placeholder="Enter address" name="address" required ngModel
-                    #address="ngModel"></textarea>
+                <textarea 
+                class="form-control" 
+                id="address" rows="3" 
+                placeholder="Enter address" 
+                name="address" 
+                required 
+                [(ngModel)]="userDetailsObj.address"
+                ngModel
+                #address="ngModel"></textarea>
             </div>
             @if(address.invalid && address.touched){
             <p class="error-message">
@@ -117,9 +129,17 @@
     
                 <div class="mb-3">
                     <label for="email" class="form-label">email:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter email id"
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required name="email"
-                        [(ngModel)]="SignupDataObject.email" ngModel #email="ngModel">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    id="email" 
+                    placeholder="Enter email id"
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" 
+                    required 
+                    name="email"
+                    [(ngModel)]="userSignupDataObj.email" 
+                    ngModel 
+                    #email="ngModel">
                 </div>
                 @if(email.invalid && email.touched){
                 <p class="error-message">
@@ -129,8 +149,17 @@
     
                 <div class="mb-3">
                     <label for="userName" class="form-label">Username: </label>
-                    <input type="text" class="form-control" id="userName" placeholder="Enter username" required
-                        minlength="6" name="username" [(ngModel)]="SignupDataObject.username" ngModel #username="ngModel">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    id="userName" 
+                    placeholder="Enter username" 
+                    required
+                    minlength="6" 
+                    name="username" 
+                    [(ngModel)]="userSignupDataObj.username" 
+                    ngModel 
+                    #username="ngModel">
                 </div>
                 @if(username.invalid && username.touched){
                 <p class="error-message">
@@ -141,9 +170,18 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
                     <div class="input-group">
-                        <input [type]="passwordVisible ? 'text':'password' " class="form-control" id="password"
-                            placeholder="Enter password" required name="password" minlength="8" ngModel
-                            (keyup)="comparePassword(password.value,confirmPassword.value)" #password="ngModel">
+                        <input 
+                        [type]="passwordVisible ? 'text':'password' " 
+                        class="form-control" 
+                        id="password"
+                        placeholder="Enter password" 
+                        required 
+                        name="password" 
+                        minlength="8" 
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+                        ngModel
+                        (keyup)="comparePassword(password.value,confirmPassword.value)" 
+                        #password="ngModel">
                         <span class="input-group-text" (click)="togglePassword()">
                             <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
                         </span>
@@ -157,10 +195,19 @@
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm Password:</label>
                     <div class="input-group">
-                        <input [type]="passwordVisible ? 'text':'password' " class="form-control" id="confirmPassword"
-                            placeholder="Enter confirm password" required name="confirmpassword" minlength="8"
-                            [(ngModel)]="SignupDataObject.password" ngModel
-                            (keyup)="comparePassword(password.value,confirmPassword.value)" #confirmPassword="ngModel">
+                        <input 
+                        [type]="passwordVisible ? 'text':'password' " 
+                        class="form-control" 
+                        id="confirmPassword"
+                        placeholder="Enter confirm password" 
+                        required 
+                        name="confirmpassword" 
+                        minlength="8"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+                        [(ngModel)]="userSignupDataObj.password" 
+                        ngModel
+                        (keyup)="comparePassword(password.value,confirmPassword.value)" 
+                        #confirmPassword="ngModel">
                         <span class="input-group-text" (click)="togglePassword()">
                             <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
                         </span>
@@ -175,7 +222,7 @@
                 <button type="submit" class="btn btn-primary w-100 my-1" [disabled]="Signup.invalid">Signup</button>
                 <button type="reset" class="btn btn-secondary w-100 my-1">Reset</button>
                 <p class="error-message" class="mt-2">Already have an account?
-                    <a routerLink="/userLogin">Login</a>
+                    <a routerLink="/login">Login</a>
                 </p>
             </form>
         </div>

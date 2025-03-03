@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { userDetails } from '../../models/userDetails.model';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  userDetailsObj:userDetails = new userDetails();
 
-  role="member";
+  role="manager";
 }

@@ -89,7 +89,7 @@ h3{
     width: 12rem;
     height: 4px;
     background-color: #444;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 
 }
 @keyframes fadeIn{
@@ -104,10 +104,6 @@ h3{
 
 /* MEMBER'S HOMEPAGE  */
 /* Sky Blue Theme & General Styling */
-body {
-    background: linear-gradient(135deg, #e0f2ff, #b3d9ff);
-    font-family: 'Arial', sans-serif;
-}
 
 /* Greeting Section */
 .greeting {
@@ -210,6 +206,69 @@ body {
     }
 }
 
+/* MANAGER'S HOMEPAGE  */
+/* Sky blue theme */
+.dashboard-container {
+    padding: 20px;
+    /* background-color: #e3f2fd; */
+    font-family: Arial, sans-serif;
+    height: 91vh;
+}
+
+.card {
+    border: none;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+h2, h4 {
+    color: #007bff;
+}
+
+.table{
+    margin-bottom: 30px;
+}
+
+.table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.viewBtn{
+    width: 20%;
+    position: absolute;
+    right: 25px;
+    bottom: 10px;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Animation */
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
@@ -239,5 +298,31 @@ body {
     /* MEMBER'S HOMEPAGE  */
     .task-card, .project-card {
         margin-bottom: 15px;
+    }
+
+    /* MANAGER'S HOMEPAGE  */
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-6 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h4 {
+        font-size: 1.2rem;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        font-size: 12px;
     }
 }

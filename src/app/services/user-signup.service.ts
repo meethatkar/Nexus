@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { IResult, userSignupData } from '../models/userSignupData.model';
+import { inject, Injectable } from '@angular/core';
+import { IResultSignup, userSignupData } from '../models/userSignupData.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,11 +8,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserSignupService {
 
-  mainApi="https://localhost:7156/api"
+  mainApi="http://localhost:5194/api"
+  private http=inject(HttpClient);
+  constructor() { }
 
-  constructor(private http: HttpClient) { }
-
-  public addSignupUser(obj:userSignupData):Observable<IResult>{
-    return this.http.post<IResult>(this.mainApi + "/User/addSignupUser",obj);
+  public addSignupUser(obj:userSignupData):Observable<IResultSignup>{
+    return this.http.post<IResultSignup>(this.mainApi + "/User/addSignupUser",obj);
   }
 }

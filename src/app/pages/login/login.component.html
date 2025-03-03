@@ -1,0 +1,60 @@
+<div class="container mt-5">
+    <div class="card p-4 shadow-lg bg-light">
+        <h2 class="text-center text-primary">User Login</h2>
+        <form #Login="ngForm" (ngSubmit)="onLogin(Login)">
+
+
+            <div class="mb-3">
+                <label for="userName" class="form-label">Username or Email: </label>
+                <input 
+                type="text" 
+                class="form-control" 
+                id="userName" 
+                placeholder="Enter username/email" 
+                required
+                minlength="6" 
+                name="username" 
+                [(ngModel)]="SignupDataObject.username" 
+                ngModel 
+                #username="ngModel">
+            </div>
+            @if(username.invalid && username.touched){
+            <p class="error-message">
+                username is required
+            </p>
+            }
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <div class="input-group">
+                    <input 
+                    [type]="passwordVisible ? 'text':'password' " 
+                    class="form-control" 
+                    id="password"
+                    placeholder="Enter password" 
+                    required 
+                    name="password" 
+                    minlength="8" 
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+                    ngModel
+                    #password="ngModel">
+                    <span class="input-group-text" (click)="togglePassword()">
+                        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
+                    </span>
+                </div>
+            </div>
+            @if(password.invalid && password.touched){
+            <p class="error-message">
+                enter correct password
+            </p>
+            }
+
+
+            <button type="submit" class="btn btn-primary w-100 my-1" [disabled]="Login.invalid">Login</button>
+            <button type="reset" class="btn btn-secondary w-100 my-1">Reset</button>
+            <p class="error-message" class="mt-2">New User ? 
+                <a routerLink="/signup">Signup</a>
+            </p>
+        </form>
+    </div>
+</div>    

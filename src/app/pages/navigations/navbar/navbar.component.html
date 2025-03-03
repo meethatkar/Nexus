@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light-blue shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-light-blue shadow">
     <div class="container-fluid">
 
         <!-- Logo (Click to Open Menu) -->
-        <a class="navbar-brand" (click)="toggleMenu()">
-            <img src="logo.ico" alt="Logo" class="logo img-fluid" style="width:auto; height:35px">
-        </a>
-
+        <button class="btn btn-light-blue" (click)="toggleMenu()">
+            <i class="fa fa-th-list me-2"></i>
+        </button>
+        
         <!-- Responsive Toggle Button -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,15 +17,20 @@
 
 
             @if(isLoggedIn()){
-
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/home">Home</a>
                 </li>
             </ul>
 
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/aboutus"> About Us </a>
+                </li>
+            </ul>
 
-            @if(role==="manager"){
+
+            @if(userDetailsObj.role=="manager"){
             <!-- create project -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -33,15 +38,15 @@
                 </li>
             </ul>
             }
-
-            @else if(role==="member"){
-            <!-- join project -->
+<!-- 
+            @else if(userDetailsObj.role=="member"){
+            join project
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/joinProject">Join Project</a>
                 </li>
             </ul>
-            }
+            } -->
 
             @else {
                             <!-- create project -->
@@ -62,7 +67,7 @@
             <!-- My Account -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/myAccount">My Account</a>
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/myaccount">My Account</a>
                 </li>
             </ul>
 
@@ -91,15 +96,19 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/createProject">Create
-                        Project</a>
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/aboutus"> About Us </a>
                 </li>
             </ul>
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/joinProject">Join
-                        Project</a>
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/createProject">Create Project</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/joinProject">Join Project</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -122,7 +131,7 @@
 </nav>
 
 <!-- SIDE MENU BAR FOR ADMIN -->
-@if(role==="member"){
+@if(userDetailsObj.role==="member"){
 <div class="sidebar" [class.open]="isMenuOpen">
     <ul>
         <li><a routerLink="/dashboard" (click)="toggleMenu()" >📊 Dashboard</a></li>
@@ -138,7 +147,7 @@
 
 
 <!-- SIDE MENU BAR FOR MANAGER  -->
-@else if (role==="manager") {
+@else if (userDetailsObj.role==="manager") {
 <div class="sidebar" [class.open]="isMenuOpen">
     <ul>
         <li><a routerLink="/dashboard" (click)="toggleMenu()" >📊 Dashboard</a></li>
