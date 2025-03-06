@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { userDetails } from '../../../models/userDetails.model';
 import { RouterLink } from '@angular/router';
+import { UserSignupService } from '../../../services/user-signup.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +12,10 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent  implements OnInit{
   isMenuOpen = false;   //used for side menubar opening
   // authService=inject(AuthService);
-  // role:any;
   userDetailsObj:userDetails = new userDetails();
-  isLogin:string="false";
+  isLogin:any="";
+  role="member";
+  userSignupService:UserSignupService = new UserSignupService();
 
   ngOnInit(): void {
     // this.role=localStorage.getItem('role');
@@ -27,39 +29,24 @@ export class NavbarComponent  implements OnInit{
     // this.authService.userRole$.subscribe(r => {
     //   this.role=r;
     // })
+    // Subscribe to authStatus$ to detect login/logout changes
+    this.userSignupService.authStatus$.subscribe(status => {
+      this.isLogin = status;
+    });
   }
   //METHODS
   constructor(){
-    this.userDetailsObj.role="member";
+    // this.userDetailsObj.role="member";
+    this.role="member";
   }
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-  // isLoggedIn():boolean{
-  //   return this.authService.isAutheticated();
-  // }
 
-  // isLoggedIn():boolean{
-  //   if(localStorage.getItem("token")!=""){
-  //     console.log(localStorage.getItem("token")+"token number");
-  //     return true;
-  //   }
-  //   else{
-  //     return false;
-  //   }
-  // }
-
-  isLoggedIn(){
-    this.isLogin="true";
-  }
 
   logout(){
-    
-    // console.log(this.userDetailsObj.role);
-    // localStorage.setItem("token","");
-    // this.userTokenSubject.next(res.data);
-
-    this.isLogin="false";
+    this.role="not assigned";
+    this.userSignupService.removeToken();
   }
 
 }

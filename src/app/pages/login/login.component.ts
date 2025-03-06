@@ -32,6 +32,7 @@ export class LoginComponent {
         alert("login success");
         this.userLoginObj = new UserLoginData();
         this.userSignupService.setToken(res.data);
+        window.location.reload(); // Full reload to update navbar
         this.router.navigate(['/home']);
       }
       else{
@@ -53,7 +54,6 @@ export class LoginComponent {
         alert("unexpected error occurec in error block "+ error.message);
       }
     })
-
   }
 
   togglePassword(){

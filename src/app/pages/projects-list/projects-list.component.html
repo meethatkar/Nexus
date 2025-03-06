@@ -1,5 +1,7 @@
-@if(userDetailsObj.role==="manager"){
-<div class="container mt-4">
+<!-- @if(userDetailsObj.role==="manager"){ -->
+@if(role=="manager"){
+
+    <div class="container mt-4">
     <h2 class="text-center text-primary">Project List</h2>
 
     <div class="table-responsive">
@@ -74,7 +76,8 @@
 }
 
 
-@else if(userDetailsObj.role=="member"){
+<!-- @else if(userDetailsObj.role=="member"){ -->
+    @else if(role=="member"){
 <div class="container mt-4">
     <h2 class="text-center text-primary mb-4">Project List</h2>
 

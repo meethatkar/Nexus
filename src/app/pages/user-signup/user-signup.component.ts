@@ -92,22 +92,29 @@ export class UserSignupComponent {
         this.router.navigate(['/home'])
       }
       else {
-        alert("Else bloack executed");
+        alert("Else block executed");
       }
     }, (error) => {
       this.isLoading = false;
       this.error = {};
+      console.log("erorrororr"+error.message);
       if (error.status === 400 || error.status === 401) {
+        console.log("errrorr ifff"+error.message)
         for (let key in error.error.error) {
           console.log(error.error.error[key]);
           this.error[key] = error.error.error[key];       //Store each error with its key
         }
+
+        // for (let key in error.error) {
+        //   console.log(error.error[key]);
+        //   this.error[key] = error.error[key];       //Store each error with its key
+        // }
       }
       else {
         alert("Unexpected error occured"+error.message);
+        console.log("ofkodkfokodfk");
       }
       console.log("User Detail Data: ", this.userDetailsObj);
-
     })
   }
 

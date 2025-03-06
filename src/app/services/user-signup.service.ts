@@ -7,12 +7,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserSignupService {
-  static getToken() {
-    throw new Error('Method not implemented.');
-  }
 
   private userTokenSubject = new BehaviorSubject<string>(localStorage.getItem('token')||"");
   userToken$$ = this.userTokenSubject.asObservable();    //$ symbol used as it is an observale
+
+  private authStatusListener = new BehaviorSubject<boolean>(!!this.getToken());
+  authStatus$ = this.authStatusListener.asObservable();
+  // authStatusListener THIS IS CREATED TO CHECK  IS LOGIN OR NOT
 
   mainApi="http://localhost:5194/api"
   private http=inject(HttpClient);
@@ -23,14 +24,16 @@ export class UserSignupService {
   }
 
   setToken(token:string){
-    localStorage.setItem('Token',token);
+    localStorage.setItem('token',token);
     this.userTokenSubject.next(token);
+    this.authStatusListener.next(true);     //IS LOGGED IN
   }
   getToken(){
-    return this.userTokenSubject.getValue();
+    return  localStorage.getItem('token');
   }
   removeToken(){
-    localStorage.setItem('Token',"");
+    localStorage.setItem('token',"");
     this.userTokenSubject.next("");
+    this.authStatusListener.next(false);      //IS NOT LOGGED IN
   }
 }

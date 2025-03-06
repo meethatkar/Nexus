@@ -1,5 +1,7 @@
-@if(userDetailsObj.role=="manager"){
-    <div class="container dashboard-container fade-in">
+<!-- @if(userDetailsObj.role=="manager"){ -->
+@if(role=="manager"){
+
+<div class="container dashboard-container fade-in">
 
         <!-- Greeting Section -->
         <div class="text-center mb-4">
@@ -85,7 +87,8 @@
 }
 
 
-@else if(userDetailsObj.role=="member"){
+<!-- @else if(userDetailsObj.role=="member"){ -->
+@else if(role=="member"){
 <div class="container mt-4">
         <!-- Greeting Section -->
         <div class="greeting p-4 shadow-sm rounded">
@@ -196,7 +199,8 @@
 
 }
 
-@else if(userDetailsObj.role=="not assigned"){
+<!-- @else if(userDetailsObj.role=="not assigned"){ -->
+@else if(role=="not assigned"){
     <section class="hero-section">
         <div class="container">
             <div class="row align-items-center">

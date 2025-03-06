@@ -16,6 +16,7 @@ export class ProjectsListComponent{
   projectObj:project=new project();
   taskObj:task=new task();  
   userDetailsObj:userDetails=new userDetails(); 
+  role="manager"
 
   toggleDetails(index: number) {
     this.expandedIndex = this.expandedIndex === index ? null : index;

@@ -1,6 +1,7 @@
 <!-- *************member************* -->
-@if(userDetailsObj.role=='member'){
-    <div class="container">
+<!-- @if(userDetailsObj.role=='member'){ -->
+@if(role=='member'){
+<div class="container">
       <!-- Task List -->
       @if(!isViewClicked){
         <h2 class="title">Task List</h2>
@@ -34,8 +35,9 @@
   }
   
   <!-- ***************manager************ -->
-  @else if(userDetailsObj.role=="manager"){
-    @if(!isViewClicked){
+  <!-- @else if(userDetailsObj.role=="manager"){ -->
+  @else if(role=="manager"){
+  @if(!isViewClicked){
     <div class="container">
       <h2 class="title">Member List</h2>
       

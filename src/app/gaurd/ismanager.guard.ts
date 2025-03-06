@@ -5,8 +5,10 @@ import { inject } from '@angular/core';
 export const ismanagerGuard: CanActivateFn = (route, state) => {
   const userDetailsObj:userDetails=new userDetails();
   const router=inject(Router);
+  const role="manager"
  if(localStorage.getItem("token")!=""){
-  if(userDetailsObj.role=="manager"){
+  // if(userDetailsObj.role=="manager"){
+    if(role=="manager"){
     return true;
   }
   else{

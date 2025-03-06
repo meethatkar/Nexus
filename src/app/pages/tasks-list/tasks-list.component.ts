@@ -19,6 +19,7 @@ export class TasksListComponent {
   userDetailsObj:userDetails=new userDetails();
   // memberList:member=new member();
   selectedMember:number=0;
+  role="manager";
 
   // METHODS PART
   //MEMBERS

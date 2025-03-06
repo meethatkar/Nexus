@@ -23,7 +23,7 @@ export class MyaccountComponent{
 
   userData: any;
   passwordVisible:boolean=false;
-  role = localStorage.getItem('role');
+  role ="manager";
 
   
 
