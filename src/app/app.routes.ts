@@ -28,7 +28,13 @@ export const routes: Routes = [
         path:'projects',
         loadComponent: ()=> import('./pages/projects-list/projects-list.component').then((m) => m.ProjectsListComponent),
         title:"projects",
-        canActivate:[ismanagerGuard]
+        canActivate:[authGuard]
+    },
+    {
+        path:'tasks',
+        loadComponent:()=> import("./pages/tasks-list/tasks-list.component").then((m)=>m.TasksListComponent),
+        title:"Tasks",
+        canActivate:[authGuard]
     },
     {
         path:'myaccount',

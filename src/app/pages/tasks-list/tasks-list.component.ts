@@ -3,6 +3,7 @@ import { task } from '../../models/task.model';
 import { userDetails } from '../../models/userDetails.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { member } from '../../models/member.model';
 
 @Component({
   selector: 'app-tasks-list',
@@ -12,8 +13,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class TasksListComponent {
   taskObj:task=new task();
+  memberObj:member=new member();
   isViewClicked:boolean=false;    //this is used to show task details div 
-  selectedTask: number = null; // Stores the selected task
+  selectedTask: any = null; // Stores the selected task
   userDetailsObj:userDetails=new userDetails();
   // memberList:member=new member();
   selectedMember:number=0;
@@ -21,7 +23,7 @@ export class TasksListComponent {
   // METHODS PART
   //MEMBERS
   // Show task details
-  viewDetails(task: number,viewStatus:boolean) {
+  viewDetails(task: any,viewStatus:boolean) {
     this.isViewClicked=viewStatus;
     this.selectedTask = task;
   }

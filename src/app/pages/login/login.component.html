@@ -1,3 +1,4 @@
+<app-loader [isLoading]="isLoading"></app-loader>
 <div class="container mt-5">
     <div class="card p-4 shadow-lg bg-light">
         <h2 class="text-center text-primary">User Login</h2>
@@ -5,20 +6,19 @@
 
 
             <div class="mb-3">
-                <label for="userName" class="form-label">Username or Email: </label>
+                <label for="loginData" class="form-label">Username or Email: </label>
                 <input 
                 type="text" 
                 class="form-control" 
-                id="userName" 
+                id="loginData" 
                 placeholder="Enter username/email" 
                 required
-                minlength="6" 
-                name="username" 
-                [(ngModel)]="SignupDataObject.username" 
+                name="loginData" 
+                [(ngModel)]="userLoginObj.loginData" 
                 ngModel 
-                #username="ngModel">
+                #loginData="ngModel">
             </div>
-            @if(username.invalid && username.touched){
+            @if(loginData.invalid && loginData.touched){
             <p class="error-message">
                 username is required
             </p>
@@ -36,6 +36,7 @@
                     name="password" 
                     minlength="8" 
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+                    [(ngModel)]="userLoginObj.password"
                     ngModel
                     #password="ngModel">
                     <span class="input-group-text" (click)="togglePassword()">

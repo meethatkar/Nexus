@@ -11,8 +11,9 @@ export class userSignupData{
 
 
 export interface IResultSignup{
-    // data:any,
-    // result:boolean,
-    // message:string,
-    token:string;
+    data:any,
+    result:boolean,
+    message:string,
+    // token:string;
+    error:{};
 }

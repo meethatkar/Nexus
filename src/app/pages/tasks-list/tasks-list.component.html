@@ -34,7 +34,8 @@
   }
   
   <!-- ***************manager************ -->
-  @else if(userDetailsObj.role){
+  @else if(userDetailsObj.role=="manager"){
+    @if(!isViewClicked){
     <div class="container">
       <h2 class="title">Member List</h2>
       
@@ -46,22 +47,20 @@
             <th>Status</th>
           </tr>
         </thead>
-        <!-- <tbody *ngFor="let member of"> -->
-          @for(member of memberList.members; track member.id){
-          <tr (click)="viewDetailTaskManager(true,member.id)">
-            <td>{{ member.id }}</td>
-            <td>{{ member.memberName }}</td>
+        <tbody *ngFor="let member of memberObj.memberId; let i=index">
+          <tr (click)="viewDetailTaskManager(true,memberObj.memberId[i])">
+            <td>{{ memberObj.memberId[i] }}</td>
+            <td>{{ memberObj.memberName[i] }}</td>
             <td>
-              <span class="status" [ngClass]="member.status.toLowerCase()">
-                {{ member.status }}
+              <span class="status" [ngClass]="memberObj.memberStatus[i]">
+                {{ memberObj.memberStatus[i] }}
               </span>
             </td>
           </tr>
-        }
         </tbody>
       </table>
     </div>
-    }
+}
     @else if(isViewClicked){
       <div class="container">
         <h2 class="title">Task Assignment List</h2>
@@ -79,32 +78,29 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            @for(task of taskList.tasks; track task;let i=$index){
+          <tbody *ngFor="let task of taskObj.taskName; let i=index">
             <tr>
-              <td>{{ task.memberName }}</td>
-              <td>{{ task.name }}</td>
-              <td>{{ task.projectName }}</td>
-              <td>{{ task.type }}</td>
+              <td>{{ taskObj.tmemberName[i] }}</td>
+              <td>{{ taskObj.taskName[i] }}</td>
+              <td>{{ taskObj.tprojectName[i] }}</td>
+              <td>{{ taskObj.taskType[i] }}</td>
               <td>
-                <span class="priority" [ngClass]="task.priority.toLowerCase()">
-                  {{ task.priority }}
+                <span class="priority" [ngClass]="taskObj.taskPriority[i].toLowerCase()">
+                  {{ taskObj.taskPriority[i] }}
                 </span>
               </td>
-              <td>{{ task.startDate }}</td>
-              <td>{{ task.dueDate }}</td>
+              <td>{{ taskObj.startDate[i] }}</td>
+              <td>{{ taskObj.endDate[i] }}</td>
               <td>
-                <span class="status" [ngClass]="task.status.toLowerCase().replace(' ', '-')">
-                  {{ task.status }}
+                <span class="status" [ngClass]="taskObj.taskStatus[i].toLowerCase().replace(' ', '-')">
+                  {{ taskObj.taskStatus[i] }}
                 </span>
               </td>
             </tr>
-          }
           </tbody>
         </table>
         <button id="back-btn-man" (click)="backToList()">Back to Task List</button>
         <!--  class="back-btn" -->
       </div>
     }
-    
-  }
+}

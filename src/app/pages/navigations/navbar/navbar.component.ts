@@ -13,6 +13,7 @@ export class NavbarComponent  implements OnInit{
   // authService=inject(AuthService);
   // role:any;
   userDetailsObj:userDetails = new userDetails();
+  isLogin:string="false";
 
   ngOnInit(): void {
     // this.role=localStorage.getItem('role');
@@ -38,19 +39,27 @@ export class NavbarComponent  implements OnInit{
   //   return this.authService.isAutheticated();
   // }
 
-  isLoggedIn():boolean{
-    if(this.userDetailsObj.token==""){
-      console.log(this.userDetailsObj.token+"token number");
-      return false;
-    }
-    else{
-      return true;
-    }
+  // isLoggedIn():boolean{
+  //   if(localStorage.getItem("token")!=""){
+  //     console.log(localStorage.getItem("token")+"token number");
+  //     return true;
+  //   }
+  //   else{
+  //     return false;
+  //   }
+  // }
+
+  isLoggedIn(){
+    this.isLogin="true";
   }
+
   logout(){
-    // this.userObj.isLogin=false;
-    console.log(this.userDetailsObj.role);
-    // this.authService.logout();
+    
+    // console.log(this.userDetailsObj.role);
+    // localStorage.setItem("token","");
+    // this.userTokenSubject.next(res.data);
+
+    this.isLogin="false";
   }
 
 }
