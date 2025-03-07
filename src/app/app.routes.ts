@@ -37,6 +37,12 @@ export const routes: Routes = [
         canActivate:[authGuard]
     },
     {
+        path:'assigntask',
+        loadComponent:()=> import("./pages/task-form/task-form.component").then((m)=>m.TaskFormComponent),
+        title:"Assign Task Form",
+        canActivate:[ismanagerGuard]
+    },
+    {
         path:'myaccount',
         loadComponent:()=> import('./pages/myaccount/myaccount.component').then((m)=>m.MyaccountComponent),
         title:'My Account',

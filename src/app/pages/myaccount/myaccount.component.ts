@@ -1,30 +1,33 @@
+import { IResultUserDetailsGet, userDetailsGet } from './../../models/userDetailsGet.model';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { userDetails } from '../../models/userDetails.model';
 import { userSignupData } from '../../models/userSignupData.model';
+import { UserDetailService } from '../../services/getUserDetail/user-detail.service';
 
 @Component({
   selector: 'app-myaccount',
   imports: [FormsModule,CommonModule],
   templateUrl: './myaccount.component.html',
-  styleUrl: './myaccount.component.css'
+  styleUrl: './myaccount.component.css',
+  providers: [UserDetailService]
 })
-export class MyaccountComponent{
+export class MyaccountComponent implements OnInit{
 
   // IsEdit:boolean=false;
   IsEdit={
     'profile':false,
-    'professional':false,
+    // 'professional':false,
     'account':false
   }
-  userDetailsObj:userDetails=new userDetails();
   userSignupDataObj:userSignupData=new userSignupData();
+  userDetailServiceObj = inject(UserDetailService);
+  userDetailsGetObj = new userDetailsGet();
 
   userData: any;
   passwordVisible:boolean=false;
   role ="manager";
-
+  error:any={}
   
 
   // workDetails = [
@@ -33,6 +36,35 @@ export class MyaccountComponent{
   //   { id: 103, task: "Project C - Task 3" }
   // ];
   
+  ngOnInit(): void {
+    this.userDetailServiceObj.getUserDetailById(this.userDetailServiceObj.getId()).subscribe((res:IResultUserDetailsGet)=>{
+      if(res.result==true){
+      this.userDetailsGetObj=res.data;
+      console.log(this.userDetailsGetObj)
+      }
+      else{
+        alert("Else block executed");
+      }
+    }, (error) => {
+      this.error = {};
+      if (error.status === 400 || error.status === 401) {
+        for (let key in error.error.error) {
+          console.log(error.error.error[key]);
+          console.log(this.userDetailsGetObj.userId)
+          this.error[key] = error.error.error[key];       //Store each error with its key
+        }
+
+        // for (let key in error.error) {
+        //   console.log(error.error[key]);
+        //   this.error[key] = error.error[key];       //Store each error with its key
+        // }
+      }
+      else {
+        alert("Unexpected error occured"+error.message);
+        console.log("ofkodkfokodfk");
+      }
+    })
+  }
 
   toggleEditP(on:boolean) {
     this.IsEdit.profile = on;

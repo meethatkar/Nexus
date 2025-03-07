@@ -1,29 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { UserSignupService } from '../../services/user-signup.service';
+import { UserSignupService } from '../../services/signup/user-signup.service';
 import { IResultSignup, userSignupData } from '../../models/userSignupData.model';
 import { Router, RouterLink } from '@angular/router';
 import { IResultUserDetails, userDetails } from '../../models/userDetails.model';
 import { LoaderComponent } from "../loader/loader.component";
-import { UserRegistrationService } from '../../services/user-registration.service';
+import { UserRegistrationService } from '../../services/registration/user-registration.service';
 import { BehaviorSubject } from 'rxjs';
+import { userDetailsGet } from '../../models/userDetailsGet.model';
+import { UserDetailService } from '../../services/getUserDetail/user-detail.service';
 // import { AuthInterceptorService } from '../../services/auth-interceptor.service';
 
 @Component({
   selector: 'app-user-signup',
   imports: [CommonModule, FormsModule, RouterLink, LoaderComponent],
   templateUrl: './user-signup.component.html',
-  styleUrl: './user-signup.component.css'
+  styleUrl: './user-signup.component.css',
+  providers: [userSignupData]
 })
 export class UserSignupComponent {
   IsMatch: boolean = false;
   passwordVisible: boolean = false;
-  userSignupDataObj: userSignupData = new userSignupData();
-  signupUserService: UserSignupService = new UserSignupService();
-  userRegistrationService: UserRegistrationService = new UserRegistrationService();
   showUserDetailForm: boolean = false;
   userDetailsObj: userDetails = new userDetails();
+  userDetailsGetObj: userDetailsGet = new userDetailsGet();
+  userSignupDataObj = inject(userSignupData);
+  signupUserService = inject(UserSignupService);
+  userRegistrationService = inject(UserRegistrationService);
+  userDetailServiceObj=inject(UserDetailService);
   isLoading = false;
   // error:any={};
   error: { [key: string]: string } = {}; // Define as an object
@@ -61,6 +66,7 @@ export class UserSignupComponent {
         // this.token=res.data;
         this.signupUserService.setToken(res.data);      //LOGIC FOR IsLoggedIn
         console.log(res.data);
+        this.error = {};                  //THIS WILL KEEP ERROR OBJECT EMPTY SO PREVIOUS ERROR WILL NOT BE DISPLAYED
         this.showUserDetailForm = true;     //THIS WILL OPEN REGISTRATION FORM
       }
       else {
@@ -69,6 +75,7 @@ export class UserSignupComponent {
       }
     }, (error) => {
       this.isLoading = false;
+      this.error = {};
       if (error.status === 400) {
         for (let key in error.error.error) {
           console.log(error.error.error[key]);
@@ -89,7 +96,11 @@ export class UserSignupComponent {
         this.isLoading = false;
         alert("register successful");
         this.userDetailsObj = new userDetails();
-        this.router.navigate(['/home'])
+        this.userDetailServiceObj.setId(res.data.userDetailId)
+        console.log("user regi res.data: "+this.userDetailsGetObj);
+        this.error = {};          //THIS WILL KEEP ERROR OBJECT EMPTY SO PREVIOUS ERROR WILL NOT BE DISPLAYED
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload()});
       }
       else {
         alert("Else block executed");
@@ -97,9 +108,7 @@ export class UserSignupComponent {
     }, (error) => {
       this.isLoading = false;
       this.error = {};
-      console.log("erorrororr"+error.message);
       if (error.status === 400 || error.status === 401) {
-        console.log("errrorr ifff"+error.message)
         for (let key in error.error.error) {
           console.log(error.error.error[key]);
           this.error[key] = error.error.error[key];       //Store each error with its key

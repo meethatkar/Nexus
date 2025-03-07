@@ -3,9 +3,9 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { userSignupData } from '../../models/userSignupData.model';
 import { Router, RouterLink } from '@angular/router';
-import { UserLoginService } from '../../services/user-login.service';
+import { UserLoginService } from '../../services/login/user-login.service';
 import { LoaderComponent } from '../loader/loader.component';
-import { UserSignupService } from '../../services/user-signup.service';
+import { UserSignupService } from '../../services/signup/user-signup.service';
 import { IResultLogin, UserLoginData } from '../../models/userLoginData.model';
 
 @Component({
@@ -32,8 +32,8 @@ export class LoginComponent {
         alert("login success");
         this.userLoginObj = new UserLoginData();
         this.userSignupService.setToken(res.data);
-        window.location.reload(); // Full reload to update navbar
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload()});
       }
       else{
         this.isLoading=false;
@@ -54,6 +54,11 @@ export class LoginComponent {
         alert("unexpected error occurec in error block "+ error.message);
       }
     })
+  }
+
+  // Check if error object is empty
+  isErrorNotEmpty(): boolean {
+    return this.error && Object.keys(this.error).length > 0;
   }
 
   togglePassword(){

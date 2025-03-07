@@ -1,1 +1,197 @@
-<p>task-form works!</p>
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+      <button class="overlay"> <i class="fa fa-close" routerLink="/projects"></i > </button>
+      <h2 class="text-center text-primary mb-4">Create New Task</h2>
+      
+      <form #taskForm="ngForm" (ngSubmit)="assignTask(taskForm)">
+
+        <!-- assignie id -->
+         <div class="row" style="margin-bottom:1%;">
+        <div class="col-md-6 md-3">
+          <label for="memberId" class="form-label">Enter Member ID:</label>
+          <input type="text" 
+          class="form-control" 
+          id="memberId" 
+          placeholder="Enter member ID" 
+          required
+          name="memberId"
+          [(ngModel)]="taskObj.tMemberIdPost"
+          ngModel
+          #memberId="ngModel">
+        </div>
+
+        <!-- Member NAME -->
+        <div class="col-md-6 md-3">
+        <label for="memberName" class="form-label">Enter Member Name:</label>
+        <input type="text" 
+        class="form-control" 
+        id="memberName" 
+        placeholder="Enter member Name" 
+        required
+        name="memberName"
+        [(ngModel)]="taskObj.tmemberNamePost"
+        ngModel
+        #memberName="ngModel">
+      </div>
+    </div>
+
+        <!-- Task Name -->
+        <div class="mb-3">
+          <label for="taskName" class="form-label">Task Name:</label>
+          <input type="text" 
+          class="form-control" 
+          id="taskName" 
+          placeholder="Enter task name" 
+          required
+          name="taskName"
+          [(ngModel)]="taskObj.taskNamePost"
+          ngModel
+          #taskName="ngModel">
+        </div>
+  
+        <!-- Task Description -->
+        <div class="mb-3">
+          <label for="taskDescription" class="form-label">Task Description:</label>
+          <textarea class="form-control" 
+          id="taskDescription" 
+          rows="3" 
+          placeholder="Enter task details"
+          name="taskDescription"
+          [(ngModel)]="taskObj.taskDescriptionPost"
+          ngModel
+          #taskDescription="ngModel"
+          ></textarea>
+        </div>
+  
+        <!-- Priority (Radio Buttons) -->
+        <div class="mb-3">
+          <label class="form-label">Priority:</label>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" 
+              type="radio" 
+              name="priority" 
+              id="lowPriority" 
+              value="Low"
+              [(ngModel)]="taskObj.taskPriorityPost"
+              ngModel
+              #lowPriority="ngModel">
+              <label class="form-check-label" for="lowPriority">Low</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" 
+              type="radio" 
+              name="priority" 
+              id="mediumPriority" 
+              value="Medium"
+              [(ngModel)]="taskObj.taskPriorityPost"
+              ngModel
+              #mediumPriority="ngModel">
+              <label class="form-check-label" for="mediumPriority">Medium</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" 
+              type="radio" 
+              name="priority" 
+              id="highPriority" 
+              value="High"
+              [(ngModel)]="taskObj.taskPriorityPost"
+              ngModel
+              #highPriority="ngModel">
+              <label class="form-check-label" for="highPriority">High</label>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Type (Dropdown) -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+          <label for="taskType" class="form-label">Task Type:</label>
+          <select class="form-select" 
+          id="taskType"
+          name="taskType"
+          [(ngModel)]="taskObj.taskTypePost"
+          ngModel
+          #taskType="ngModel">
+            <option selected disabled>-- Select Task Type --</option>
+            <option value="UI Design">UI Design</option>
+            <option value="ackend Development">Backend Development</option>
+            <option value="Feature">Feature</option>
+            <option value="Bug Fix">Bug Fix</option>
+            <option value="Improvement">Improvement</option>
+            <option value="Testing">Testing</option>
+            <option value="Documentation">Documentation</option>
+          </select>
+        </div>
+  
+        <!-- Related Project -->
+        <div class="col-md-6 mb-3">
+          <label for="relatedProject" class="form-label">Related Project:</label>
+          <!-- <input type="text" 
+          class="form-control" 
+          id="relatedProject" 
+          placeholder="Enter project name"
+          name="relatedProject"
+          required
+          ngModel
+          #relatedProject="ngModel">
+        -->
+
+
+          <select name="releatedProject" 
+          id="releatedProject"
+          class="form-select"
+          [(ngModel)]="taskObj.tprojectNamePost"
+          ngModel
+          #releatedProject="ngModel"> 
+          <!-- @for(project of managerProject; track project.id){
+          <option "on select that project will be select and logic"> {{project.name}} </option> 
+          } -->
+          <option selected disabled>-- Select Project  --</option>
+          <option value="AI Chat bot "> AI Chat bot </option>
+          <option value="E-commerce Application"> E-commerce Application </option>
+          <option value="Home Automation"> Home Automation </option>
+        </select>
+        </div>
+          </div>
+  
+        <!-- Start Date & Deadline -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="startDate" class="form-label">Start Date:</label>
+            <input type="date" 
+            class="form-control" 
+            id="startDate"
+            name="startDate"
+            required
+            [(ngModel)]="taskObj.startDatePost"
+            ngModel
+            #startDate="ngModel">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="endDate" class="form-label">Deadline:</label>
+            <input type="date" 
+            class="form-control" 
+            id="endDate"
+            name="endDate"
+            required
+            [(ngModel)]="taskObj.endDatePost"
+            ngModel
+            #endDate="ngModel"
+            >
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+         <div class="row">
+            <div class="col-md-2 mb-3 d-flex justify-content-center gap-3">
+                <button type="submit" class="btn btn-primary w-100" [disabled]="taskForm.invalid">Create Task</button>
+            </div>
+            <div class="col-md-2 mb-3 d-flex justify-content-center gap-3">
+                <button type="reset" class="btn btn-warning w-100">Reset</button>
+            </div>
+         </div>
+      </form>
+    </div>
+  </div>
+  

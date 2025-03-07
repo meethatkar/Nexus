@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { IResultSignup, userSignupData } from '../models/userSignupData.model';
+import { IResultSignup, userSignupData } from '../../models/userSignupData.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 

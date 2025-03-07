@@ -11,17 +11,17 @@
         </div>
         <div class="card-body">
             <div *ngIf="!IsEdit.profile">
-                <p><strong>First Name:</strong> {{ userDetailsObj.firstName }}</p>
-                <p><strong>Last Name:</strong> {{ userDetailsObj.lastName }}</p>
-                <p><strong>Phone Number:</strong> {{ userDetailsObj.phoneNo }}</p>
-                <!-- <p><strong>Email:</strong> {{ userDetailsObj. }}</p> -->
+                <p><strong>First Name:</strong> {{ userDetailsGetObj.firstName }}</p>
+                <p><strong>Last Name:</strong> {{ userDetailsGetObj.lastName }}</p>
+                <p><strong>Phone Number:</strong> {{ userDetailsGetObj.phoneNo }}</p>
+                <!-- <p><strong>Email:</strong> {{ userDetailsGetObj. }}</p> -->
                 <!-- <p><strong>Gender:</strong> {{ userData.gender }}</p> -->
                 <!-- <p><strong>Date of Birth:</strong> {{ userData.dob }}</p> -->
-                <!-- <p><strong>Role:</strong> {{ userDetailsObj.role }}</p> -->
+                <!-- <p><strong>Role:</strong> {{ userDetailsGetObj.role }}</p> -->
                 <p><strong>Role:</strong> {{ role }}</p>
-                <p><strong>Address:</strong> {{ userDetailsObj.address }}</p>
-                <p><strong>State:</strong> {{ userDetailsObj.state }}</p>
-                <p><strong>City:</strong> {{ userDetailsObj.city }}</p>
+                <p><strong>Address:</strong> {{ userDetailsGetObj.address }}</p>
+                <p><strong>State:</strong> {{ userDetailsGetObj.state }}</p>
+                <p><strong>City:</strong> {{ userDetailsGetObj.city }}</p>
             </div>
             @if(IsEdit.profile){
                 <div class="card-body p-3">
@@ -40,15 +40,15 @@
                         </div>
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">Address:</label>
-                            <input type="text" class="form-control form-control-sm" value={{userDetailsObj.address}} [(ngModel)]="userData.address">
+                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.address}} [(ngModel)]="userData.address">
                         </div>
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">State:</label>
-                            <input type="text" class="form-control form-control-sm" value={{userDetailsObj.state}} [(ngModel)]="userDetailsObj.state">
+                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.state}} [(ngModel)]="userDetailsGetObj.state">
                         </div>
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">City:</label>
-                            <input type="text" class="form-control form-control-sm" value={{userDetailsObj.city}}, [(ngModel)]="userDetailsObj.city">
+                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.city}}, [(ngModel)]="userDetailsGetObj.city">
                         </div>
                         <!-- <div class="col-md-6 my-2">
                             <label class="fw-bold">Email:</label>
@@ -112,8 +112,11 @@
                 <p ><strong>Password:</strong> *************  </p>
             </div>
             <div *ngIf="IsEdit.account">
+                <label class="fw-bold">Email:</label>
                 <input type="text" class="form-control mb-2" [(ngModel)]="userSignupDataObj.email">
+                <label class="fw-bold">Username:</label>
                 <input type="text" class="form-control mb-2" [(ngModel)]="userSignupDataObj.username">
+                <label class="fw-bold">Password:</label>
                 <div class="input-group">
                 <input [type]="passwordVisible ? 'text' : 'password' " class="form-control mb-1" [(ngModel)]="userSignupDataObj.password">
                 <span class="input-group-text" (click)="togglePassword()">

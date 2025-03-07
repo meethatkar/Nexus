@@ -7,16 +7,8 @@
 
             <div class="mb-3">
                 <label for="loginData" class="form-label">Username or Email: </label>
-                <input 
-                type="text" 
-                class="form-control" 
-                id="loginData" 
-                placeholder="Enter username/email" 
-                required
-                name="loginData" 
-                [(ngModel)]="userLoginObj.loginData" 
-                ngModel 
-                #loginData="ngModel">
+                <input type="text" class="form-control" id="loginData" placeholder="Enter username/email" required
+                    name="loginData" [(ngModel)]="userLoginObj.loginData" ngModel #loginData="ngModel">
             </div>
             @if(loginData.invalid && loginData.touched){
             <p class="error-message">
@@ -27,18 +19,10 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
                 <div class="input-group">
-                    <input 
-                    [type]="passwordVisible ? 'text':'password' " 
-                    class="form-control" 
-                    id="password"
-                    placeholder="Enter password" 
-                    required 
-                    name="password" 
-                    minlength="8" 
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
-                    [(ngModel)]="userLoginObj.password"
-                    ngModel
-                    #password="ngModel">
+                    <input [type]="passwordVisible ? 'text':'password' " class="form-control" id="password"
+                        placeholder="Enter password" required name="password" minlength="8"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+                        [(ngModel)]="userLoginObj.password" ngModel #password="ngModel">
                     <span class="input-group-text" (click)="togglePassword()">
                         <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
                     </span>
@@ -53,9 +37,15 @@
 
             <button type="submit" class="btn btn-primary w-100 my-1" [disabled]="Login.invalid">Login</button>
             <button type="reset" class="btn btn-secondary w-100 my-1">Reset</button>
-            <p class="error-message" class="mt-2">New User ? 
+            <p class="error-message" class="mt-2">New User ?
                 <a routerLink="/signup">Signup</a>
             </p>
         </form>
+        <!-- THIS ARE BACKEND ERRORS -->
+        @if(isErrorNotEmpty!) {
+        <p class="error-message" *ngFor="let err of error | keyvalue">
+            {{ err.key }}: {{ err.value }}
+        </p>
+        }
     </div>
-</div>    
+</div>

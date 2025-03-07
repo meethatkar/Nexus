@@ -3,10 +3,11 @@ import { project } from '../../models/project.model';
 import { task } from '../../models/task.model';
 import { userDetails } from '../../models/userDetails.model';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-projects-list',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './projects-list.component.html',
   styleUrl: './projects-list.component.css'
 })

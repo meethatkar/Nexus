@@ -1,13 +1,13 @@
-export class userDetails{
+export class userDetailsGet{
     firstName:string;
     lastName:string;
     phoneNo:number;
     address:string;
     state:string;
     city:string;
-    // userId:number;
+    userId:number;
     // token:string;
-    // role:string;
+    role:string;
     constructor(){
         this.firstName="",
         this.lastName="",
@@ -15,13 +15,13 @@ export class userDetails{
         this.address="",
         this.state="",
         this.city=""
-        // this.userId=0,
-        // this.role="not assigned"
+        this.userId=0,
+        this.role="not assigned"
         // this.role="manager"
         // this.role="member"
     }
 }
-export interface IResultUserDetails{
+export interface IResultUserDetailsGet{
     result:boolean;
     message:string;
     data:any;

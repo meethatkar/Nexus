@@ -11,5 +11,5 @@ import { userDetails } from '../../models/userDetails.model';
 export class HomeComponent {
   userDetailsObj:userDetails = new userDetails();
 
-  role="manager";
+  role="not assigned";
 }

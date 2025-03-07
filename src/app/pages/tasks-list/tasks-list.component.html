@@ -5,12 +5,12 @@
       <!-- Task List -->
       @if(!isViewClicked){
         <h2 class="title">Task List</h2>
-        <div class="task-card" *ngFor="let task of taskObj.taskName; let i=index">
+        <div class="task-card" *ngFor="let task of taskObj.taskNameGet; let i=index">
           <div class="task-info">
-            <p><strong>Task Name:</strong> {{ taskObj.taskName[i] }}</p>
-            <p><strong>Project:</strong> {{ taskObj.tprojectName[i] }}</p>
-            <p><strong>Due Date:</strong> {{ taskObj.endDate[i] }}</p>
-            <p><strong>Status:</strong> <span class="status" [ngClass]="taskObj.taskStatus[i]">{{ taskObj.taskStatus[i] }}</span></p>
+            <p><strong>Task Name:</strong> {{ taskObj.taskNameGet[i] }}</p>
+            <p><strong>Project:</strong> {{ taskObj.tprojectNameGet[i] }}</p>
+            <p><strong>Due Date:</strong> {{ taskObj.endDateGet[i] }}</p>
+            <p><strong>Status:</strong> <span class="status" [ngClass]="taskObj.taskStatusGet[i]">{{ taskObj.taskStatusGet[i] }}</span></p>
           </div>
           <button class="view-btn" (click)="viewDetails(i,true)">View Details</button>
         </div>  
@@ -20,12 +20,12 @@
       <div class="task-details">
         <h2 class="title">Task Details</h2>
         <table class="mb-5">
-          <tr><th>Task Name:</th><td>{{ taskObj.taskName[selectedTask] }}</td></tr>
-          <tr><th>Description:</th><td>{{ taskObj.taskDescription[selectedTask] }}</td></tr>
-          <tr><th>Start Date:</th><td>{{ taskObj.startDate[selectedTask] }}</td></tr>
-          <tr><th>End Date:</th><td>{{ taskObj.endDate[selectedTask] }}</td></tr>
-          <tr><th>Assigned By:</th><td>{{ taskObj.tManagerName[selectedTask] }}</td></tr>
-          <tr><th>Priority:</th><td><span class="priority" [ngClass]="taskObj.taskPriority[selectedTask].toLocaleLowerCase()">{{ taskObj.taskPriority[selectedTask] }}</span></td></tr>
+          <tr><th>Task Name:</th><td>{{ taskObj.taskNameGet[selectedTask] }}</td></tr>
+          <tr><th>Description:</th><td>{{ taskObj.taskDescriptionGet[selectedTask] }}</td></tr>
+          <tr><th>Start Date:</th><td>{{ taskObj.startDateGet[selectedTask] }}</td></tr>
+          <tr><th>End Date:</th><td>{{ taskObj.endDateGet[selectedTask] }}</td></tr>
+          <tr><th>Assigned By:</th><td>{{ taskObj.tManagerNameGet[selectedTask] }}</td></tr>
+          <tr><th>Priority:</th><td><span class="priority" [ngClass]="taskObj.taskPriorityGet[selectedTask].toLocaleLowerCase()">{{ taskObj.taskPriorityGet[selectedTask] }}</span></td></tr>
         </table>
         <button  id="back-btn-mem" (click)="backToList()">Back to Task List</button>
         <!--  class="back-btn"  -->
@@ -80,22 +80,22 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody *ngFor="let task of taskObj.taskName; let i=index">
+          <tbody *ngFor="let task of taskObj.taskNameGet; let i=index">
             <tr>
-              <td>{{ taskObj.tmemberName[i] }}</td>
-              <td>{{ taskObj.taskName[i] }}</td>
-              <td>{{ taskObj.tprojectName[i] }}</td>
-              <td>{{ taskObj.taskType[i] }}</td>
+              <td>{{ taskObj.tmemberNameGet[i] }}</td>
+              <td>{{ taskObj.taskNameGet[i] }}</td>
+              <td>{{ taskObj.tprojectNameGet[i] }}</td>
+              <td>{{ taskObj.taskTypeGet[i] }}</td>
               <td>
-                <span class="priority" [ngClass]="taskObj.taskPriority[i].toLowerCase()">
-                  {{ taskObj.taskPriority[i] }}
+                <span class="priority" [ngClass]="taskObj.taskPriorityGet[i].toLowerCase()">
+                  {{ taskObj.taskPriorityGet[i] }}
                 </span>
               </td>
-              <td>{{ taskObj.startDate[i] }}</td>
-              <td>{{ taskObj.endDate[i] }}</td>
+              <td>{{ taskObj.startDateGet[i] }}</td>
+              <td>{{ taskObj.endDateGet[i] }}</td>
               <td>
-                <span class="status" [ngClass]="taskObj.taskStatus[i].toLowerCase().replace(' ', '-')">
-                  {{ taskObj.taskStatus[i] }}
+                <span class="status" [ngClass]="taskObj.taskStatusGet[i].toLowerCase().replace(' ', '-')">
+                  {{ taskObj.taskStatusGet[i] }}
                 </span>
               </td>
             </tr>

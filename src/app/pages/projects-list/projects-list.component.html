@@ -11,9 +11,10 @@
                     <th>Project Name</th>
                     <th>No. of Members</th>
                     <th>No. of Tasks</th>
-                    <th>Completion (%)</th>
+                    <!-- <th>Completion (%)</th> -->
                     <th>Details</th>
                     <th>Assign Task</th>
+                    <th>Add Member</th>
                 </tr>
             </thead>
             <tbody *ngFor="let project of projectObj.projectName; let i=index">
@@ -21,7 +22,7 @@
                     <td>{{ projectObj.projectName[i] }}</td>
                     <td>{{ projectObj.memberCount[i] }}</td>
                     <td>{{ projectObj.taskCount[i] }}</td>
-                    <td>
+                    <!-- <td>
                         <div class="progress">
                             <div class="progress-bar" [class.bg-success]="projectObj.completionPercent[i] >= 70"
                                 [class.bg-warning]="projectObj.completionPercent[i] >= 40 && projectObj.completionPercent[i] < 70"
@@ -29,12 +30,15 @@
                                 {{ projectObj.completionPercent[i] }}%
                             </div>
                         </div>
-                    </td>
+                    </td> -->
                     <td>
                         <button class="btn btn-info btn-sm">View</button>
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-sm" routerLink="/assignTask">Add</button>
+                        <button class="btn btn-warning btn-sm" routerLink="/assigntask">Assign</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-sm" routerLink="/assigntask">Add</button>
                     </td>
                 </tr>
                 <!-- Dropdown section -->
@@ -115,19 +119,19 @@
                         <div class="task-dropdown">
                             <h5 class="text-primary">Tasks for {{ projectObj.projectName[i] }}</h5>
                             <ul class="list-group">
-                                <li *ngFor="let task of taskObj.taskName; let i=index" class="list-group-item" class="list-group-item">
+                                <li *ngFor="let task of taskObj.taskNameGet; let i=index" class="list-group-item" class="list-group-item">
                                     <table border="solid 1 black">
                                         <tr>
                                             <th class="Dropdown"> <strong>Task:</strong> </th>
-                                            <td> {{ taskObj.taskName[i] }} </td>
+                                            <td> {{ taskObj.taskNameGet[i] }} </td>
                                         </tr>
                                         <tr>
                                             <th class="Dropdown"> <strong>Description:</strong> </th>
-                                            <td> {{ taskObj.taskDescription[i] }} </td>
+                                            <td> {{ taskObj.taskDescriptionGet[i] }} </td>
                                         </tr>
                                         <tr>
                                             <th class="Dropdown"> <strong>Status:</strong> </th>
-                                            <td> {{ taskObj.taskStatus[i] }} </td>
+                                            <td> {{ taskObj.taskStatusGet[i] }} </td>
                                         </tr>
                                     </table>
                                 </li>
