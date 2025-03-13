@@ -1,88 +1,97 @@
+<app-loader [isLoading]="isLoading"></app-loader>
+
 <!-- @if(userDetailsObj.role==="manager"){ -->
-@if(role=="manager"){
-
+<!-- @if(role=="manager"){ -->
+@if(true){
     <div class="container mt-4">
-    <h2 class="text-center text-primary">Project List</h2>
-
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered text-center">
-            <thead class="table-primary">
-                <tr>
-                    <th>Project Name</th>
-                    <th>No. of Members</th>
-                    <th>No. of Tasks</th>
-                    <!-- <th>Completion (%)</th> -->
-                    <th>Details</th>
-                    <th>Assign Task</th>
-                    <th>Add Member</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let project of projectObj.projectName; let i=index">
-                <tr (click)="toggleDetails(i)" class="project-row">
-                    <td>{{ projectObj.projectName[i] }}</td>
-                    <td>{{ projectObj.memberCount[i] }}</td>
-                    <td>{{ projectObj.taskCount[i] }}</td>
-                    <!-- <td>
-                        <div class="progress">
-                            <div class="progress-bar" [class.bg-success]="projectObj.completionPercent[i] >= 70"
-                                [class.bg-warning]="projectObj.completionPercent[i] >= 40 && projectObj.completionPercent[i] < 70"
-                                [class.bg-danger]="projectObj.completionPercent[i] < 40" [style.width.%]="projectObj.completionPercent[i]">
-                                {{ projectObj.completionPercent[i] }}%
+        <h2 class="text-center text-primary">Project List</h2>
+    
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th> Project Name </th>
+                        <th> Status  </th>
+                        <th> Due Date  </th>
+                        <th> View Details  </th>
+                        <th> Assign Task </th>
+                        <th> Add Member</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let project of projectObj.projects; let i = index">
+                    <tr class="project-row">
+                        <td>{{ project.projectName }}</td>
+                        <td>{{ projectObj.getStatus(project.statusId) }}</td>
+                        <td>{{ project.dueDate | date }}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" (click)="getDetails(project.projectId); toggleDetails(i)">View</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" routerLink="/assigntask">Assign</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-sm" (click)="toggleMemberDropdown(i)">Add</button>
+                        </td>
+                    </tr>
+    
+                    <!-- Add Member Dropdown -->
+                    <tr *ngIf="expandedIndexMember === i">
+                        <td colspan="6">
+                            <div class="invite-dropdown">
+                                <h5 class="text-primary">Select Member to Invite</h5>
+                                <select [(ngModel)]="selectedMember" class="form-select">
+                                    <option *ngFor="let user of nonMembers" [value]="user">{{ user }}</option>
+                                </select>
+                                <button class="btn btn-success mt-3 w-100" (click)="inviteMember(project.projectId)">Invite</button>
+                                <button class="btn btn-danger mt-2 w-100" (click)="closeDropdown()">Cancel</button>
                             </div>
-                        </div>
-                    </td> -->
-                    <td>
-                        <button class="btn btn-info btn-sm">View</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" routerLink="/assigntask">Assign</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-info btn-sm" routerLink="/assigntask">Add</button>
-                    </td>
-                </tr>
-                <!-- Dropdown section -->
-                @if(expandedIndex===i){
-                <tr>
-                    <td colspan="6">
-                        <div class="task-dropdown">
-                            <h3 class="text-primary">Project Details </h3>
-                            <ul class="list-group">
-                                <li class="list-group-item" class="list-group-item">
-                                    <table border="solid 1 black">
-                                        <tr>
-                                            <th class="Dropdown"> <strong>Project Name:</strong> </th>
-                                            <td> {{ projectObj.projectName[i] }} </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="Dropdown"> <strong>Description:</strong> </th>
-                                            <td> {{ projectObj.projectDescription[i] }} </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="Dropdown"> <strong>Due Date:</strong> </th>
-                                            <td> {{ projectObj.projectDuedate[i] | date }}  </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="Dropdown"> <strong>Status:</strong> </th>
-                                            <td> {{ projectObj.projectStatus[i] }} </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+
+                     <!-- Dropdown section -->
+                @if(expandedIndexDetails===i){
+                    <tr>
+                        <td colspan="6">
+                            <div class="task-dropdown">
+                                <h3 class="text-primary">Project Details </h3>
+                                <ul class="list-group">
+                                    <li class="list-group-item" class="list-group-item">
+                                        <table border="solid 1 black">
+                                            <tr>
+                                                <th class="Dropdown"> <strong>Project Name:</strong> </th>
+                                                <td> {{ project.projectName }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="Dropdown"> <strong>Description:</strong> </th>
+                                                <td> {{ project.description }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="Dropdown"> <strong>No of Members:</strong> </th>
+                                                <td> {{ projectObj.memberCount }}  </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="Dropdown"> <strong>No Of Tasks:</strong> </th>
+                                                <td> {{ projectObj.taskCount }} </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
 }
 
 
 <!-- @else if(userDetailsObj.role=="member"){ -->
-    @else if(role=="member"){
-<div class="container mt-4">
+    <!-- @else if(role=="member"){ -->
+<!-- @else if(false){
+    <div class="container mt-4">
     <h2 class="text-center text-primary mb-4">Project List</h2>
 
     <div class="table-responsive">
@@ -96,14 +105,14 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let project of projectObj.projectName; let i = index">
+            <tbody *ngFor="let project of projectObj.projectNameGet; let i = index">
                 <tr class="project-row">
-                    <td>{{ projectObj.projectName[i] }}</td>
-                    <td>{{ projectObj.pmanagerName[i] }}</td>
-                    <td>{{ projectObj.projectDuedate[i] | date }}</td>
+                    <td>{{ projectObj.projectNameGet[i] }}</td>
+                    <td>{{ projectObj.pmanagerNameGet[i] }}</td>
+                    <td>{{ projectObj.projectDuedateGet[i] | date }}</td>
                     <td>
                         <span class="status-badge">
-                            {{ projectObj.projectStatus[i] }}
+                            {{ projectObj.projectStatusGet[i] }}
                         </span>
                     </td>
                     <td>
@@ -111,13 +120,13 @@
                             View Tasks
                         </button>
                     </td>
-                </tr>
+                </tr> -->
                 <!-- Task List Dropdown -->
-                @if(selectedProjectIndex===i){
+                <!-- @if(selectedProjectIndex===i){
                 <tr>
                     <td colspan="5">
                         <div class="task-dropdown">
-                            <h5 class="text-primary">Tasks for {{ projectObj.projectName[i] }}</h5>
+                            <h5 class="text-primary">Tasks for {{ projectObj.projectNameGet[i] }}</h5>
                             <ul class="list-group">
                                 <li *ngFor="let task of taskObj.taskNameGet; let i=index" class="list-group-item" class="list-group-item">
                                     <table border="solid 1 black">
@@ -144,4 +153,4 @@
         </table>
     </div>
 </div>
-}
+} -->

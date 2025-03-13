@@ -16,7 +16,7 @@ export class UserLoginService {
 
   public userLogin(obj:UserLoginData):Observable<IResultLogin>{
     // return this.http.post<IResultSignup>(this.mainApi + "/Login/UserLogin", obj);
-    return this.http.post<IResultLogin>(`${this.mainApi}/Login/UserLogin?info=${obj.loginData}&password=${obj.password}`,
+    return this.http.post<IResultLogin>(`${this.mainApi}/Login/Email/Username?info=${obj.loginData}&password=${obj.password}`,
       {}
     )
   }

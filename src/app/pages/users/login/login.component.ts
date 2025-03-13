@@ -1,12 +1,18 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
-import { userSignupData } from '../../models/userSignupData.model';
+// import { userSignupData } from '../../models/userSignupData.model';
+import { userSignupData } from '../../../models/userSignupData.model';
+// import { Router, RouterLink } from '@angular/router';
 import { Router, RouterLink } from '@angular/router';
-import { UserLoginService } from '../../services/login/user-login.service';
-import { LoaderComponent } from '../loader/loader.component';
-import { UserSignupService } from '../../services/signup/user-signup.service';
-import { IResultLogin, UserLoginData } from '../../models/userLoginData.model';
+// import { UserLoginService } from '../../services/login/user-login.service';
+import { UserLoginService } from '../../../services/login/user-login.service';
+// import { LoaderComponent } from '../loader/loader.component';
+import { LoaderComponent } from '../../loader/loader.component';
+// import { UserSignupService } from '../../services/signup/user-signup.service';
+import { UserSignupService } from '../../../services/signup/user-signup.service';
+// import { IResultLogin, UserLoginData } from '../../models/userLoginData.model';
+import { IResultLogin, UserLoginData } from '../../../models/userLoginData.model';
 
 @Component({
   selector: 'app-login',

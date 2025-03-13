@@ -1,10 +1,9 @@
-<!-- @if(userDetailsObj.role=="manager"){ -->
-@if(role=="manager"){
-
+<app-loader [isLoading]="isLoading"></app-loader>
+@if(false){
 <div class="container dashboard-container fade-in">
 
         <!-- Greeting Section -->
-        <div class="text-center mb-4">
+        <div class="text-center mb-4 fade-in">
             <h2>Welcome, <span id="managerName">Manager Name</span> 👋</h2>
             <p class="text-muted fst-italic">"Success is not final; failure is not fatal: It is the courage to continue that counts."</p>
         </div>
@@ -80,20 +79,56 @@
                 </ul>
             </div>
         </div>
-    
+        
     </div>
     
-
+    
 }
 
 
-<!-- @else if(userDetailsObj.role=="member"){ -->
-@else if(role=="member"){
+ @if(!isLogin){
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                
+                <!-- Left Side: Title, Description, Features -->
+                <div class="col-md-6 left-side">
+                    <h1 class="hero-title">NEXUS</h1>
+                    <div id="line"></div>
+                    <p class="hero-description">
+                        Welcome to Nexus, your all-in-one solution for software project management.  
+                        Stay organized, collaborate in real-time, and manage projects efficiently.
+                    </p>
+    
+                    <h3> *Features of Nexus* </h3>
+                    <div id="line_2"></div>
+                    <ul class="features-list">
+                        <li><i  class="fa fa-pie-chart text-info me-2 mb-1"></i> Visual Representation of Tasks</li>
+                        <li><i class="fa fa-tasks text-success me-2  mb-1"></i> Easy Tracking & Monitoring</li>
+                        <li><i class="fa fa-desktop text-warning me-2 mb-1"></i> Simple, User-Friendly GUI</li>
+                        <li><i class="fa fa-users text-danger me-2 mb-1"></i> Real-Time Collaboration</li>
+                        <li><i class="fa fa-line-chart text-primary me-2 mb-1"></i> Data-Driven Insights & Reports</li>
+                    </ul>
+    
+                    <button class="btn btn-primary hero-btn" routerLink="/signup">Get Started</button>
+                </div>
+    
+                <!-- Right Side: Image -->
+                <div class="col-md-6 text-center right-side">
+                    <img src="homePage.webp" alt="Project Management" class="img-fluid">
+                </div>
+    
+            </div>
+        </div>
+    </section>
+}
+
+
+@else if(isLogin){
 <div class="container mt-4">
         <!-- Greeting Section -->
-        <div class="greeting p-4 shadow-sm rounded">
-            <h2>Welcome, <span id="memberName">John Doe</span> 👋</h2>
-            <p class="last-commit"><i class="fa fa-code me-2"></i>Last Commit: <span id="lastCommit">Fixed login bug & improved UI</span></p>
+        <div class="greeting p-4 shadow-sm rounded fade-in">
+            <h2>Welcome, <span id="memberName">{{userDetailsGetObj.firstName}}  {{userDetailsGetObj.lastName}}</span> 👋</h2>
         </div>
 
         <!-- Notifications Section -->
@@ -142,7 +177,7 @@
                 </tbody>
             </table>
 
-            <button class="btn btn-primary">View More</button>
+            <button class="btn btn-primary" routerLink="/tasks">View More</button>
         </div>
     </div>
 
@@ -162,25 +197,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Website Redesign</td>
-                        <td>April 15, 2025</td>
-                        <td class="text-info">In Progress</td>
-                    </tr>
-                    <tr>
-                        <td>IoT Smart Home</td>
-                        <td>May 1, 2025</td>
-                        <td class="text-warning">Pending</td>
-                    </tr>
-                    <tr>
-                        <td>Angular Dashboard</td>
-                        <td>March 20, 2025</td>
-                        <td class="text-success">Completed</td>
+                    <tr *ngFor="let project of projectObj.projects.slice(-3); let i = index">
+                        <td> {{project.projectName}} </td>
+                        <td> {{project.projectId}} </td>
+                        <td class="text-warning"> {{projectObj.getStatus(project.statusId)}} </td>
                     </tr>
                 </tbody>
             </table>
 
-            <button class="btn btn-primary">View More</button>
+            <button class="btn btn-primary" routerLink="/projects">View More</button>
         </div>
     </div>
 </div>
@@ -197,42 +222,4 @@
         </div>
     </div>
 
-}
-
-<!-- @else if(userDetailsObj.role=="not assigned"){ -->
-@else if(role=="not assigned"){
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                
-                <!-- Left Side: Title, Description, Features -->
-                <div class="col-md-6 left-side">
-                    <h1 class="hero-title">NEXUS</h1>
-                    <div id="line"></div>
-                    <p class="hero-description">
-                        Welcome to Nexus, your all-in-one solution for software project management.  
-                        Stay organized, collaborate in real-time, and manage projects efficiently.
-                    </p>
-    
-                    <h3> *Features of Nexus* </h3>
-                    <div id="line_2"></div>
-                    <ul class="features-list">
-                        <li><i  class="fa fa-pie-chart text-info me-2 mb-1"></i> Visual Representation of Tasks</li>
-                        <li><i class="fa fa-tasks text-success me-2  mb-1"></i> Easy Tracking & Monitoring</li>
-                        <li><i class="fa fa-desktop text-warning me-2 mb-1"></i> Simple, User-Friendly GUI</li>
-                        <li><i class="fa fa-users text-danger me-2 mb-1"></i> Real-Time Collaboration</li>
-                        <li><i class="fa fa-line-chart text-primary me-2 mb-1"></i> Data-Driven Insights & Reports</li>
-                    </ul>
-    
-                    <button class="btn btn-primary hero-btn" routerLink="/signup">Get Started</button>
-                </div>
-    
-                <!-- Right Side: Image -->
-                <div class="col-md-6 text-center right-side">
-                    <img src="homePage.webp" alt="Project Management" class="img-fluid">
-                </div>
-    
-            </div>
-        </div>
-    </section>
 }

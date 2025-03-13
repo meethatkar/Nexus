@@ -1,0 +1,303 @@
+<app-loader [isLoading]="isLoading"></app-loader>
+@if(showUserDetailForm){
+<div class="container mt-5">
+    <div class="card p-4 shadow-lg bg-light">
+        <h2 class="text-center text-primary">User Registration</h2>
+        <form #regiForm="ngForm" (ngSubmit)="onRegister(regiForm)">
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label for="firstName" class="form-label">First Name:</label>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    id="firstName" 
+                    placeholder="Enter first name" 
+                    required
+                    name="fname" 
+                    [(ngModel)]="userDetailsObj.firstName" 
+                    ngModel 
+                    #fname="ngModel">
+                    @if(fname.invalid && fname.touched){
+                    <p class="error-message-sm">
+                        first name is required
+                    </p>
+                    }
+                </div>
+                <div class="col-md-6 my-2">
+                    <label for="lastName" class="form-label">Last Name:</label>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    id="lastName" 
+                    placeholder="Enter last name" 
+                    required
+                    name="lname" 
+                    [(ngModel)]="userDetailsObj.lastName" 
+                    ngModel 
+                    #lname="ngModel">
+                    @if(lname.invalid && lname.touched){
+                    <p class="error-message-sm">
+                        last name is required
+                    </p>
+                    }
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number:</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                id="phoneNumber" 
+                placeholder="Enter phone number" 
+                required
+                name="phoneNumber" 
+                pattern="^[6789]\d{9}$" 
+                [(ngModel)]="userDetailsObj.phoneNo" 
+                ngModel
+                #phoneNumber="ngModel">
+            </div>
+            @if(phoneNumber.invalid && phoneNumber.touched){
+            <p class="error-message">
+                enter valid phone number
+            </p>
+            }
+
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label for="gender" class="form-label">Gender :</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                          <input class="form-check-input" 
+                          type="radio" 
+                          name="gender" 
+                          id="male" 
+                          value="male"
+                          [(ngModel)]="userDetailsObj.gender"
+                          ngModel
+                          #maleGender="ngModel">
+                          <label class="form-check-label" for="maleGender">Male</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" 
+                          type="radio" 
+                          name="gender" 
+                          id="female" 
+                          value="female"
+                          [(ngModel)]="userDetailsObj.gender"
+                          ngModel
+                          #femaleGender="ngModel">
+                          <label class="form-check-label" for="femaleGender">Female</label>
+                        </div>
+                    </div>
+                    @if((femaleGender.invalid && femaleGender.touched) || (maleGender.invalid && maleGender.touched)){
+                    <p class="error-message-sm">
+                        Gender is required
+                    </p>
+                    }
+                </div>
+                <div class="col-md-6 my-2">
+                    <label for="age" class="form-label">Age:</label>
+                    <input 
+                    type="number" 
+                    class="form-control" 
+                    id="age" 
+                    placeholder="Enter Age" 
+                    required 
+                    name="age"
+                    ngModel 
+                    [(ngModel)]="userDetailsObj.age" 
+                    #age="ngModel">
+                    @if(age.invalid && age.touched){
+                    <p class="error-message-sm">
+                        Age is required
+                    </p>
+                    }
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label for="state" class="form-label">state :</label>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    id="state" 
+                    placeholder="Enter state name" 
+                    required
+                    name="state" 
+                    ngModel 
+                    [(ngModel)]="userDetailsObj.state" 
+                    #state="ngModel">
+                    @if(state.invalid && state.touched){
+                    <p class="error-message-sm">
+                        state name is required
+                    </p>
+                    }
+                </div>
+                <div class="col-md-6 my-2">
+                    <label for="City" class="form-label">City:</label>
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    id="City" 
+                    placeholder="Enter City name" 
+                    required 
+                    name="City"
+                    [(ngModel)]="userDetailsObj.city" 
+                    ngModel 
+                    #City="ngModel">
+                    @if(City.invalid && City.touched){
+                    <p class="error-message-sm">
+                        City name is required
+                    </p>
+                    }
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label>
+                <textarea 
+                class="form-control" 
+                id="address" 
+                rows="3" 
+                placeholder="Enter address" 
+                name="address" 
+                required
+                [(ngModel)]="userDetailsObj.address" 
+                ngModel 
+                #address="ngModel"></textarea>
+            </div>
+            @if(address.invalid && address.touched){
+            <p class="error-message">
+                address is required
+            </p>
+            }
+
+            <button type="submit" class="btn btn-primary w-100 my-1" [disabled]="regiForm.invalid">Register</button>
+            <button type="reset" class="btn btn-secondary w-100 my-1">Reset</button>
+        </form>
+        <!-- THIS ARE BACKEND ERRORS -->
+        @if(isErrorNotEmpty!) {
+        <p class="error-message" *ngFor="let err of error | keyvalue">
+            {{ err.key }}: {{ err.value }}
+        </p>
+        }
+    </div>
+</div>
+}
+@else{
+<div class="container mt-5">
+    <div class="card p-4 shadow-lg bg-light">
+        <h2 class="text-center text-primary">User Signup</h2>
+        <form #Signup="ngForm" (ngSubmit)="onSignup(Signup)">
+
+            <div class="mb-3">
+                <label for="email" class="form-label">email:</label>
+                <input 
+                type="text" 
+                class="form-control" 
+                id="email" 
+                placeholder="Enter email id"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" 
+                required 
+                name="email"
+                [(ngModel)]="userSignupDataObj.email" 
+                ngModel 
+                #email="ngModel">
+            </div>
+            @if(email.invalid && email.touched){
+            <p class="error-message">
+                enter proper email
+            </p>
+            }
+
+            <div class="mb-3">
+                <label for="userName" class="form-label">Username: </label>
+                <input 
+                type="text" 
+                class="form-control" 
+                id="userName" 
+                placeholder="Enter username" 
+                required
+                minlength="6" 
+                name="username" 
+                [(ngModel)]="userSignupDataObj.username" 
+                ngModel 
+                #username="ngModel">
+            </div>
+            @if(username.invalid && username.touched){
+            <p class="error-message">
+                username is required
+            </p>
+            }
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <div class="input-group">
+                    <input 
+                    [type]="passwordVisible ? 'text':'password' " 
+                    class="form-control" id="password"
+                    placeholder="Enter password" 
+                    required 
+                    name="password" 
+                    minlength="8"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$" 
+                    ngModel
+                    (blur)="comparePassword(password.value,confirmPassword.value)" 
+                    #password="ngModel">
+                    <span class="input-group-text" (click)="togglePassword()">
+                        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
+                    </span>
+                </div>
+            </div>
+            @if(password.invalid && password.touched && !IsMatch){
+            <p class="error-message">
+                enter correct password. <br> 
+                password must have  minumum 8 characters, <br>
+                including 1 uppercase, 1 lowercase, 1 digit and 1 special character            </p>
+            }
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                <div class="input-group">
+                    <input 
+                    [type]="passwordVisible ? 'text':'password' " 
+                    class="form-control" 
+                    id="confirmPassword"
+                    placeholder="Enter confirm password"
+                    required name="confirmpassword" 
+                    minlength="8"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"
+                    [(ngModel)]="userSignupDataObj.password" 
+                    ngModel
+                    (blur)="comparePassword(password.value,confirmPassword.value)" 
+                    #confirmPassword="ngModel">
+                    <span class="input-group-text" (click)="togglePassword()">
+                        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
+                    </span>
+                </div>
+            </div>
+            @if(confirmPassword.invalid && confirmPassword.touched && !IsMatch){
+            <p class="error-message">
+                Both Password must match
+            </p>
+            }
+
+            <button type="submit" class="btn btn-primary w-100 my-1" [disabled]="Signup.invalid">Signup</button>
+            <button type="reset" class="btn btn-secondary w-100 my-1">Reset</button>
+            <p class="error-message" class="mt-2">Already have an account?
+                <a routerLink="/login">Login</a>
+            </p>
+
+            <!-- THIS ARE BACKEND ERRORS -->
+            @if(isErrorNotEmpty!) {
+            <p class="error-message" *ngFor="let err of error | keyvalue">
+                {{ err.key }}: {{ err.value }}
+            </p>
+            }
+        </form>
+    </div>
+</div>
+}

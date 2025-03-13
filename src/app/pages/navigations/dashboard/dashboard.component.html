@@ -1,1 +1,299 @@
-<p>dashboard works!</p>
+<app-loader [isLoading]="isLoading"></app-loader>
+
+<!-- @if(role=="member"){ -->
+@if(false){
+<!-- DASHBOARD FOR MEMBER -->
+<!-- <div class="container mt-4"> -->
+  <!--      ****************Work Progress Section**************** -->
+  <!-- <div class="card section-card">
+            <div class="card-body">
+              <h4 class="section-title">Work Progress</h4>
+              
+              <div class="mb-2">
+                <p class="fw-bold text-success mb-1">Approved</p>
+                <div class="progress">
+                  <div class="progress-bar bg-success" style="width: 60%">60%</div>
+                </div>
+              </div>
+          
+              <div class="mb-2">
+                <p class="fw-bold text-warning mb-1">In progress</p>
+                <div class="progress">
+                  <div class="progress-bar bg-warning" style="width: 30%">30%</div>
+                </div>
+              </div>
+          
+              <div>
+                <p class="fw-bold text-danger mb-1">Rejected</p>
+                <div class="progress">
+                  <div class="progress-bar bg-danger" style="width: 10%">10%</div>
+                </div>
+              </div>
+              
+            </div>
+          </div> -->
+
+  <!--              ******************* DEADLINE SECTION ************************[ngClass]=""        -->
+  <!-- <div class="container mt-4">
+    <h3 class="section-heading">Deadline Tasks</h3>
+  </div>
+
+
+  <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let deadline of deadlineTasks || []">
+            <div class="task-card p-3 shadow">
+                <h4>{{deadline.taskName}}</h4>
+                <p><em>{{deadline.description}}</em></p>
+                <h6><strong>Due Date:</strong> {{deadline.endDate | date}}</h6>
+                <h6><strong>Status:</strong> {{deadline.status}}</h6>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+  <!--          *****************Announcements Section************* -->
+  <!-- <div class="card section-card">
+    <div class="card-body">
+      <h4 class="section-title">Announcements</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let announcement of announcements">
+          {{ announcement.message }}
+        </li>
+      </ul>
+    </div>
+  </div> -->
+
+
+  <!-- <div class="card section-card">
+    <div class="card-body">
+      <h4 class="section-title">Projects</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr> -->
+            <!-- <th>ID</th> -->
+            <!-- <th>Project Name</th>
+            <th>Manager</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projectObj.projectNameGet; let i=index"> -->
+            <!-- <td>{{ project.id }}</td> -->
+            <!-- <td>{{ projectObj.projectNameGet[i] }}</td>
+            <td>{{ projectObj.pmanagerNameGet[i] }}</td>
+            <td>{{projectObj.projectStatusGet[i]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div> -->
+
+  <!--        ****************Tasks Section****************** -->
+  <!-- <div class="card section-card">
+    <div class="card-body">
+      <h4 class="section-title">Assigned Tasks</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr> -->
+            <!-- <th>Task ID</th> -->
+            <!-- <th>Task Name</th>
+            <th>Project Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of taskObj.taskNameGet; let i = index"> -->
+            <!-- <td>{{ task.id }}</td> -->
+            <!-- <td>{{ taskObj.taskNameGet[i] }}</td>
+            <td>{{ taskObj.tprojectNameGet[i] }}</td>
+            <td>
+              <span [ngClass]="{
+                      'text-success': taskObj.taskStatusGet[i] === 'Approved', 
+                      'text-danger': taskObj.taskStatusGet[i] === 'Rejected', 
+                      'text-warning': taskObj.taskStatusGet[i] === 'Pending'
+                    }">
+                {{ taskObj.taskStatusGet[i] }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div> -->
+}
+
+
+
+<!--********************** //DASHBOARD FOR MANAGER*******************  -->
+<!-- @else if(role=="manager"){ -->
+<!-- @else if(false){
+<div class="container mt-4"> -->
+
+  <!-- Project Section -->
+  <!-- <div class="card p-2 mb-2 shadow-sm" style=" font-size: 14px;">
+    <div class="d-flex justify-content-between align-items-center"> -->
+      <!-- Left Section: Project Overview -->
+      <!-- <div>
+        <h5 class="text-primary fs-1">Project Overview</h5>
+        <p class="fs-3">Total Projects: <strong>{{ totalProjects }}</strong></p>
+        <ul class="list-unstyled fs-4">
+          <li><span class="text-success">Live Projects:</span> {{ liveProject }}</li>
+          <li><span class="text-info">Completed Projects:</span> {{ completedProject }}</li>
+          <li><span class="text-danger">Pending Projects:</span> {{ droppedProject }}</li>
+        </ul>
+      </div> -->
+
+      <!-- Right Section: Pie Chart -->
+      <!-- <div>
+        <canvas id="projectPieChart"></canvas>
+      </div>
+    </div>
+  </div> -->
+
+
+
+  <!-- **********************Member Section***************
+  <div class="card p-3 mb-4 shadow-sm">
+    <h4 class="text-primary">Members Overview</h4>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Member</th>
+          <th>Total Tasks</th>
+          <th>Total Projects</th>
+          <th>Completion %</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(member of memberObj.memberId; track memberObj.memberId; let i=$index){
+        <tr>
+          <td>{{ memberObj.memberName[i] }}</td>
+          <td>{{ memberObj.totalTask[i] }}</td>
+          <td>{{ memberObj.totalProject[i] }}</td>
+          <td>{{ (memberObj.completedTask[i])/memberObj.totalTask[i]*100 | number: '1.0-2' }}%</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div> -->
+
+  <!--    *************** Deadline Section************ -->
+  <!-- <div class="card p-3 mb-4 shadow-sm">
+    <h4 class="text-primary">Deadlines</h4>
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Project</th>
+          <th>Deadline</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(project of deadlineProjects; track projectObj; let i = $index){
+        <tr>
+          <td>{{ projectObj.projectNameGet[i] }}</td>
+          <td>{{ projectObj.projectDuedateGet[i] | date}}</td>
+          <td><span class="badge bg-danger">{{ projectObj.projectStatusGet[i] }}</span></td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+} -->
+
+@else if(true){
+
+    <!--              ******************* DEADLINE SECTION ************************[ngClass]=""        -->
+
+  <div class="container mt-4">
+    <h3 class="section-heading">Deadline Tasks</h3>
+  </div>
+
+
+  <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let deadline of deadlineTasks || []">
+            <div class="task-card p-3 shadow">
+                <h4>{{deadline.taskName}}</h4>
+                <p><em>{{deadline.description}}</em></p>
+                <h6><strong>Due Date:</strong> {{deadline.endDate | date}}</h6>
+                <h6><strong>Status:</strong> {{deadline.status}}</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        ****************Tasks Section****************** -->
+<div class="container mt-3">
+
+<div class="card section-card">
+  <div class="card-body">
+    <h4 class="section-title">Assigned Tasks</h4>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <!-- <th>Task ID</th> -->
+          <th>Task Name</th>
+          <th>Project Name</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of taskObj.tasks.slice(0,5); let i = index">
+          <!-- <td>{{ task.id }}</td> -->
+          <td>{{ task.taskName }}</td>
+          <td>{{ taskObj.tProjectName }}</td>
+          <td>
+            <span [ngClass]="{
+                    'text-success': taskObj.statusObj(task.statusId) === 'Approved', 
+                    'text-danger': taskObj.statusObj(task.statusId) === 'Rejected', 
+                    'text-warning': taskObj.statusObj(task.statusId) === 'Pending'
+                  }">
+              {{ taskObj.statusObj(task.statusId) }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary mt-2" routerLink="/tasks">View More</button>
+  </div>
+    </div>
+</div>
+
+<div class="card section-card">
+  <div class="card-body">
+    <h4 class="section-title">Projects</h4>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Project Name</th>
+          <th>Manager</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projectObj.projects.slice(5); let i=index">
+          <!-- <td>{{ project.id }}</td> -->
+          <td>{{  project.projectName }}</td>
+          <td>{{  project.projectId  }}</td>
+          <td>{{project.statusId }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary mt-2" routerLink="/projects">View More</button>
+  </div>
+  </div>
+</div>
+
+</div>
+}

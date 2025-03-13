@@ -116,12 +116,17 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    border-radius: 100px;
   }
   
   .task-dropdown th, .task-dropdown td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+  }
+
+  .task-dropdown th, .task-dropdown td:hover {
+    background: #f1f1f1;
   }
   
   .task-dropdown th {
@@ -131,6 +136,10 @@
   
   .task-dropdown td {
     background: #f9f9f9;
+  }
+
+  .Dropdown{
+    width: 20%;
   }
   
   /* Status Badges */
@@ -173,3 +182,10 @@
     }
   }
   
+    .invite-dropdown {
+        background: #f0f8ff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }

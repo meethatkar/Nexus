@@ -65,6 +65,8 @@
     color: #000;
     text-decoration: none;
     display: block;
+    font-size: 20px;
+    font-weight: 450;
 }
 
 .sidebar ul li a:hover {

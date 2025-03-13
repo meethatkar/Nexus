@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <div class="card shadow-lg p-4" style="background-color: #e0f7ff; border-radius: 10px;">
+      <h3 class="text-center text-primary">Add User to Project</h3>
+  
+      <form>
+        <!-- Username Selection -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Select Username</label>
+          <select id="username" class="form-select shadow-sm">
+            <option value="" disabled selected>Choose a username</option>
+            <option value="user1">John Doe</option>
+            <option value="user2">Jane Smith</option>
+            <option value="user3">David Johnson</option>
+          </select>
+        </div>
+  
+        <!-- Email Input -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-control shadow-sm" placeholder="Enter email">
+        </div>
+  
+        <!-- Pre-selected Project ID -->
+        <div class="mb-3">
+          <label for="projectId" class="form-label">Project ID</label>
+          <input type="text" id="projectId" class="form-control shadow-sm" value="PJT-2025" readonly>
+        </div>
+  
+        <!-- Add Button -->
+        <button type="submit" class="btn btn-primary w-100 shadow-lg add-btn">Add</button>
+      </form>
+    </div>
+  </div>
+  
+  

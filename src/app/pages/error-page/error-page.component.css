@@ -1,0 +1,55 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e3f2fd; /* Light sky blue background */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Main Container */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+}
+
+/* Error Image */
+.error-image {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Heading */
+h1 {
+    color: #007bff;
+    font-size: 28px;
+}
+
+/* Paragraph */
+p {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Home Button */
+.home-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    color: white;
+    background: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.home-button:hover {
+    background: #0056b3;
+}

@@ -7,7 +7,12 @@ export class userDetailsGet{
     city:string;
     userId:number;
     // token:string;
-    role:string;
+    // role:string;
+    email:string;
+    username:string;
+    password:string;
+    age:number;
+    gender:string;
     constructor(){
         this.firstName="",
         this.lastName="",
@@ -16,9 +21,14 @@ export class userDetailsGet{
         this.state="",
         this.city=""
         this.userId=0,
-        this.role="not assigned"
+        // this.role="not assigned"
         // this.role="manager"
         // this.role="member"
+        this.email=""
+        this.username=""
+        this.password=""
+        this.age=0
+        this.gender="none"
     }
 }
 export interface IResultUserDetailsGet{

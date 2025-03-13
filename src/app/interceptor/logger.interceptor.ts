@@ -8,7 +8,7 @@ export const loggerInterceptor: HttpInterceptorFn = (req, next) => {
   console.log(userSignupService.getToken());
   const authReq = req.clone({
     // headers: req.headers.set('Authorizatin', token),
-    headers: req.headers.set('Authorization', `Bearer ${token}`).set('Content-Type', 'application/json') // Add this line
+    headers: req.headers.set('Authorization',` Bearer ${token}`).set('Content-Type', 'application/json') // Add this line
  
   });
   return next(authReq);

@@ -2,6 +2,8 @@ export class userDetails{
     firstName:string;
     lastName:string;
     phoneNo:number;
+    gender:string;
+    age:number;
     address:string;
     state:string;
     city:string;
@@ -12,6 +14,8 @@ export class userDetails{
         this.firstName="",
         this.lastName="",
         this.phoneNo=0,
+        this.gender=""
+        this.age=0
         this.address="",
         this.state="",
         this.city=""

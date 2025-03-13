@@ -12,7 +12,7 @@ export class UserRegistrationService {
   private http=inject(HttpClient);
   constructor() { }
 
-  public addSignupUser(obj:userDetails):Observable<IResultUserDetails>{
-    return this.http.post<IResultUserDetails>(this.mainApi + "/UserDetail/AddUserDetail",obj);
+  public addRegisterUser(obj:userDetails):Observable<IResultUserDetails>{
+    return this.http.post<IResultUserDetails>(this.mainApi + "/UserDetail/AddUserDetails",obj);
   }
 }

@@ -1,16 +1,29 @@
 export class task {
     //          ************POST VARIABLES*****
-    taskNamePost:string;
-    tprojectNamePost:string;
+    taskName:string;
+    projectId?:number;
     tmemberNamePost:string;
-    taskTypePost:string;
-    taskPriorityPost:string;
-    startDatePost:Date;
-    endDatePost:Date;
-    taskStatusPost:string;
-    taskDescriptionPost:string;
+    type:string;
+    priority:string;
+    startDate:Date;
+    endtDate:Date;
+    statusId:number = 108;
+    description:string;
     tManagerNamePost:string;
-    tMemberIdPost?:number;
+    userId?:number;
+    tProjectName!:string;
+
+    tasks: {
+        taskId: number;
+        taskName: string;
+        description: string;
+        endDate: Date;
+        statusId: number;
+        isActive: boolean;
+        type:string;
+        priority:string;
+        startDate: Date;
+    }[];
 
     //  ******GET VARIABLES*****
     taskNameGet: string[];
@@ -25,16 +38,18 @@ export class task {
     tManagerNameGet: string[];
     tMemberIdGet?:number[];
     constructor() {
-        this.taskNamePost="",
-        this.tprojectNamePost="",
-        this.tmemberNamePost="",
-        this.taskTypePost="",
-        this.taskPriorityPost="",
-        this.startDatePost=new Date();
-        this.endDatePost=new Date();
-        this.taskStatusPost="",
-        this.taskDescriptionPost="",
-        this.tManagerNamePost="",
+        this.taskName="";
+        // this.projectId=;
+        this.tmemberNamePost="";
+        this.type="";
+        this.priority="";
+        this.startDate=new Date();
+        this.endtDate=new Date();
+        this.description="";
+        this.tManagerNamePost="";
+
+        this.tasks=[];
+
         // this.tMemberIdPost=0
 
 
@@ -55,7 +70,8 @@ export class task {
         this.tmemberNameGet = ['Alice', 'Bob', 'Charlie', 'David', 'Emma', 'Frank', 'Grace'];
         this.taskTypeGet = ['Feature', 'Bug', 'Improvement', 'Feature', 'Bug', 'Testing', 'Deployment'];
         this.taskPriorityGet = ['High', 'Medium', 'High', 'Low', 'Medium', 'High', 'Critical'];
-        this.taskStatusGet = ['In Progress', 'Completed', 'Not Started', 'In Progress', 'Completed', 'Not Started', 'In Progress'];
+        this.taskStatusGet = ['In Progress', 'Approved', 'Pending', 'Rejected', 'Approved', 'Pending', 'Rejected']; 
+                //IN STATUS APPROVED = TASK FINISHED, PENDING = TASK IS SEND TO APPROVAL OR TASK IS REMANING TO START BY MEMBER, REJECTED = TASK REJECTED BY MANAGER, IN PROGRESS = MEMBER IS WORKING ON TASK  OR TASK IS  SEND FOR APPROVAL
         this.taskDescriptionGet = [
             'Create homepage UI and layout',
             'Develop backend APIs for authentication',
@@ -85,6 +101,27 @@ export class task {
         ];
         this.tManagerNameGet = [ 'meet hatkar', 'amin khan', 'chandan mandal', 'nikhil pandey', 'dilip yadav',' shubham purkait', 'hero honda']
     }
+
+    statusObj: any = {
+        "101": "New",
+        "102": "Active",
+        "103": "Blocked",
+        "104": "Review",
+        "105": "Completed",
+        "106": "Approved",
+        "107": "Resolved",
+        "108": "QA"
+    };
+
+    getStatus(statusId: number): string {
+        for (let key in this.statusObj) {
+            if (parseInt(key) === statusId) {
+                return this.statusObj[key];
+            }
+        }
+        return "Not Found"; // Default if not matched
+    }
+
 }
 
 export interface IResultTask {

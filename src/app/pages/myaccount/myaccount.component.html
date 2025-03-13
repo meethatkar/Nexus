@@ -1,3 +1,4 @@
+<app-loader [isLoading]="isLoading"></app-loader>
 <div class="container my-account-section my-3">
     <h2 class="text-center">My Account</h2>
 
@@ -15,10 +16,9 @@
                 <p><strong>Last Name:</strong> {{ userDetailsGetObj.lastName }}</p>
                 <p><strong>Phone Number:</strong> {{ userDetailsGetObj.phoneNo }}</p>
                 <!-- <p><strong>Email:</strong> {{ userDetailsGetObj. }}</p> -->
-                <!-- <p><strong>Gender:</strong> {{ userData.gender }}</p> -->
-                <!-- <p><strong>Date of Birth:</strong> {{ userData.dob }}</p> -->
+                <p><strong>Gender:</strong> {{ userDetailsGetObj.gender }}</p>
+                <p><strong>Age:</strong> {{ userDetailsGetObj.age }}</p>
                 <!-- <p><strong>Role:</strong> {{ userDetailsGetObj.role }}</p> -->
-                <p><strong>Role:</strong> {{ role }}</p>
                 <p><strong>Address:</strong> {{ userDetailsGetObj.address }}</p>
                 <p><strong>State:</strong> {{ userDetailsGetObj.state }}</p>
                 <p><strong>City:</strong> {{ userDetailsGetObj.city }}</p>
@@ -28,19 +28,19 @@
                     <div class="row">
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">First Name:</label>
-                            <input type="text" class="form-control form-control-sm" value={{userData.firstName}} [(ngModel)]="userData.firstName">
+                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.firstName}} [(ngModel)]="userDetailsGetObj.firstName">
                         </div>
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">Last Name:</label>
-                            <input type="text" class="form-control form-control-sm" value={{userData.lastName}} [(ngModel)]="userData.lastName">
+                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.lastName}} [(ngModel)]="userDetailsGetObj.lastName">
                         </div>
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">Phone number:</label>
-                            <input type="text" class="form-control form-control-sm" value={{userData.phoneNumber}} [(ngModel)]="userData.phoneNumber">
+                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.phoneNo}} [(ngModel)]="userDetailsGetObj.phoneNo">
                         </div>
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">Address:</label>
-                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.address}} [(ngModel)]="userData.address">
+                            <input type="text" class="form-control form-control-sm" value={{userDetailsGetObj.address}} [(ngModel)]="userDetailsGetObj.address">
                         </div>
                         <div class="col-md-6 my-2">
                             <label class="fw-bold">State:</label>
@@ -52,16 +52,16 @@
                         </div>
                         <!-- <div class="col-md-6 my-2">
                             <label class="fw-bold">Email:</label>
-                            <input type="email" class="form-control form-control-sm" value="john.doe@example.com" [(ngModel)]="userData.email">
+                            <input type="email" class="form-control form-control-sm" value="john.doe@example.com" [(ngModel)]="userDetailsGetObj.email">
                         </div>
                         <div class="col-md-3 my-2">
                             <label class="fw-bold">Gender:</label> <br>
-                            <input type="radio"  class="" value="male" [(ngModel)]="userData.gender"> Male
-                            <input type="radio"  class="" value="female" [(ngModel)]="userData.gender"> Female
+                            <input type="radio"  class="" value="male" [(ngModel)]="userDetailsGetObj.gender"> Male
+                            <input type="radio"  class="" value="female" [(ngModel)]="userDetailsGetObj.gender"> Female
                         </div>
                         <div class="col-md-3 my-2">
                             <label class="fw-bold">Date of Birth:</label>
-                            <input type="date" class="form-control form-control-sm" value="1995-03-15" [(ngModel)]="userData.dob">
+                            <input type="date" class="form-control form-control-sm" value="1995-03-15" [(ngModel)]="userDetailsGetObj.dob">
                         </div> -->
                     </div>
                 </div>
@@ -80,16 +80,16 @@
         </div>
         <div class="card-body">
             <div *ngIf="!IsEdit.professional">
-                <p><strong>Skills:</strong> {{ userData.skills }}</p>
-                <p><strong>Experience:</strong> {{ userData.experience }}</p>
-                <p><strong>ID:</strong> {{ userData.id }}</p>
-                <p><strong>Role:</strong> {{ userData.role }}</p>
+                <p><strong>Skills:</strong> {{ userDetailsGetObj.skills }}</p>
+                <p><strong>Experience:</strong> {{ userDetailsGetObj.experience }}</p>
+                <p><strong>ID:</strong> {{ userDetailsGetObj.id }}</p>
+                <p><strong>Role:</strong> {{ userDetailsGetObj.role }}</p>
             </div>
             <div *ngIf="IsEdit.professional">
-                <input type="text" class="form-control mb-2" [(ngModel)]="userData.skills">
-                <input type="text" class="form-control mb-2" [(ngModel)]="userData.experience">
-                <input type="text" class="form-control mb-2" [(ngModel)]="userData.id">
-                <input type="text" class="form-control mb-2" [(ngModel)]="userData.role">
+                <input type="text" class="form-control mb-2" [(ngModel)]="userDetailsGetObj.skills">
+                <input type="text" class="form-control mb-2" [(ngModel)]="userDetailsGetObj.experience">
+                <input type="text" class="form-control mb-2" [(ngModel)]="userDetailsGetObj.id">
+                <input type="text" class="form-control mb-2" [(ngModel)]="userDetailsGetObj.role">
                 <div class="card-body p-3">
                     <div class="row"> </div>
                 </div>
@@ -101,28 +101,28 @@
     <div class="card">
         <div class="card-header">
             Account Details
-            <button class="btn btn-sm btn-light float-end" (click)="toggleEditA(!IsEdit.account)">
+            <!-- <button class="btn btn-sm btn-light float-end" (click)="toggleEditA(!IsEdit.account)">
                 {{  IsEdit.account ? 'Save' : 'Edit' }}
-            </button>
+            </button> -->
         </div>
         <div class="card-body">
             <div *ngIf="!IsEdit.account">
-                <p><strong>Email:</strong> {{ userSignupDataObj.email }}</p>
-                <p><strong>Username:</strong> {{ userSignupDataObj.username }}</p>
+                <p><strong>Email:</strong> {{ userDetailsGetObj.email }}</p>
+                <p><strong>Username:</strong> {{ userDetailsGetObj.username }}</p>
                 <p ><strong>Password:</strong> *************  </p>
             </div>
-            <div *ngIf="IsEdit.account">
+            <!-- <div *ngIf="IsEdit.account">
                 <label class="fw-bold">Email:</label>
-                <input type="text" class="form-control mb-2" [(ngModel)]="userSignupDataObj.email">
+                <input type="text" class="form-control mb-2" [(ngModel)]="userDetailsGetObj.email">
                 <label class="fw-bold">Username:</label>
-                <input type="text" class="form-control mb-2" [(ngModel)]="userSignupDataObj.username">
+                <input type="text" class="form-control mb-2" [(ngModel)]="userDetailsGetObj.username">
                 <label class="fw-bold">Password:</label>
                 <div class="input-group">
-                <input [type]="passwordVisible ? 'text' : 'password' " class="form-control mb-1" [(ngModel)]="userSignupDataObj.password">
+                <input [type]="passwordVisible ? 'text' : 'password' " class="form-control mb-1" [(ngModel)]="userDetailsGetObj.password">
                 <span class="input-group-text" (click)="togglePassword()">
                     <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
                 </span>            </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

@@ -7,7 +7,7 @@
 
         <!-- assignie id -->
          <div class="row" style="margin-bottom:1%;">
-        <div class="col-md-6 md-3">
+        <!-- <div class="col-md-6 md-3">
           <label for="memberId" class="form-label">Enter Member ID:</label>
           <input type="text" 
           class="form-control" 
@@ -18,12 +18,12 @@
           [(ngModel)]="taskObj.tMemberIdPost"
           ngModel
           #memberId="ngModel">
-        </div>
+        </div> -->
 
         <!-- Member NAME -->
         <div class="col-md-6 md-3">
-        <label for="memberName" class="form-label">Enter Member Name:</label>
-        <input type="text" 
+        <label for="memberName" class="form-label">Select Member :</label>
+        <!-- <input type="text" 
         class="form-control" 
         id="memberName" 
         placeholder="Enter member Name" 
@@ -31,7 +31,7 @@
         name="memberName"
         [(ngModel)]="taskObj.tmemberNamePost"
         ngModel
-        #memberName="ngModel">
+        #memberName="ngModel"> -->
       </div>
     </div>
 
@@ -44,7 +44,7 @@
           placeholder="Enter task name" 
           required
           name="taskName"
-          [(ngModel)]="taskObj.taskNamePost"
+          [(ngModel)]="taskObj.taskName"
           ngModel
           #taskName="ngModel">
         </div>
@@ -57,7 +57,7 @@
           rows="3" 
           placeholder="Enter task details"
           name="taskDescription"
-          [(ngModel)]="taskObj.taskDescriptionPost"
+          [(ngModel)]="taskObj.description"
           ngModel
           #taskDescription="ngModel"
           ></textarea>
@@ -73,7 +73,7 @@
               name="priority" 
               id="lowPriority" 
               value="Low"
-              [(ngModel)]="taskObj.taskPriorityPost"
+              [(ngModel)]="taskObj.priority"
               ngModel
               #lowPriority="ngModel">
               <label class="form-check-label" for="lowPriority">Low</label>
@@ -84,7 +84,7 @@
               name="priority" 
               id="mediumPriority" 
               value="Medium"
-              [(ngModel)]="taskObj.taskPriorityPost"
+              [(ngModel)]="taskObj.priority"
               ngModel
               #mediumPriority="ngModel">
               <label class="form-check-label" for="mediumPriority">Medium</label>
@@ -95,7 +95,7 @@
               name="priority" 
               id="highPriority" 
               value="High"
-              [(ngModel)]="taskObj.taskPriorityPost"
+              [(ngModel)]="taskObj.priority"
               ngModel
               #highPriority="ngModel">
               <label class="form-check-label" for="highPriority">High</label>
@@ -110,7 +110,7 @@
           <select class="form-select" 
           id="taskType"
           name="taskType"
-          [(ngModel)]="taskObj.taskTypePost"
+          [(ngModel)]="taskObj.type"
           ngModel
           #taskType="ngModel">
             <option selected disabled>-- Select Task Type --</option>
@@ -138,20 +138,20 @@
         -->
 
 
-          <select name="releatedProject" 
+          <!-- <select name="releatedProject" 
           id="releatedProject"
           class="form-select"
           [(ngModel)]="taskObj.tprojectNamePost"
           ngModel
-          #releatedProject="ngModel"> 
+          #releatedProject="ngModel">  -->
           <!-- @for(project of managerProject; track project.id){
           <option "on select that project will be select and logic"> {{project.name}} </option> 
           } -->
-          <option selected disabled>-- Select Project  --</option>
+          <!-- <option selected disabled>-- Select Project  --</option>
           <option value="AI Chat bot "> AI Chat bot </option>
           <option value="E-commerce Application"> E-commerce Application </option>
           <option value="Home Automation"> Home Automation </option>
-        </select>
+        </select> -->
         </div>
           </div>
   
@@ -164,7 +164,7 @@
             id="startDate"
             name="startDate"
             required
-            [(ngModel)]="taskObj.startDatePost"
+            [(ngModel)]="taskObj.startDate"
             ngModel
             #startDate="ngModel">
           </div>
@@ -175,7 +175,7 @@
             id="endDate"
             name="endDate"
             required
-            [(ngModel)]="taskObj.endDatePost"
+            [(ngModel)]="taskObj.endtDate"
             ngModel
             #endDate="ngModel"
             >

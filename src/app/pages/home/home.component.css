@@ -142,7 +142,7 @@ h3{
     animation: fadeInRight 0.7s ease-in-out;
 }
 
-.task-card:hover, .project-card:hover {
+.task-card:hover, .project-card:hover, .notifications:hover, .greeting:hover, .issues:hover {
     transform: translateY(-5px);
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
 }
@@ -214,6 +214,7 @@ h3{
     font-family: Arial, sans-serif;
     height: 91vh;
 }
+
 
 .card {
     border: none;

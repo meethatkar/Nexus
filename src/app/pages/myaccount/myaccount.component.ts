@@ -3,95 +3,138 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { userSignupData } from '../../models/userSignupData.model';
-import { UserDetailService } from '../../services/getUserDetail/user-detail.service';
+import { UserDetailService } from '../../services/getUser/user-detail.service';
+import {jwtDecode} from "jwt-decode";
+import { UserSignupService } from '../../services/signup/user-signup.service';
+import { LoaderComponent } from "../loader/loader.component";
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-myaccount',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule, LoaderComponent],
   templateUrl: './myaccount.component.html',
   styleUrl: './myaccount.component.css',
   providers: [UserDetailService]
 })
 export class MyaccountComponent implements OnInit{
-
-  // IsEdit:boolean=false;
   IsEdit={
     'profile':false,
-    // 'professional':false,
     'account':false
   }
   userSignupDataObj:userSignupData=new userSignupData();
   userDetailServiceObj = inject(UserDetailService);
   userDetailsGetObj = new userDetailsGet();
+  UserSignupServiceObj = inject(UserSignupService)
 
   userData: any;
   passwordVisible:boolean=false;
   role ="manager";
   error:any={}
+  isLoading = false;
+
   
 
-  // workDetails = [
-  //   { id: 101, task: "Project A - Task 1" },
-  //   { id: 102, task: "Project B - Task 2" },
-  //   { id: 103, task: "Project C - Task 3" }
-  // ];
+
+token:any = this.UserSignupServiceObj.getToken();
+decoded: any = jwtDecode(this.token); // Decode JWT
+
   
   ngOnInit(): void {
-    this.userDetailServiceObj.getUserDetailById(this.userDetailServiceObj.getId()).subscribe((res:IResultUserDetailsGet)=>{
-      if(res.result==true){
-      this.userDetailsGetObj=res.data;
-      console.log(this.userDetailsGetObj)
-      }
-      else{
-        alert("Else block executed");
-      }
-    }, (error) => {
-      this.error = {};
-      if (error.status === 400 || error.status === 401) {
-        for (let key in error.error.error) {
-          console.log(error.error.error[key]);
-          console.log(this.userDetailsGetObj.userId)
-          this.error[key] = error.error.error[key];       //Store each error with its key
-        }
+    this.isLoading=true;
 
-        // for (let key in error.error) {
-        //   console.log(error.error[key]);
-        //   this.error[key] = error.error[key];       //Store each error with its key
-        // }
-      }
-      else {
-        alert("Unexpected error occured"+error.message);
-        console.log("ofkodkfokodfk");
+    forkJoin({
+     userDetails:  this.userDetailServiceObj.getUserDetailById(this.decoded.UserId),
+     SignupDetaila: this.userDetailServiceObj.getUserSignupDetaiById(this.decoded.UserId)
+    }).subscribe({
+      next: (res) => {
+        if(res.userDetails.result && res.SignupDetaila.result){
+          this.userDetailsGetObj = res.userDetails.data;
+          this.userDetailsGetObj.username = res.SignupDetaila.data.username;
+          this.userDetailsGetObj.email = res.SignupDetaila.data.email;
+          this.userDetailsGetObj.password = res.SignupDetaila.data.password;
+        }
+        this.isLoading=false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+        if (error.status === 400 || error.status === 401) {
+                for (let key in error.error) {
+                  console.log(error.error[key]);
+                  console.log(this.userDetailsGetObj.userId+" error block of my account section uuser signup data")
+                  this.error[key] = error.error[key];       //Store each error with its key
+                }
+        
+              }
+              else {
+                alert("Unexpected error occured"+error.message);
+              }
       }
     })
+    
+  //    ********** OLD APPROACH OF TWO API CALLS ********* 
+    
+    // this.userDetailServiceObj.getUserDetailById(this.decoded.UserId).subscribe((res:IResultUserDetailsGet)=>{
+    //   if(res.result==true){
+    //   this.userDetailsGetObj=res.data;
+    //   console.log(this.userDetailsGetObj+" my account section (userDetailsObj)")
+
+    //   //        ******** NESTED METHOD *******
+    //   this.userDetailServiceObj.getUserSignupDetaiById(this.decoded.UserId).subscribe((res:IResultUserDetailsGet)=>{
+    //     if(res.result==true){
+    //       this.userDetailsGetObj.username = res.data.username;
+    //       this.userDetailsGetObj.email = res.data.email;
+    //       this.userDetailsGetObj.password = res.data.password;
+    //       this.isLoading=false;
+    //     }
+    //   }, (error) => {
+    //     this.isLoading=false;
+    //     this.error = {};
+    //     if (error.status === 400 || error.status === 401) {
+    //       for (let key in error.error) {
+    //         console.log(error.error[key]);
+    //         console.log(this.userDetailsGetObj.userId+" error block of my account section uuser signup data")
+    //         this.error[key] = error.error[key];       //Store each error with its key
+    //       }
+  
+    //     }
+    //     else {
+    //       alert("Unexpected error occured"+error.message);
+    //     }
+    //   })
+    //   }
+    //   else{
+    //     this.isLoading=false;
+    //     alert("Else block executed");
+    //   }
+    // }, (error) => {
+    //   this.isLoading=false;
+    //   this.error = {};
+    //   if (error.status === 400 || error.status === 401) {
+    //     for (let key in error.error) {
+    //       console.log(error.error[key]);
+    //       console.log(this.userDetailsGetObj.userId+" error block of my account section user details data")
+    //       this.error[key] = error.error[key];       //Store each error with its key
+    //     }
+    //   }
+
+    //   else {
+    //     alert("Unexpected error occured"+error.message);
+    //   }
+    // })
   }
 
   toggleEditP(on:boolean) {
     this.IsEdit.profile = on;
     if (!this.IsEdit.profile) {
-      // When saving (status = false), update local storage
-      // localStorage.setItem('user', JSON.stringify(this.userData));
       alert("Profile updated successfully!");
     }
   }
 
 
-  // toggleEditPro(on:boolean) {
-  //   this.IsEdit.professional = on;
-  //   if (this.IsEdit.professional) {
-  //     // When saving (status = false), update local storage
-  //     localStorage.setItem('user', JSON.stringify(this.userData));
-  //     alert("Profile updated successfully!");
-  //   }
-  // }
-
 
   toggleEditA(on:boolean) {
     this.IsEdit.account = on;
     if (!this.IsEdit.account) {
-      // When saving (status = false), update local storage
-      // localStorage.setItem('user', JSON.stringify(this.userData));
-
       alert("Profile updated successfully!");
     }
   }

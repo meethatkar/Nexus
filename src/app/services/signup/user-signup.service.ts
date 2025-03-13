@@ -20,7 +20,7 @@ export class UserSignupService {
   constructor() { }
 
   public addSignupUser(obj:userSignupData):Observable<IResultSignup>{
-    return this.http.post<IResultSignup>(this.mainApi + "/User/addSignupUser",obj);
+    return this.http.post<IResultSignup>(this.mainApi + "/User/AddUser",obj);
   }
 
   setToken(token:string){

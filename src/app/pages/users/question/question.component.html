@@ -1,0 +1,128 @@
+
+
+<!--            **********JOIN PROJECT CODE***********           -->
+<!-- @if(UserDetailServiceObj.getUserRole() == "member"){
+    <div class="container mt-5">
+        <div class="card p-4 shadow-lg bg-light">
+            <h2 class="text-primary text-center">Join a Project</h2>
+            
+            <form #joinProjectForm="ngForm" (ngSubmit)="onJoin(joinProjectForm)">
+                Project ID
+                <div class="mb-3">
+                    <label for="projectId" class="form-label fw-bold">Project ID:</label>
+                    <input type="text" 
+                    class="form-control" 
+                    id="projectId" 
+                    placeholder="Enter Project ID"
+                    required
+                    name="projectId"
+                    ngModel
+                    #projectId="ngModel">
+                </div>
+    
+                User Password
+                <div class="mb-3">
+                    <label for="userPassword" class="form-label fw-bold">Password:</label>
+                    <div class="input-group">
+                    <input [type]="passwordVisible?'text':'password'" 
+                    class="form-control" 
+                    id="userPassword" 
+                    placeholder="Enter your password"
+                    name="userPassword"
+                    required
+                    minlength="8"
+                    ngModel
+                    #userPassword="ngModel">
+                    <span class="input-group-text" (click)="togglePassword()">
+                        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
+                    </span>
+                </div>
+                </div>
+    
+                Join Project Button
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4">Join Project</button>
+                </div>
+            </form>
+        </div>
+    </div>    
+} -->
+
+           <!-- *********** CREATE PROJECT  CODE ***************       
+@if(UserDetailServiceObj.getUserRole() == "manager"){
+    <div class="container mt-5">
+        <div class="card p-4 shadow-lg bg-light">
+            <h2 class="text-primary text-center">Create a Project</h2>
+            
+            <form #createProjectForm="ngForm" (ngSubmit)="onCreate(createProjectForm)">
+                Project Name
+                <div class="mb-3">
+                    <label for="projectName" class="form-label fw-bold">Project Name:</label>
+                    <input type="text" 
+                    class="form-control" 
+                    id="projectName" 
+                    placeholder="Enter project name"
+                    required
+                    ngModel
+                    name="projectName"
+                    #projectName="ngModel"
+                    >
+                </div>
+    
+                Language
+                <div class="mb-3">
+                    <label for="language" class="form-label fw-bold">Deadline:</label>
+                    <input type="date" 
+                    class="form-control" 
+                    id="deadLine" 
+                    placeholder="Enter language"
+                    required
+                    name="deadLine"
+                    ngModel
+                    #deadLine="ngModel">
+                </div>
+    
+                Description
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-bold">Project Description:</label>
+                    <textarea class="form-control" 
+                    id="description" 
+                    rows="3" 
+                    placeholder="Enter project description"
+                    required
+                    ngModel
+                    name="description"
+                    #description="ngModel"></textarea>
+                </div>
+                
+                
+                Buttons
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary px-4">Create</button>
+                    <button type="reset" class="btn btn-secondary px-4">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>    
+} -->
+
+<!-- 
+@else {
+    <div class="container mt-5">
+    <div class="card p-4 shadow-lg bg-light text-center">
+        <h2 class="text-primary">Register As</h2>
+        
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
+            <button class="btn btn-primary px-4 py-2" (click)="assignRole('manager')">
+                Manager
+            </button>
+            <button class="btn btn-success px-4 py-2"  (click)="assignRole('member')">
+                Member
+            </button>
+        </div>
+        <br>
+        Want to skip this ?
+        <a  (click)="assignRole('not assigned')" routerLink="/home">Click here</a>
+    </div>
+</div>
+} -->

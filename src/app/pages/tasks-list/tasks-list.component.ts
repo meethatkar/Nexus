@@ -20,6 +20,8 @@ export class TasksListComponent {
   // memberList:member=new member();
   selectedMember:number=0;
   role="manager";
+  seeYourTask:boolean = false;
+  
 
   // METHODS PART
   //MEMBERS
@@ -32,6 +34,7 @@ export class TasksListComponent {
   // Back to task list
   backToList() {
     this.isViewClicked = false;
+    this.seeYourTask = false;
   }
 
   //MANAGERS
@@ -39,5 +42,11 @@ export class TasksListComponent {
     this.isViewClicked=viewStatus;
     this.selectedMember=memID;
   }
+
+  seeMyTask(status:boolean){
+    this.seeYourTask = status;
+  }
+
+
 
 }

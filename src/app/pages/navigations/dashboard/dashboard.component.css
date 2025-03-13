@@ -1,0 +1,139 @@
+/* ************MANAGER SECTION OF CSS********** */
+
+.card {
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #007bff1a; /* Light blue border */
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .badge {
+    font-size: 14px;
+  }
+  
+  .btn {
+    width: 200px;
+  }
+
+.card:hover {
+    /* box-shadow: 0px 4px 12px rgba(255, 0, 0, 0.5); Red shadow effect */
+    transform: scale(1.03);
+    border-color: #007bff; /* Darker blue border */
+}
+
+
+  /* MEMBERS CSS  */
+  /* Styling for Each Section */
+.section-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Hover Effect */
+  .section-card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Title Styling */
+  .section-title {
+    color: #0d47a1;
+    font-weight: bold;
+    margin-bottom: 15px;
+    background-color: whitesmoke;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Red shadow */
+    text-align: center; /* Centers the text */
+  }
+  
+  /* Table Styling */
+  .table {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Table Header Background */
+  .table thead {
+    background-color: #bbdefb;
+  }
+  
+  /* Announcements Section */
+  .list-group-item {
+    background-color: #e3f2fd;
+    border-left: 5px solid #2196F3;
+    font-weight: bold;
+  }
+
+
+  /* ****NEW DEADLINE SECTION CSS******* */
+
+.task-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Red shadow */
+    transition: all 0.3s ease-in-out;
+    border: 2px solid #007bff; /* Blue border */
+    margin-bottom: 50px;
+    min-height: 220px; /* Ensures uniform height */
+}
+
+.task-card:hover {
+    transform: scale(1.05);
+}
+
+.task-card h4 {
+    color: #007bff; /* Sky blue heading */
+    font-weight: bold;
+}
+
+.task-card p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* Limits text to 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;  /* Adds "..." when text overflows */
+  max-width: 100%;
+  line-height: 1.4em; /* Adjust line height for better spacing */
+  height: 3.9em; /* Ensures 4 lines max */
+}
+
+.task-card strong {
+    color: #000;
+}
+
+.section-heading {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0056b3; /* Sky blue theme */
+    padding: 12px 20px;
+    background: #e3f2fd; /* Light blue background */
+    border-left: 5px solid #007bff; /* Blue left border */
+    border-radius: 5px;
+    text-align: center; /* Center the text */
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.5); /* Red shadow effect */
+    margin-bottom: -20px;
+    margin-top: 3%;
+}
+
+/* Hover effect */
+.section-heading:hover {
+    background: #d1e7ff; /* Slightly darker blue on hover */
+    color: #003366; /* Darker blue text */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+
+.btn {
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}

@@ -39,45 +39,20 @@
 
             <!--                      **********MANAGER************ -->
             <!-- @if(userDetailsObj.role=="manager"){ -->
-            @if(role=="manager"){
+            <!-- @if(role=="manager"){ -->
             <!-- create project -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/createProject">Create
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/createproject">Create
                         Project</a>
                 </li>
             </ul>
-            }
-            <!-- 
-            @else if(userDetailsObj.role=="member"){
-            join project
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/joinProject">Join Project</a>
-                </li>
-            </ul>
-            } -->
-
-            <!-- @else { -->
-            <!-- create project -->
-            <!-- <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/createProject">Create Project</a>
-                </li>
-            </ul> -->
-
-            <!-- join project -->
-            <!-- <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/joinProject">Join Project</a>
-                </li>
-            </ul>
-            } -->
 
             <!--                         ***************LOGOUT BUTTON************* -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" (click)="logout()" routerLink="/home">Logout</a>
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" (click)="logout()"
+                        routerLink="/home">Logout</a>
                 </li>
             </ul>
             <!-- Search Bar -->
@@ -91,8 +66,8 @@
 
             }
 
-            <!--                    *****************LOGGED OUT  -->
-            @else if(!isLogin){
+            <!--                    *****************LOGGED OUT****************  -->
+            @else{
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/home">Home</a>
@@ -105,18 +80,6 @@
                     <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/aboutus"> About us </a>
                 </li>
             </ul>
-
-            <!-- <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/createProject">Create Project</a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/joinProject">Join Project</a>
-                </li>
-            </ul> -->
 
             <!--                        **************LOGIN BUTTON******************* -->
             <ul class="navbar-nav">
@@ -140,31 +103,31 @@
 
 <!--                    ***************** SIDE MENU BAR FOR ADMIN***************** -->
 <!-- @if(userDetailsObj.role==="member"){ -->
-@if(role==="member"){
+<!-- @if(role=="member"){
 <div class="sidebar" [class.open]="isMenuOpen">
     <ul>
         <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li>
         <li><a routerLink="/projects" (click)="toggleMenu()">📂 Projects</a></li>
-        <li><a routerLink="/tasks" (click)="toggleMenu()">✅ Tasks</a></li>
+        <li><a routerLink="/tasks" (click)="toggleMenu()">✅ Taskshurray</a></li>
     </ul>
 </div>
 @if(isMenuOpen){
 <button class="overlay" (click)="toggleMenu()"> <i class="fa fa-close"></i>
 </button>
 }
-}
+} -->
 
 
 <!-- SIDE MENU BAR FOR MANAGER  -->
 <!-- @else if (userDetailsObj.role==="manager") { -->
-@else if (role==="manager") {
+<!-- @if (role=="manager") { -->
+ @if(isLogin){
 <div class="sidebar" [class.open]="isMenuOpen">
     <ul>
-        <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li>
+        <!-- <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li> -->
         <li><a routerLink="/projects" (click)="toggleMenu()">📂 Projects</a></li>
         <li><a routerLink="/tasks" (click)="toggleMenu()">✅ Tasks</a></li>
-        <li><a routerLink="/tasks" (click)="toggleMenu()">📊 Reports & Analytics</a></li>
-        <li><a routerLink="/tasks" (click)="toggleMenu()">🛠️ Manage Team </a></li>
+        <li><a routerLink="/members" (click)="toggleMenu()"> <i class="fa fa-user me-2"></i> Members </a></li>
     </ul>
 </div>
 @if(isMenuOpen){
@@ -172,13 +135,15 @@
 </button>
 }
 }
+
 <!--  FORM NOT LOGGED IN USER -->
 @else {
 <div class="sidebar" [class.open]="isMenuOpen">
     <ul>
-        <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li>
+        <!-- <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li> -->
         <li><a routerLink="/projects" (click)="toggleMenu()">📂 Projects</a></li>
-        <li><a routerLink="/tasks" (click)="toggleMenu()">✅ Tasks</a></li>
+        <li><a routerLink="/tasks" (click)="toggleMenu()">✅ Tasks </a></li>
+        <li><a routerLink="/members" (click)="toggleMenu()"> <i class="fa fa-user me-2"></i> Members </a></li>
     </ul>
 </div>
 @if(isMenuOpen){

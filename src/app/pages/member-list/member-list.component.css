@@ -1,0 +1,61 @@
+/* Container to keep cards aligned */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Member Card */
+.member-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  padding: 15px;
+  border: none;
+  position: relative;
+  width: 400px;  /* Fixed Width */
+  height: 230px; /* Fixed Height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 7%;
+}
+
+.member-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(102%);
+}
+
+/* Gender Icon */
+.gender-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 40px;
+  width: 40px;
+}
+
+.gender-icon img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Card Title */
+.card-title {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #004085;
+}
+
+/* Text Styling */
+p {
+  margin-bottom: 5px;
+  color: #444;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

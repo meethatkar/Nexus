@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { UserSignupService } from '../../services/signup/user-signup.service';
-import { IResultSignup, userSignupData } from '../../models/userSignupData.model';
+import { UserSignupService } from '../../../services/signup/user-signup.service';
+import { IResultSignup, userSignupData } from '../../../models/userSignupData.model';
 import { Router, RouterLink } from '@angular/router';
-import { IResultUserDetails, userDetails } from '../../models/userDetails.model';
-import { LoaderComponent } from "../loader/loader.component";
-import { UserRegistrationService } from '../../services/registration/user-registration.service';
+import { IResultUserDetails, userDetails } from '../../../models/userDetails.model';
+import { LoaderComponent } from "../../loader/loader.component";
+import { UserRegistrationService } from '../../../services/registration/user-registration.service';
 import { BehaviorSubject } from 'rxjs';
-import { userDetailsGet } from '../../models/userDetailsGet.model';
-import { UserDetailService } from '../../services/getUserDetail/user-detail.service';
+import { userDetailsGet } from '../../../models/userDetailsGet.model';
+import { UserDetailService } from '../../../services/getUser/user-detail.service';
 // import { AuthInterceptorService } from '../../services/auth-interceptor.service';
 
 @Component({
@@ -17,7 +17,7 @@ import { UserDetailService } from '../../services/getUserDetail/user-detail.serv
   imports: [CommonModule, FormsModule, RouterLink, LoaderComponent],
   templateUrl: './user-signup.component.html',
   styleUrl: './user-signup.component.css',
-  providers: [userSignupData]
+  providers: [userSignupData, UserSignupService, UserRegistrationService, UserDetailService]
 })
 export class UserSignupComponent {
   IsMatch: boolean = false;
@@ -91,13 +91,15 @@ export class UserSignupComponent {
 
   onRegister(regiData: NgForm) {
     this.isLoading = true;
-    this.userRegistrationService.addSignupUser(this.userDetailsObj).subscribe((res: IResultUserDetails) => {
+    this.userDetailsObj.age = regiData.value.age;
+    this.userDetailsObj.gender = regiData.value.gender;
+    this.userRegistrationService.addRegisterUser(this.userDetailsObj).subscribe((res: IResultUserDetails) => {
       if (res.result == true) {
         this.isLoading = false;
         alert("register successful");
         this.userDetailsObj = new userDetails();
-        this.userDetailServiceObj.setId(res.data.userDetailId)
-        console.log("user regi res.data: "+this.userDetailsGetObj);
+        this.userDetailServiceObj.setuserDetailId(res.data.userDetailId);
+        this.userDetailServiceObj.setuserId(res.data.userId);
         this.error = {};          //THIS WILL KEEP ERROR OBJECT EMPTY SO PREVIOUS ERROR WILL NOT BE DISPLAYED
         this.router.navigate(['/home']).then(() => {
           window.location.reload()});
@@ -114,14 +116,9 @@ export class UserSignupComponent {
           this.error[key] = error.error.error[key];       //Store each error with its key
         }
 
-        // for (let key in error.error) {
-        //   console.log(error.error[key]);
-        //   this.error[key] = error.error[key];       //Store each error with its key
-        // }
       }
       else {
         alert("Unexpected error occured"+error.message);
-        console.log("ofkodkfokodfk");
       }
       console.log("User Detail Data: ", this.userDetailsObj);
     })
