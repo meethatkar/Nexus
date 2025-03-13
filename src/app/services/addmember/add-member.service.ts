@@ -1,9 +1,11 @@
+import { relation } from './../../models/relation.model';
 import { inject, Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { userSignupData } from '../../models/userSignupData.model';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { UserSignupService } from '../signup/user-signup.service';
+import { IResultRelation } from '../../models/relation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,11 @@ export class AddMemberService {
           }));
       })
     );
+  }
+
+
+  addRelationApi(relationObj: relation): Observable<IResultRelation>{
+    return this.http.post<IResultRelation>("http://localhost:5194/api/Relation/AddRelation",relationObj);
   }
   
  

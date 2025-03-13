@@ -38,6 +38,12 @@
                     <tr *ngIf="expandedIndexMember === i">
                         <td colspan="6" >
                             <div class="invite-dropdown">
+                                <h5 class="text-primary">Select User to Add in Project</h5>
+                                <select [(ngModel)]="selectedMember" class="form-select">
+                                    <option [ngValue]="placeholderUser" disabled>Select a member to add</option>
+                                    <option *ngFor="let user of nonMemberUsers" [ngValue]="user">{{ user.username }}</option>
+                                </select>
+                                <button class="btn btn-success mt-3 w-100" (click)="addRelation(project.projectId, selectedMember.userId)">Add</button>
                             </div>
                         </td>
                     </tr>

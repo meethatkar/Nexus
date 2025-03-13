@@ -39,7 +39,11 @@ export class ProjectsListComponent implements OnInit {
   token: any = this.UserSignupServiceObj.getToken();
   decoded: any = jwtDecode(this.token); // Decode JWT
   error: any = {};
-  nonMemberUsers: any[] = [];
+  nonMemberUsers: userSignupData[] = [] ;
+  relationObj = new relation();
+  placeholderUser: userSignupData = { userId: 100, username: 'Select a member to add' , email: 'temp', password: 'temp'};
+  selectedMember: userSignupData = this.placeholderUser;
+
 
 
   ngOnInit(): void {
@@ -131,7 +135,6 @@ export class ProjectsListComponent implements OnInit {
   // ];
   // nonMembers = ['User A', 'User B', 'User C']; // List of non-members
 
-  selectedMember: string = '';
 
   toggleMemberDropdown(index: number, prjid: number) {
     this.AddMemberServiceObj.getNonMemberUsers(prjid).subscribe(
@@ -147,7 +150,39 @@ export class ProjectsListComponent implements OnInit {
 
   }
 
- 
+ addRelation(prjId:number, userId:number){
+  
+  this.relationObj.projectId = prjId;
+  this.relationObj.userId = userId;
+
+  this.AddMemberServiceObj.addRelationApi(this.relationObj).subscribe((res:IResultRelation) => {
+    if(res.result == true){
+      this.relationObj = res.data;
+      alert("User Added Successfully !!");
+      console.log("Relation call result data: "+res.data);
+    }
+    else{
+      alert("Else block executed, result is false, check console");
+      console.log("Else block error: "+res.error);
+    }
+  }, (error) => {
+    this.error = {};
+    if (error.status === 400) {
+      for (let key in error.error.error) {
+        console.log(error.error.error[key]);
+        this.error[key] = error.error.error[key];         //Store each error with its key
+      }
+    }
+    else {
+      alert("Unexpected error occured " + error.message);
+    }
+  }
+)
+
+  if (this.selectedMember) {
+    this.expandedIndexMember = null;
+  }
+ }
 
   closeDropdown() {
     this.expandedIndexMember = null;

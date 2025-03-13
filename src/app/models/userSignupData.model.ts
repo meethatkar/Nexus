@@ -2,10 +2,12 @@ export class userSignupData{
     email:string;
     username:string;
     password:string;
+    userId:number;
     constructor(){
         this.email="",
         this.username="",
-        this.password=""
+        this.password="",
+        this.userId=100;
     }
 }
 
