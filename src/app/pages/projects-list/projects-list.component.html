@@ -18,7 +18,7 @@
                         <th> Add Member</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let project of projectObj.projects; let i = index">
+                <tbody *ngFor="let project of projectObj.projects; let i = index" >
                     <tr class="project-row">
                         <td>{{ project.projectName }}</td>
                         <td>{{ projectObj.getStatus(project.statusId) }}</td>
@@ -30,20 +30,14 @@
                             <button class="btn btn-warning btn-sm" routerLink="/assigntask">Assign</button>
                         </td>
                         <td>
-                            <button class="btn btn-info btn-sm" (click)="toggleMemberDropdown(i)">Add</button>
+                            <button class="btn btn-info btn-sm" (click)="toggleMemberDropdown(i, project.projectId)">Add</button>
                         </td>
                     </tr>
     
                     <!-- Add Member Dropdown -->
                     <tr *ngIf="expandedIndexMember === i">
-                        <td colspan="6">
+                        <td colspan="6" >
                             <div class="invite-dropdown">
-                                <h5 class="text-primary">Select Member to Invite</h5>
-                                <select [(ngModel)]="selectedMember" class="form-select">
-                                    <option *ngFor="let user of nonMembers" [value]="user">{{ user }}</option>
-                                </select>
-                                <button class="btn btn-success mt-3 w-100" (click)="inviteMember(project.projectId)">Invite</button>
-                                <button class="btn btn-danger mt-2 w-100" (click)="closeDropdown()">Cancel</button>
                             </div>
                         </td>
                     </tr>

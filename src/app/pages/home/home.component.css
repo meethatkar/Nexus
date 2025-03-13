@@ -131,6 +131,7 @@ h3{
 /* Task & Project Cards */
 .task-card, .project-card {
     background: white;
+    min-height: 330px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
@@ -299,6 +300,7 @@ h2, h4 {
     /* MEMBER'S HOMEPAGE  */
     .task-card, .project-card {
         margin-bottom: 15px;
+
     }
 
     /* MANAGER'S HOMEPAGE  */

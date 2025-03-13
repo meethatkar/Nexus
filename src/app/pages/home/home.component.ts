@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
       this.isLoading = true;
       if (this.token != "") {
         this.decoded = jwtDecode(this.token); // Decode JWT
-
       }
       forkJoin({
         userDetails: this.userDetailService.getUserDetailById(this.decoded.UserId),

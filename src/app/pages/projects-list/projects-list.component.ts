@@ -1,3 +1,4 @@
+import { IResultRelation } from './../../models/relation.model';
 import { Component, inject, OnInit } from '@angular/core';
 import { IResultProject, project } from '../../models/project.model';
 import { task } from '../../models/task.model';
@@ -11,6 +12,9 @@ import { jwtDecode } from 'jwt-decode';
 import { ProjectService } from '../../services/project/project.service.';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { FormsModule } from '@angular/forms';
+import { AddMemberService } from '../../services/addmember/add-member.service';
+import { userSignupData } from '../../models/userSignupData.model';
+import { relation } from '../../models/relation.model';
 
 @Component({
   selector: 'app-projects-list',
@@ -29,11 +33,14 @@ export class ProjectsListComponent implements OnInit {
   UserDetailServiceObj = inject(UserDetailService);
   UserSignupServiceObj = inject(UserSignupService);
   projectServiceObj = inject(ProjectService);
+  AddMemberServiceObj = inject(AddMemberService);
   // role=this.UserDetailServiceObj.getUserRole();
   isLoading = false;
   token: any = this.UserSignupServiceObj.getToken();
   decoded: any = jwtDecode(this.token); // Decode JWT
   error: any = {};
+  nonMemberUsers: any[] = [];
+
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -44,7 +51,6 @@ export class ProjectsListComponent implements OnInit {
         console.log(this.projectObj.projects);
       }
       else {
-        this.isLoading = false;
         alert("Else block executed");
       }
     }, (error) => {
@@ -119,24 +125,29 @@ export class ProjectsListComponent implements OnInit {
     );
   }
 
-  projects = [
-    { projectId: 1, projectName: 'prj 1', statusId: 1, dueDate: '2025-03-13' },
-    { projectId: 2, projectName: 'prj 2', statusId: 1, dueDate: '2025-03-14' }
-  ];
+  // projects = [
+  //   { projectId: 1, projectName: 'prj 1', statusId: 1, dueDate: '2025-03-13' },
+  //   { projectId: 2, projectName: 'prj 2', statusId: 1, dueDate: '2025-03-14' }
+  // ];
+  // nonMembers = ['User A', 'User B', 'User C']; // List of non-members
 
-  nonMembers = ['User A', 'User B', 'User C']; // List of non-members
   selectedMember: string = '';
 
-  toggleMemberDropdown(index: number) {
+  toggleMemberDropdown(index: number, prjid: number) {
+    this.AddMemberServiceObj.getNonMemberUsers(prjid).subscribe(
+      (data) => {
+        this.nonMemberUsers = data;
+        console.log('Users who are NOT members:', this.nonMemberUsers);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
     this.expandedIndexMember = this.expandedIndexMember === index ? null : index;
+
   }
 
-  inviteMember(projectId: number) {
-    if (this.selectedMember) {
-      alert(`${this.selectedMember} added to project ${projectId}!`);
-      this.expandedIndexMember = null;
-    }
-  }
+ 
 
   closeDropdown() {
     this.expandedIndexMember = null;

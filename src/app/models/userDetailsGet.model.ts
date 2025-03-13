@@ -1,7 +1,7 @@
 export class userDetailsGet{
     firstName:string;
     lastName:string;
-    phoneNo:number;
+    phoneNo?:number;
     address:string;
     state:string;
     city:string;
@@ -11,12 +11,12 @@ export class userDetailsGet{
     email:string;
     username:string;
     password:string;
-    age:number;
+    age?:number;
     gender:string;
     constructor(){
         this.firstName="",
         this.lastName="",
-        this.phoneNo=0,
+        // this.phoneNo=0,
         this.address="",
         this.state="",
         this.city=""
@@ -27,7 +27,7 @@ export class userDetailsGet{
         this.email=""
         this.username=""
         this.password=""
-        this.age=0
+        // this.age=0
         this.gender="none"
     }
 }
