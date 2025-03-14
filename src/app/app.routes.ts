@@ -39,13 +39,18 @@ export const routes: Routes = [
     },
     {
         path:'members',
-        loadComponent: ()=> import('./pages/member-list/member-list.component').then((m)=>m.MemberListComponent),
+        loadComponent: ()=> import('./pages/member-page/member-list.component').then((m)=>m.MemberListComponent),
         title:'Members'
     },
     {
         path: 'addmember',
         loadComponent: ()=> import('./pages/users/add-member/add-member.component').then((m)=>m.AddMemberComponent),
         title: 'Add Member'
+    },
+    {
+         path: 'memberlist/:prjid', 
+         loadComponent: ()=> import('./pages/users/member-list/member-list.component').then((m)=>m.MemberListComponent),
+         title: 'Member List '
     },
     {
         path:'projects',
@@ -62,7 +67,7 @@ export const routes: Routes = [
         canActivate:[authGuard]
     },
     {
-        path:'assigntask',
+        path:'assigntask/:prjid',
         loadComponent:()=> import("./pages/task-form/task-form.component").then((m)=>m.TaskFormComponent),
         title:"Assign Task Form",
         // canActivate:[ismanagerGuard]

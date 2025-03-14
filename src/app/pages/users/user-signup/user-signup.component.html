@@ -253,7 +253,7 @@
                     </span>
                 </div>
             </div>
-            @if(password.invalid && password.touched && !IsMatch){
+            @if(password.invalid && password.touched && IsMatch){
             <p class="error-message">
                 enter correct password. <br> 
                 password must have  minumum 8 characters, <br>
@@ -279,7 +279,7 @@
                     </span>
                 </div>
             </div>
-            @if(confirmPassword.invalid && confirmPassword.touched && !IsMatch){
+            @if(confirmPassword.invalid && confirmPassword.touched && IsMatch){
             <p class="error-message">
                 Both Password must match
             </p>

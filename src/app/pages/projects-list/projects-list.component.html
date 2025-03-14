@@ -27,7 +27,7 @@
                             <button class="btn btn-info btn-sm" (click)="getDetails(project.projectId); toggleDetails(i)">View</button>
                         </td>
                         <td>
-                            <button class="btn btn-warning btn-sm" routerLink="/assigntask">Assign</button>
+                            <button class="btn btn-warning btn-sm" (click)="assignTask(project.projectId)">Assign</button>
                         </td>
                         <td>
                             <button class="btn btn-info btn-sm" (click)="toggleMemberDropdown(i, project.projectId)">Add</button>
@@ -63,15 +63,23 @@
                                             </tr>
                                             <tr>
                                                 <th class="Dropdown"> <strong>Description:</strong> </th>
-                                                <td> {{ project.description }} </td>
+                                                <td>
+                                                    {{ project.description }} 
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th class="Dropdown"> <strong>No of Members:</strong> </th>
-                                                <td> {{ projectObj.memberCount }}  </td>
+                                                <td class="d-flex gap-50 align-items-center">
+                                                     {{ projectObj.memberCount }}  
+                                                    <button class="btn btn-info btn-sm ms-auto btn-detail" (click)="seeMemberDetails(project.projectId); toggleDetails(i)"> See Details   </button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th class="Dropdown"> <strong>No Of Tasks:</strong> </th>
-                                                <td> {{ projectObj.taskCount }} </td>
+                                                <td class="d-flex gap-50 align-items-center">
+                                                     {{ projectObj.taskCount }} 
+                                                     <button class="btn btn-info btn-sm ms-auto btn-detail" (click)="getDetails(project.projectId); toggleDetails(i)">  See Details </button>
+                                                    </td>
                                             </tr>
                                         </table>
                                     </li>

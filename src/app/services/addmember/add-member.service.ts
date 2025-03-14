@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { UserSignupService } from '../signup/user-signup.service';
 import { IResultRelation } from '../../models/relation.model';
+import { IResultMember } from '../../models/member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,14 @@ export class AddMemberService {
 
   addRelationApi(relationObj: relation): Observable<IResultRelation>{
     return this.http.post<IResultRelation>("http://localhost:5194/api/Relation/AddRelation",relationObj);
+  }
+
+  // http://localhost:5194/api/Relation/GetMembersByProjectId?projectId=116
+
+  getMembersByPrjId(prjid:number):Observable<IResultMember>{
+    return this.http.get<IResultMember>(`http://localhost:5194/api/Relation/GetMembersByProjectId?projectId=${prjid}`,
+      {}
+    )
   }
   
  

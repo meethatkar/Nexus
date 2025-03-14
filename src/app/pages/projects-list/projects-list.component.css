@@ -175,6 +175,10 @@
       width: 100%;
       text-align: center;
     }
+
+    .btn-detail{
+      width: 25%;
+    }
   
     .task-dropdown th, .task-dropdown td {
       font-size: 14px;

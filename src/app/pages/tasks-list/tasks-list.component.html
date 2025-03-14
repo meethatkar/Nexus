@@ -76,22 +76,23 @@
   <table class="member-table">
     <thead>
       <tr>
-        <th>Member ID</th>
-        <th>Name</th>
-        <th>Status</th>
+        <th>email ID</th>
+        <th>username</th>
+        <th>Joined Date</th>
+        <th> Active Status </th>
       </tr>
     </thead>
-    <tbody *ngFor="let member of memberObj.memberId; let i=index">
-      <tr (click)="viewDetailTaskManager(true,memberObj.memberId[i])">
-        <td>{{ memberObj.memberId[i] }}</td>
-        <td>{{ memberObj.memberName[i] }}</td>
-        <td>
-          <span class="status" [ngClass]="memberObj.memberStatus[i]">
-            {{ memberObj.memberStatus[i] }}
-          </span>
-        </td>
+    @for(member of memberObj.members; track member; let i = $index){
+    <tbody>
+      <!-- <tr (click)="viewDetailTaskManager(true,memberObj.memberId[i])"> -->
+          <tr>
+        <td>{{ member.email }}</td>
+        <td>{{ member.username }}</td>
+        <td> {{ member.joinedDate }}</td>
+        <td> {{ member.isActive }}</td>
       </tr>
     </tbody>
+  }
   </table>
   <button id="back-btn-man" (click)="seeMyTask(true)">See your Tasks</button>
 </div>

@@ -1,0 +1,31 @@
+<app-loader [isLoading]="isLoading"></app-loader>
+<div class="container mt-3">
+    <h2 class="title text-center">Member List</h2>
+
+    <div class="table-responsive">
+        <table class="table member-table">
+            <thead>
+                <tr>
+                    <th>Email ID</th>
+                    <th>Username</th>
+                    <th>Joined Date</th>
+                    <th>Active Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(member of membersObj.members; track member; let i = $index){
+                <tr class="table-row">
+                    <td>{{ member.email }}</td>
+                    <td>{{ member.username }}</td>
+                    <td>{{ member.joinedDate }}</td>
+                    <td>
+                        <span class="status-badge" [ngClass]="member.isActive ? 'active' : 'inactive'">
+                            {{ member.isActive ? 'Active' : 'Inactive' }}
+                        </span>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

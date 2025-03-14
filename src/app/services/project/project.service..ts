@@ -37,13 +37,13 @@ export class ProjectService {
     }
 
     public getMemberCountByProjectId(id:any):Observable<IResultProject>{
-      return this.http.get<IResultProject>(`${this.mainApi}/Project/GetMembersCountByProjectId?projectId=${id}`,
+      return this.http.get<IResultProject>(`${this.mainApi}/Relation/GetMembersCountByProjectId?projectId=${id}`,
       {}
     )
     }
 
     public getTaskCountByProjectId(id:any):Observable<IResultProject>{
-      return this.http.get<IResultProject>(`${this.mainApi}/Project/GetTasksCountByProjectId?projectId=${id}`,
+      return this.http.get<IResultProject>(`${this.mainApi}/Task/GetTasksCountByProjectId?projectId=${id}`,
         {}
       )
     }

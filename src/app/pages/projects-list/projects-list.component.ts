@@ -4,7 +4,7 @@ import { IResultProject, project } from '../../models/project.model';
 import { task } from '../../models/task.model';
 import { userDetails } from '../../models/userDetails.model';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserDetailService } from '../../services/getUser/user-detail.service';
 import { LoaderComponent } from "../loader/loader.component";
 import { UserSignupService } from '../../services/signup/user-signup.service';
@@ -43,6 +43,7 @@ export class ProjectsListComponent implements OnInit {
   relationObj = new relation();
   placeholderUser: userSignupData = { userId: 100, username: 'Select a member to add' , email: 'temp', password: 'temp'};
   selectedMember: userSignupData = this.placeholderUser;
+  router = inject(Router);
 
 
 
@@ -186,5 +187,13 @@ export class ProjectsListComponent implements OnInit {
 
   closeDropdown() {
     this.expandedIndexMember = null;
+  }
+
+  seeMemberDetails(prjId:number){
+    this.router.navigate(['/memberlist',prjId]);
+  }
+
+  assignTask(prjid:number){
+    this.router.navigate(['/assigntask',prjid]);
   }
 }

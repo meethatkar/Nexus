@@ -1,0 +1,66 @@
+/* General Page Styling */
+/* Title Styling */
+.title {
+    color: #007bff; /* Bootstrap Primary Blue */
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 255, 0.2);
+}
+
+/* Table Container */
+.table-responsive {
+    display: flex;
+    justify-content: center;
+}
+
+/* Table Styling */
+.member-table {
+    width: 90%; /* Increased width */
+    max-width: 1200px; /* Ensuring it doesn't stretch too much */
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.member-table thead {
+    background: #bbdefb; /* Light Blue */
+    color: #0d47a1;
+    font-weight: bold;
+}
+
+.member-table th, .member-table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.member-table tbody tr:hover {
+    background: #e3f2fd;
+    transition: 0.3s ease-in-out;
+}
+
+/* Row Styling */
+.table-row {
+    transition: all 0.3s ease-in-out;
+}
+
+.table-row:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 10px rgba(0, 0, 255, 0.2);
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.status-badge.active {
+    background: #4caf50;
+    color: white;
+}
+
+.status-badge.inactive {
+    background: #f44336;
+    color: white;
+}

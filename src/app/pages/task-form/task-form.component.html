@@ -7,31 +7,16 @@
 
         <!-- assignie id -->
          <div class="row" style="margin-bottom:1%;">
-        <!-- <div class="col-md-6 md-3">
-          <label for="memberId" class="form-label">Enter Member ID:</label>
-          <input type="text" 
-          class="form-control" 
-          id="memberId" 
-          placeholder="Enter member ID" 
-          required
-          name="memberId"
-          [(ngModel)]="taskObj.tMemberIdPost"
-          ngModel
-          #memberId="ngModel">
-        </div> -->
 
         <!-- Member NAME -->
-        <div class="col-md-6 md-3">
+        <div class="mb-3 ">
         <label for="memberName" class="form-label">Select Member :</label>
-        <!-- <input type="text" 
-        class="form-control" 
-        id="memberName" 
-        placeholder="Enter member Name" 
-        required
-        name="memberName"
-        [(ngModel)]="taskObj.tmemberNamePost"
-        ngModel
-        #memberName="ngModel"> -->
+        <div class="dropdown">
+          <select [(ngModel)]="selectedMember" class="form-select" name="username">
+              <option  disabled selected>Select a member to assign task</option>
+              <option *ngFor="let member of membersObj.members" [ngValue]="member">{{ member.username }}</option>
+          </select>
+      </div>
       </div>
     </div>
 
@@ -63,8 +48,29 @@
           ></textarea>
         </div>
   
+        <div class="row">        
+        <!-- Type (Dropdown) -->
+        <div class="col-md-6 mb-3">
+          <label for="taskType" class="form-label">Task Type:</label>
+          <select class="form-select" 
+          id="taskType"
+          name="taskType"
+          [(ngModel)]="taskObj.type"
+          ngModel
+          #taskType="ngModel">
+            <option selected disabled>-- Select Task Type --</option>
+            <option value="UI Design">UI Design</option>
+            <option value="ackend Development">Backend Development</option>
+            <option value="Feature">Feature</option>
+            <option value="Bug Fix">Bug Fix</option>
+            <option value="Improvement">Improvement</option>
+            <option value="Testing">Testing</option>
+            <option value="Documentation">Documentation</option>
+          </select>
+        </div>
+
         <!-- Priority (Radio Buttons) -->
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
           <label class="form-label">Priority:</label>
           <div class="d-flex gap-3">
             <div class="form-check">
@@ -102,85 +108,47 @@
             </div>
           </div>
         </div>
-  
-        <!-- Type (Dropdown) -->
-          <div class="row">
-            <div class="col-md-6 mb-3">
-          <label for="taskType" class="form-label">Task Type:</label>
-          <select class="form-select" 
-          id="taskType"
-          name="taskType"
-          [(ngModel)]="taskObj.type"
-          ngModel
-          #taskType="ngModel">
-            <option selected disabled>-- Select Task Type --</option>
-            <option value="UI Design">UI Design</option>
-            <option value="ackend Development">Backend Development</option>
-            <option value="Feature">Feature</option>
-            <option value="Bug Fix">Bug Fix</option>
-            <option value="Improvement">Improvement</option>
-            <option value="Testing">Testing</option>
-            <option value="Documentation">Documentation</option>
-          </select>
-        </div>
-  
-        <!-- Related Project -->
-        <div class="col-md-6 mb-3">
-          <label for="relatedProject" class="form-label">Related Project:</label>
-          <!-- <input type="text" 
-          class="form-control" 
-          id="relatedProject" 
-          placeholder="Enter project name"
-          name="relatedProject"
-          required
-          ngModel
-          #relatedProject="ngModel">
-        -->
-
-
-          <!-- <select name="releatedProject" 
-          id="releatedProject"
-          class="form-select"
-          [(ngModel)]="taskObj.tprojectNamePost"
-          ngModel
-          #releatedProject="ngModel">  -->
-          <!-- @for(project of managerProject; track project.id){
-          <option "on select that project will be select and logic"> {{project.name}} </option> 
-          } -->
-          <!-- <option selected disabled>-- Select Project  --</option>
-          <option value="AI Chat bot "> AI Chat bot </option>
-          <option value="E-commerce Application"> E-commerce Application </option>
-          <option value="Home Automation"> Home Automation </option>
-        </select> -->
-        </div>
           </div>
   
         <!-- Start Date & Deadline -->
         <div class="row">
+          <!-- Start Date Field -->
           <div class="col-md-6 mb-3">
             <label for="startDate" class="form-label">Start Date:</label>
             <input type="date" 
-            class="form-control" 
-            id="startDate"
-            name="startDate"
-            required
-            [(ngModel)]="taskObj.startDate"
-            ngModel
-            #startDate="ngModel">
+                   class="form-control" 
+                   id="startDate"
+                   name="startDate"
+                   required
+                   [(ngModel)]="taskObj.startDate"
+                   (change)="validateDates()"
+                   [min]="minDate"
+                   ngModel
+                   #startDate="ngModel">
+            <div *ngIf="startDate.invalid && startDate.touched" class="text-danger">
+              Start Date is required.
+            </div>
           </div>
+        
+          <!-- End Date Field -->
           <div class="col-md-6 mb-3">
             <label for="endDate" class="form-label">Deadline:</label>
             <input type="date" 
-            class="form-control" 
-            id="endDate"
-            name="endDate"
-            required
-            [(ngModel)]="taskObj.endtDate"
-            ngModel
-            #endDate="ngModel"
-            >
+                   class="form-control" 
+                   id="endDate"
+                   name="endDate"
+                   required
+                   [(ngModel)]="taskObj.endDate"
+                   (change)="validateDates()"
+                   [min]="taskObj.startDate"
+                   ngModel
+                   #endDate="ngModel">
+            <div *ngIf="dateError" class="text-danger">
+              Deadline must be after Start Date.
+            </div>
           </div>
         </div>
+        
   
         <!-- Submit Button -->
          <div class="row">
@@ -191,6 +159,12 @@
                 <button type="reset" class="btn btn-warning w-100">Reset</button>
             </div>
          </div>
+
+         @if(taskForm.invalid && endDate.touched){
+         <p class="error-message">
+          All Fileds are Required and form must be valid 
+        </p>
+      }
       </form>
     </div>
   </div>
