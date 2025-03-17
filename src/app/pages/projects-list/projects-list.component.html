@@ -2,102 +2,154 @@
 
 <!-- @if(userDetailsObj.role==="manager"){ -->
 <!-- @if(role=="manager"){ -->
-@if(true){
-    <div class="container mt-4">
-        <h2 class="text-center text-primary">Project List</h2>
-    
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered text-center">
-                <thead class="table-primary">
-                    <tr>
-                        <th> Project Name </th>
-                        <th> Status  </th>
-                        <th> Due Date  </th>
-                        <th> View Details  </th>
-                        <th> Assign Task </th>
-                        <th> Add Member</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let project of projectObj.projects; let i = index" >
-                    <tr class="project-row">
-                        <td>{{ project.projectName }}</td>
-                        <td>{{ projectObj.getStatus(project.statusId) }}</td>
-                        <td>{{ project.dueDate | date }}</td>
-                        <td>
-                            <button class="btn btn-info btn-sm" (click)="getDetails(project.projectId); toggleDetails(i)">View</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" (click)="assignTask(project.projectId)">Assign</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-info btn-sm" (click)="toggleMemberDropdown(i, project.projectId)">Add</button>
-                        </td>
-                    </tr>
-    
-                    <!-- Add Member Dropdown -->
-                    <tr *ngIf="expandedIndexMember === i">
-                        <td colspan="6" >
-                            <div class="invite-dropdown">
-                                <h5 class="text-primary">Select User to Add in Project</h5>
-                                <select [(ngModel)]="selectedMember" class="form-select">
-                                    <option [ngValue]="placeholderUser" disabled>Select a member to add</option>
-                                    <option *ngFor="let user of nonMemberUsers" [ngValue]="user">{{ user.username }}</option>
-                                </select>
-                                <button class="btn btn-success mt-3 w-100" (click)="addRelation(project.projectId, selectedMember.userId)">Add</button>
-                            </div>
-                        </td>
-                    </tr>
+@if(true && !isTaskView){
+<div class="container mt-4">
+    <h2 class="text-center text-primary">Project List</h2>
 
-                     <!-- Dropdown section -->
-                @if(expandedIndexDetails===i){
-                    <tr>
-                        <td colspan="6">
-                            <div class="task-dropdown">
-                                <h3 class="text-primary">Project Details </h3>
-                                <ul class="list-group">
-                                    <li class="list-group-item" class="list-group-item">
-                                        <table border="solid 1 black">
-                                            <tr>
-                                                <th class="Dropdown"> <strong>Project Name:</strong> </th>
-                                                <td> {{ project.projectName }} </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="Dropdown"> <strong>Description:</strong> </th>
-                                                <td>
-                                                    {{ project.description }} 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="Dropdown"> <strong>No of Members:</strong> </th>
-                                                <td class="d-flex gap-50 align-items-center">
-                                                     {{ projectObj.memberCount }}  
-                                                    <button class="btn btn-info btn-sm ms-auto btn-detail" (click)="seeMemberDetails(project.projectId); toggleDetails(i)"> See Details   </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="Dropdown"> <strong>No Of Tasks:</strong> </th>
-                                                <td class="d-flex gap-50 align-items-center">
-                                                     {{ projectObj.taskCount }} 
-                                                     <button class="btn btn-info btn-sm ms-auto btn-detail" (click)="getDetails(project.projectId); toggleDetails(i)">  See Details </button>
-                                                    </td>
-                                            </tr>
-                                        </table>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th> Project Name </th>
+                    <th> Status </th>
+                    <th> Due Date </th>
+                    <th> View Details </th>
+                    <th> Assign Task </th>
+                    <th> Add Member</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let project of projectObj.projects; let i = index">
+                <tr class="project-row">
+                    <td>{{ project.projectName }}</td>
+                    <td>{{ projectObj.getStatus(project.statusId) }}</td>
+                    <td>{{ project.dueDate | date }}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm"
+                            (click)="getDetails(project.projectId); toggleDetails(i)">View</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" (click)="assignTask(project.projectId)">Assign</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info btn-sm"
+                            (click)="toggleMemberDropdown(i, project.projectId)">Add</button>
+                    </td>
+                </tr>
+
+                <!-- Add Member Dropdown -->
+                <tr *ngIf="expandedIndexMember === i">
+                    <td colspan="6">
+                        <div class="invite-dropdown">
+                            <h5 class="text-primary">Select User to Add in Project</h5>
+                            <select [(ngModel)]="selectedMember" class="form-select">
+                                <option [ngValue]="placeholderUser" disabled>Select a member to add</option>
+                                <option *ngFor="let user of nonMemberUsers" [ngValue]="user">{{ user.username }}
+                                </option>
+                            </select>
+                            <button class="btn btn-success mt-3 w-100"
+                                (click)="addRelation(project.projectId, selectedMember.userId)">Add</button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Dropdown section -->
+                @if(expandedIndexDetails===i && !isTaskView){
+                <tr>
+                    <td colspan="6">
+                        <div class="task-dropdown">
+                            <h3 class="text-primary">Project Details </h3>
+                            <ul class="list-group">
+                                <li class="list-group-item" class="list-group-item">
+                                    <table border="solid 1 black">
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Project Name:</strong> </th>
+                                            <td> {{ project.projectName }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>Description:</strong> </th>
+                                            <td>
+                                                {{ project.description }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>No of Members:</strong> </th>
+                                            <td class="d-flex gap-50 align-items-center">
+                                                {{ projectObj.memberCount }}
+                                                <button class="btn btn-info btn-sm ms-auto btn-detail"
+                                                    (click)="seeMemberDetails(project.projectId); toggleDetails(i)"> See
+                                                    Details </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="Dropdown"> <strong>No Of Tasks:</strong> </th>
+                                            <td class="d-flex gap-50 align-items-center">
+                                                {{ projectObj.taskCount }}
+                                                <button class="btn btn-info btn-sm ms-auto btn-detail"
+                                                    (click)="seeTaskDetails(project.projectId); toggleDetails(i)"> See
+                                                    Details </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
     </div>
+</div>
+}
 
+@else if(isTaskView){
+<div class="container-task">
+    <h2 class="title-task">Task Assignment List</h2>
+
+    <table class="task-table">
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>Task Name</th>
+                <th>Project Name</th>
+                <th>Type</th>
+                <th>Priority</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let task of taskObj.tasks; let i=index">
+            <tr>
+                <td>{{ task.memberName }}</td>
+                <td>{{ task.taskName }}</td>
+                <td>{{ task.projectName }}</td>
+                <td>{{ task.type }}</td>
+                <td>
+                    <span class="priority-task" [ngClass]="task.priority">
+                        {{ task.priority }}
+                    </span>
+                </td>
+                <td>{{ task.startDate| date }}</td>
+                <td>{{ task.endtDate| date }}</td>
+                <td>
+                    <span class="status-task"
+                        [ngClass]="taskObj.getStatus(task.statusId).toLowerCase().replace(' ', '-')">
+                        {{ taskObj.getStatus(task.statusId)}}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="back-btn-man-task" (click)="backToList()">Back to List</button>
+</div>
 }
 
 
+
+
 <!-- @else if(userDetailsObj.role=="member"){ -->
-    <!-- @else if(role=="member"){ -->
+<!-- @else if(role=="member"){ -->
 <!-- @else if(false){
     <div class="container mt-4">
     <h2 class="text-center text-primary mb-4">Project List</h2>
@@ -129,8 +181,8 @@
                         </button>
                     </td>
                 </tr> -->
-                <!-- Task List Dropdown -->
-                <!-- @if(selectedProjectIndex===i){
+<!-- Task List Dropdown -->
+<!-- @if(selectedProjectIndex===i){
                 <tr>
                     <td colspan="5">
                         <div class="task-dropdown">

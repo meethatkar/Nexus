@@ -23,6 +23,12 @@ export class UserSignupService {
     return this.http.post<IResultSignup>(this.mainApi + "/User/AddUser",obj);
   }
 
+  public getSignupUserDataByUserid(id:number):Observable<IResultSignup>{
+    return this.http.get<IResultSignup>(`http://localhost:5194/api/User/GetUserById?userId=${id}`,
+      {}
+    )
+  }
+
   setToken(token:string){
     localStorage.setItem('token',token);
     this.userTokenSubject.next(token);

@@ -33,8 +33,11 @@
     text-align: center;
 }
 
+.member-table th{
+    background-color: #d6eaff;
+}
 .member-table tbody tr:hover {
-    background: #e3f2fd;
+    background: #2072ad;
     transition: 0.3s ease-in-out;
 }
 
@@ -64,3 +67,28 @@
     background: #f44336;
     color: white;
 }
+
+/* Back Button Styling */
+.back-btn-container {
+    display: inline-block; /* Ensure the container only takes up as much space as needed */
+  }
+  
+  .back-btn {
+    background-color: #007bff;
+    border: none;
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    margin-left: 1000px;
+    margin-top: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .back-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0px 4px 10px rgba(0, 0, 255, 0.3);
+    transform: scale(1.05);
+  }
+  

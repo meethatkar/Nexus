@@ -23,6 +23,95 @@
     background-color: #0d6efd;
     color: white;
 }
+
+/* Redesigned Invite Button */
+.invite-btn {
+    background: #ffffff; /* White background */
+    color: #007bff; /* Bootstrap Primary Blue */
+    border: 2px solid #007bff; /* Blue border */
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: bold;
+    border-radius: 25px; /* Rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 255, 0.2);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+/* Hover Effect */
+.invite-btn:hover {
+    background: #7cb1ea; /* Blue background */
+    color: white;
+    box-shadow: 0px 4px 10px rgba(28, 28, 255, 0.3);
+    transform: scale(1.03);
+}
+
+/* Email Input Container (Initially Hidden) */
+.email-container {
+    flex-direction: row;
+    align-items: center;
+    /* gap: 8px; */
+    background: #bedeff;
+    padding: 0px 5px;
+    padding-top: 5px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    opacity: 1;
+    /* transition: opacity 1s ease-in-out; */
+    animation: invite-animation 3s ease-in-out;
+  }
+  
+  /* Show with Fade-in */
+  .email-container.show {
+    display: flex;
+    opacity: 1;
+  }
+  
+  /* Email Input */
+  .email-input {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 12px;
+    width: 200px;
+    margin-right: 13px;
+
+  }
+  
+  /* Send Button */
+  .send-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 12px;
+  }
+  
+  .send-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+  }
+
+
+@keyframes invite-animation{
+    to{
+        right: -100%;
+        /* opacity: 0; */
+    }
+    from{
+        right: 0%;
+        /* opacity: 1; */
+    }
+}
 .customb-btn{
     color: black;
 }
@@ -84,6 +173,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.loader{
+    width: 100%;
+    height: 100%;
 }
 
 

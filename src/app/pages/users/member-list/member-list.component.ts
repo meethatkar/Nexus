@@ -1,6 +1,6 @@
 import { AddMemberService } from './../../../services/addmember/add-member.service';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IResultMember, member } from '../../../models/member.model';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from "../../loader/loader.component";
@@ -14,8 +14,9 @@ import { LoaderComponent } from "../../loader/loader.component";
 export class MemberListComponent implements OnInit{
 
   route=inject(ActivatedRoute)
-  prjId:number=100;
   AddMemberServiceObj = inject(AddMemberService);
+  router = inject(Router);
+  prjId:number=100;
   membersObj = new member();
   error:any={};
   isLoading=false;
@@ -49,6 +50,10 @@ export class MemberListComponent implements OnInit{
         alert("Unexpected error occured " + error.message);
       }
     })
+  }
+
+  goBack(){
+    this.router.navigate(['/projects'])
   }
 
 }

@@ -32,7 +32,7 @@
   .table th, .table td {
     padding: 12px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
   }
   
   .table tbody tr:hover {
@@ -201,3 +201,122 @@
         margin-left: 5%;
     }
 
+/* ******** Task list CSS ******* */
+/* General Styling */
+body {
+  background: #cfe8fc; /* Light blue background */
+  font-family: 'Poppins', sans-serif; /* Professional font */
+}
+
+/* Container */
+.container-task {
+  max-width: 95%;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Title Styling */
+.title-task {
+  color: #007bff;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 255, 0.2);
+}
+
+/* Table Styling */
+.task-table {
+  width: 100%;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Table Header */
+.task-table thead {
+  background: #d3ebff; /* Light Blue */
+  color: #0d47a1;
+  font-weight: bold;
+  border-bottom: rgba(0, 0, 0, 0.285) 1.6px solid;
+}
+
+.task-table th, .task-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  border-bottom: rgba(0, 0, 0, 0.285) 1.6px solid;
+}
+
+/* Table Hover Effect */
+.task-table tbody tr:hover {
+  background: #e3f2fd;
+  transition: 0.3s ease-in-out;
+}
+
+/* Priority Styles */
+.priority-task {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.priority.high-task {
+  background: #ff3d00;
+  color: white;
+}
+
+.priority.medium-task {
+  background: #ff9800;
+  color: white;
+}
+
+.priority.low-task {
+  background: #4caf50;
+  color: white;
+}
+
+/* Status Styling */
+.status-task {
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-weight: bold;
+  display: -taskinline-block;
+}
+
+.status.completed-task {
+  background: #4caf50;
+  color: white;
+}
+
+.status.in-progress-task {
+  background: #ff9800;
+  color: white;
+}
+
+.status.pending-task {
+  background: #f44336;
+  color: white;
+}
+
+/* Back Button Styling */
+#back-btn-man-task {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  float: right;
+  margin-top: 15px;
+  transition: 0.3s ease-in-out;
+}
+
+#back-btn-man-task:hover {
+  background-color: #0056b3;
+  box-shadow: 0px 4px 10px rgba(0, 0, 255, 0.3);
+  transform: scale(1.05);
+}
