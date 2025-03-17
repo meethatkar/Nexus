@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-member-list',
   imports: [CommonModule],
-  templateUrl: './member-list.component.html',
-  styleUrl: './member-list.component.css'
+  templateUrl: './member-page.component.html',
+  styleUrl: './member-page.component.css'
 })
 export class MemberListComponent {
   members= [

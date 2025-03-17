@@ -1,9 +1,9 @@
 import { userSignupData } from './../../models/userSignupData.model';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, } from '@angular/core';
 import { project } from '../../models/project.model';
 import { FormsModule, NgForm } from '@angular/forms';
 import { IResultTask, task } from '../../models/task.model';
-import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import {  RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../services/task/task.service';
 import { IResultSignup } from '../../models/userSignupData.model';
 import { HttpClient } from '@angular/common/http';
@@ -26,6 +26,7 @@ export class TaskFormComponent implements OnInit{
   taskServiceObj = inject(TaskService);
   route=inject(ActivatedRoute)
   AddMemberServiceObj = inject(AddMemberService);
+  router = inject(Router);
   error:any = {}
   selectedMember: member  = new member(); // Initialize to null
   routeData:any;
@@ -68,11 +69,12 @@ export class TaskFormComponent implements OnInit{
 
   assignTask(taskFormDate:NgForm){
     this.taskObj.userId = this.selectedMember.userId;
+    this.taskObj.type = taskFormDate.value.taskType;
     this.taskServiceObj.assignTaskByProjectId(this.taskObj).subscribe((res:IResultTask) => {
       if(res.result == true){
-        this.taskObj = res.data;
+        this.taskObj.tasks = res.data;
       alert("Task Assigned Successfully");
-      console.log(this.taskObj);
+      this.router.navigate(['/projects']);
       }
       else{
         alert("Else block executed, see console for detail view");
@@ -103,8 +105,8 @@ export class TaskFormComponent implements OnInit{
 
       // Function to validate start and end date
   validateDates() {
-    if (this.taskObj.startDate && this.taskObj.endDate) {
-      this.dateError = new Date(this.taskObj.startDate) > new Date(this.taskObj.endDate);
+    if (this.taskObj.startDate && this.taskObj.endtDate) {
+      this.dateError = new Date(this.taskObj.startDate) > new Date(this.taskObj.endtDate);
     }
   }
 

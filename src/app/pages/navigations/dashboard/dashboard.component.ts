@@ -105,7 +105,7 @@ export class DashboardComponent implements AfterViewInit{
 
   deadlineTasks = this.taskObj.tasks
   .filter((task) => {
-    const taskDueDate = new Date(task.endDate);
+    const taskDueDate = new Date(task.endtDate);
     const today = new Date();
 
     // Calculate the date 3 days from today
@@ -124,7 +124,7 @@ export class DashboardComponent implements AfterViewInit{
     status: task.statusId, // Mapped correctly
     description: task.description, // Mapped correctly
     startDate: task.startDate, // Mapped correctly
-    endDate: task.endDate, // Mapped correctly
+    endDate: task.endtDate, // Mapped correctly
     managerName: this.taskObj.tManagerNamePost, // Ensure this field exists in `tasks`
   }));
 

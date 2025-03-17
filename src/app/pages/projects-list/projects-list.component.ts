@@ -1,7 +1,7 @@
 import { IResultRelation } from './../../models/relation.model';
 import { Component, inject, OnInit } from '@angular/core';
 import { IResultProject, project } from '../../models/project.model';
-import { task } from '../../models/task.model';
+import { IResultTask, task } from '../../models/task.model';
 import { userDetails } from '../../models/userDetails.model';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { AddMemberService } from '../../services/addmember/add-member.service';
 import { userSignupData } from '../../models/userSignupData.model';
 import { relation } from '../../models/relation.model';
+import { TaskService } from '../../services/task/task.service';
+import { member } from '../../models/member.model';
 
 @Component({
   selector: 'app-projects-list',
@@ -30,21 +32,23 @@ export class ProjectsListComponent implements OnInit {
   projectObj: project = new project();
   taskObj: task = new task();
   userDetailsObj: userDetails = new userDetails();
+  relationObj = new relation();
+  memberObj = new member();
   UserDetailServiceObj = inject(UserDetailService);
   UserSignupServiceObj = inject(UserSignupService);
   projectServiceObj = inject(ProjectService);
   AddMemberServiceObj = inject(AddMemberService);
+  router = inject(Router);
+  taskServiceObj = inject(TaskService);
   // role=this.UserDetailServiceObj.getUserRole();
   isLoading = false;
   token: any = this.UserSignupServiceObj.getToken();
   decoded: any = jwtDecode(this.token); // Decode JWT
   error: any = {};
   nonMemberUsers: userSignupData[] = [] ;
-  relationObj = new relation();
   placeholderUser: userSignupData = { userId: 100, username: 'Select a member to add' , email: 'temp', password: 'temp'};
   selectedMember: userSignupData = this.placeholderUser;
-  router = inject(Router);
-
+  isTaskView:boolean = false;
 
 
   ngOnInit(): void {
@@ -193,7 +197,75 @@ export class ProjectsListComponent implements OnInit {
     this.router.navigate(['/memberlist',prjId]);
   }
 
+  seeTaskDetails(prjid:number){
+    // this.router.navigate(['/tasks', true, prjid])
+    this.isTaskView = true;
+    this.isLoading = true;
+    this.taskServiceObj.getTaskByPrjId(prjid).subscribe((res: IResultTask) => {
+          if (res.result == true) {
+            console.log("sended data values: "+this.taskObj)
+            this.taskObj.tasks = res.data;
+            console.log("Tasks fetched:", this.taskObj.tasks);
+            console.log("res.data is "+res.data);
+      
+            // Get unique userIds from tasks
+            const userIds = [...new Set(this.taskObj.tasks.map(task => task.userId))];
+      
+            // Call APIs for project details and member details
+            forkJoin({
+              project: this.projectServiceObj.getProjectByUserId(this.decoded.UserId),
+              members: this.AddMemberServiceObj.getMembersByPrjId(prjid),
+            }).subscribe(({ project, members }) => {
+              
+              // Store project and members data
+              this.projectObj.projects = project.data;
+              this.memberObj.members = members.data;
+      
+              console.log("Project details:", this.projectObj);
+              console.log("Member details:", this.memberObj);
+      
+              // Map projectName and memberName to tasks
+              this.taskObj.tasks.forEach(task => {
+                const project = this.projectObj.projects.find(p => p.projectId === prjid);
+                task.projectName = project ? project.projectName : "Unknown Project";
+                const member = this.memberObj.members.find(m => m.userId === task.userId);
+                task.memberName = member ? member.username : "Unknown";
+              });
+      
+              console.log("Updated tasks with project & member names:", this.taskObj.tasks);
+              this.isLoading = false;
+      
+            }, (error) => {
+              console.error("Error fetching project/member details", error);
+              this.isLoading = false;
+            });
+      
+          } else {
+            this.isLoading = false;
+            alert("Else block executed, check console");
+            console.log("Error: ", res.error);
+          }
+        }, (error) => {
+          this.isLoading = false;
+          this.error = {};
+          if (error.status === 400 || error.status === 401) {
+            for (let key in error.error.error) {
+              console.log(error.error.error[key]);
+              this.error[key] = error.error.error[key];
+            }
+          } else {
+            alert("Unexpected error occurred: " + error.message);
+          }
+        });
+        
+  }
+
   assignTask(prjid:number){
     this.router.navigate(['/assigntask',prjid]);
   }
+
+  backToList(){
+    this.isTaskView = false;
+  }
+
 }

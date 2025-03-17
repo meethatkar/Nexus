@@ -17,4 +17,17 @@ export class TaskService {
   assignTaskByProjectId(taskObj:task): Observable<IResultTask>{
     return this.http.post<IResultTask>(this.assignTaskApi,taskObj);
   }
+
+  getTaskByPrjId(prjId:number):Observable<IResultTask>{
+    return this.http.get<IResultTask>(`http://localhost:5194/api/Task/GetTasksByProjectId?projectId=${prjId}`,
+      {}
+    )
+  }
+
+
+  getTaskByUserId(usrID:number):Observable<IResultTask>{
+    return this.http.get<IResultTask>(`http://localhost:5194/api/Task/GetTasksByUserId?userId=${usrID}`,
+      {}
+    )
+  }
 }

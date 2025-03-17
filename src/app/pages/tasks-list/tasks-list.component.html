@@ -1,5 +1,6 @@
 <!-- *************member************* -->
 <!-- @if(userDetailsObj.role=='member'){ -->
+ <app-loader [isLoading]="isLoading"></app-loader>
 @if (false) {
   <div class="container">
     
@@ -11,7 +12,7 @@
           <div class="task-info">
             <p><strong>Task Name:</strong> {{ task.taskName }}</p>
             <p><strong>Project:</strong> {{ taskObj.tProjectName }}</p>
-            <p><strong>Due Date:</strong> {{ task.endDate | date }}</p>
+            <p><strong>Due Date:</strong> {{ task.endtDate | date }}</p>
             <p>
               <strong>Status:</strong>
               <span class="status" [ngClass]="taskObj.getStatus(task.statusId)">
@@ -19,7 +20,7 @@
               </span>
             </p>
           </div>
-          <button class="view-btn" (click)="viewDetails(i, true)">View Details</button>
+          <!-- <button class="view-btn" (click)="viewDetails(i, true)">View Details</button> -->
         </div>
       }
     }
@@ -42,7 +43,7 @@
           </tr>
           <tr>
             <th>End Date:</th>
-            <td>{{ taskObj.tasks[selectedTask].endDate | date }}</td>
+            <td>{{ taskObj.tasks[selectedTask].endtDate | date }}</td>
           </tr>
           <tr>
             <th>Assigned By:</th>
@@ -68,8 +69,80 @@
 
 <!-- ***************manager************ -->
 <!-- @else if(userDetailsObj.role=="manager"){ -->
-@else if(true){
-@if(!isViewClicked && !seeYourTask){
+@if(!isViewClicked){
+
+  <div class="container mt-4">
+    <h2 class="text-center text-primary">Task's Project List</h2>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th> Project Name </th>
+                    <th> Description  </th>
+                    <th> Status  </th>
+                    <th> Due Date  </th>
+                    <th> View Tasks </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let project of projectObj.projects; let i = index" >
+                <tr class="project-row">
+                    <td>{{ project.projectName }}</td>
+                    <td>{{ project.description }}</td>
+                    <td>{{ projectObj.getStatus(project.statusId) }}</td>
+                    <td>{{ project.dueDate | date }}</td>
+                    <td> <button  class="view-btn" (click)="seeTask(project.projectId, true)"> See Task </button></td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="back-btn-man" (click)="seeMyTask(true)">See your Tasks</button>
+    </div>
+</div>
+}
+
+@else if(isViewClicked){
+  <div class="container">
+    <h2 class="title">Task Assignment List</h2>
+  
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th>Member Name</th>
+          <th>Task Name</th>
+          <th>Project Name</th>
+          <th>Type</th>
+          <th>Priority</th>
+          <th>Start Date</th>
+          <th>Due Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let task of taskObj.tasks; let i=index">
+        <tr>
+          <td>{{ task.memberName }}</td>
+          <td>{{ task.taskName }}</td>
+          <td>{{ task.projectName }}</td>
+          <td>{{ task.type }}</td>
+          <td>
+            <span class="priority" [ngClass]="task.priority">
+              {{ task.priority }}
+            </span>
+          </td>
+          <td>{{ task.startDate| date }}</td>
+          <td>{{ task.endtDate| date }}</td>
+          <td>
+            <span class="status" [ngClass]="taskObj.getStatus(task.statusId).toLowerCase().replace(' ', '-')">
+              {{ taskObj.getStatus(task.statusId)}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="back-btn-man" (click)="backToList()">Back to List</button>
+  </div>
+}
+
+<!-- @if(!isViewClicked && !seeYourTask){
 <div class="container">
   <h2 class="title">Member List</h2>
 
@@ -83,9 +156,9 @@
       </tr>
     </thead>
     @for(member of memberObj.members; track member; let i = $index){
-    <tbody>
+    <tbody> -->
       <!-- <tr (click)="viewDetailTaskManager(true,memberObj.memberId[i])"> -->
-          <tr>
+          <!-- <tr>
         <td>{{ member.email }}</td>
         <td>{{ member.username }}</td>
         <td> {{ member.joinedDate }}</td>
@@ -103,9 +176,9 @@
 
   <table class="task-table">
     <thead>
-      <tr>
+      <tr> -->
         <!-- <th>Member Name</th> -->
-        <th>Task Name</th>
+        <!-- <th>Task Name</th>
         <th>Project Name</th>
         <th>Type</th>
         <th>Priority</th>
@@ -115,9 +188,9 @@
       </tr>
     </thead>
     <tbody *ngFor="let task of taskObj.tasks; let i=index">
-      <tr>
+      <tr> -->
         <!-- <td>{{ task.tmemberNameGet[i] }}</td> -->
-        <td>{{ task.taskName }}</td>
+        <!-- <td>{{ task.taskName }}</td>
         <td>{{ taskObj.tProjectName }}</td>
         <td>{{ task.type }}</td>
         <td>
@@ -135,38 +208,37 @@
       </tr>
     </tbody>
   </table>
-  <button id="back-btn-man" (click)="backToList()">Back to List</button>
+  <button id="back-btn-man" (click)="backToList()">Back to List</button> -->
   <!--  class="back-btn" -->
-</div>
-}
+<!-- </div> -->
 
-@else if(seeYourTask){
-  <div class="container">
+<!-- @else if(seeYourTask){
+  <div class="container"> -->
           <!-- Task List -->
-          @if (!isViewClicked) {
+          <!-- @if (!isViewClicked) {
             <h2 class="title">Task List</h2>
-            @for (task of taskObj.taskNameGet; track task; let index = $index) {
+            @for (task of taskObj.tasks; track task; let index = $index) {
               <div class="task-card">
                 <div class="task-info">
-                  <p><strong>Task Name:</strong> {{ task }}</p>
-                  <p><strong>Project:</strong> {{ taskObj.tprojectNameGet[index] }}</p>
-                  <p><strong>Assigned Member:</strong> {{ taskObj.tmemberNameGet[index] }}</p>
-                  <p><strong>Due Date:</strong> {{ taskObj.endDateGet[index] | date }}</p>
+                  <p><strong>Task Name:</strong> {{ task.taskName }}</p>
+                  <p><strong>Project:</strong> {{ task.type }}</p>
+                  <p><strong>Assigned Member:</strong> {{ task.type }}</p>
+                  <p><strong>Due Date:</strong> {{ task.endDate| date }}</p>
                   <p>
                     <strong>Status:</strong>
-                    <span class="status" [ngClass]="taskObj.taskStatusGet[index]">
-                      {{ taskObj.taskStatusGet[index] }}
+                    <span class="status" [ngClass]="taskObj.getStatus(task.statusId)">
+                      {{ taskObj.getStatus(task.statusId) }}
                     </span>
                   </p>
                 </div>
                 <button class="view-btn" (click)="viewDetails(index, true)">View Details</button>
               </div>
             }
-          }
+          } -->
       
           <!-- Task Details -->
-          @if (isViewClicked) {
-            <div class="task-details">
+          <!-- @if (isViewClicked) { -->
+            <!-- <div class="task-details">
               <h2 class="title">Task Details</h2>
               <table class="mb-5">
                 <tr>
@@ -199,9 +271,9 @@
                 </tr>
               </table>
               <button id="back-btn-mem" (click)="backToList()">Back to Task List</button>
-            </div>
-          }
-        </div>
-      }
-    }
+            </div> -->
+          <!-- } -->
+        <!-- </div> -->
+      <!-- } -->
+    
     

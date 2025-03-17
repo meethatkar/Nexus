@@ -131,31 +131,21 @@
             <h2>Welcome, <span id="memberName">{{userDetailsGetObj.firstName}}  {{userDetailsGetObj.lastName}}</span> 👋</h2>
         </div>
 
-        <!-- Notifications Section -->
-        <div class="notifications mt-4 p-3 shadow rounded">
-            <h4><i class="fa fa-bell text-warning me-2"></i> Notifications</h4>
-            <ul id="notificationList" class="list-unstyled">
-                <li><i class="fa fa-tasks text-success me-2"></i> New Task Assigned: "UI Design Update"</li>
-                <li><i class="fa fa-check-circle text-primary me-2"></i> Task Status Updated: "Database Migration Completed"</li>
-                <li><i class="fa fa-comments text-info me-2"></i> New Comment on Issue: "Bug in Payment Gateway"</li>
-                <li><i class="fa fa-calendar text-danger me-2"></i> Deadline Alert: "API Integration - Due Tomorrow"</li>
-            </ul>
-        </div>
-
-<!-- Task Summary Section -->
-<div class="row mt-4">
-    <div class="col-md-6">
-        <div class="task-card p-4 shadow rounded">
-            <h4><i class="fa fa-check-square me-2"></i> Task Summary</h4>
-            <!-- <p>You have <strong>5 pending</strong> and <strong>8 completed</strong> tasks.</p> -->
-
-            <!-- Task Table -->
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Task Name</th>
-                        <th>Due Date</th>
-                        <th>Status</th>
+        
+        <!-- Task Summary Section -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="task-card p-4 shadow rounded">
+                    <h4><i class="fa fa-check-square me-2"></i> Task Summary</h4>
+                    <!-- <p>You have <strong>5 pending</strong> and <strong>8 completed</strong> tasks.</p> -->
+                    
+                    <!-- Task Table -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -176,17 +166,17 @@
                     </tr>
                 </tbody>
             </table>
-
+            
             <button class="btn btn-primary" routerLink="/tasks">View More</button>
         </div>
     </div>
-
+    
     <!-- Project Summary Section -->
     <div class="col-md-6">
         <div class="project-card p-4 shadow rounded">
             <h4><i class="fa fa-folder-open me-2"></i> Project Summary</h4>
             <!-- <p>Currently working on <strong>3 active projects</strong>.</p> -->
-
+            
             <!-- Project Table -->
             <table class="table table-bordered">
                 <thead>
@@ -204,16 +194,28 @@
                     </tr>
                 </tbody>
             </table>
-
+            
             <button class="btn btn-primary" routerLink="/projects">View More</button>
         </div>
     </div>
 </div>
 
 
-        <!-- Issues Section -->
-        <div class="issues mt-4 p-3 shadow rounded">
-            <h4><i class="fa-solid fa-bug text-danger me-2"></i> Issues Assigned</h4>
+<!-- Notifications Section -->
+<div class="notifications mt-4 p-3 shadow rounded">
+    <h4><i class="fa fa-bell text-warning me-2"></i> Notifications</h4>
+    <ul id="notificationList" class="list-unstyled">
+        <li><i class="fa fa-tasks text-success me-2"></i> New Task Assigned: "UI Design Update"</li>
+        <li><i class="fa fa-check-circle text-primary me-2"></i> Task Status Updated: "Database Migration Completed"</li>
+        <li><i class="fa fa-comments text-info me-2"></i> New Comment on Issue: "Bug in Payment Gateway"</li>
+        <li><i class="fa fa-calendar text-danger me-2"></i> Deadline Alert: "API Integration - Due Tomorrow"</li>
+    </ul>
+</div>
+
+
+<!-- Issues Section -->
+<div class="issues mt-4 p-3 shadow rounded">
+    <h4><i class="fa-solid fa-bug text-danger me-2"></i> Issues Assigned</h4>
             <ul id="issuesList" class="list-unstyled">
                 <li><i class="fa-solid fa-exclamation-circle text-warning me-2"></i> "Login page keeps crashing" - High Priority</li>
                 <li><i class="fa-solid fa-exclamation-circle text-danger me-2"></i> "Data sync issue in Reports" - Medium Priority</li>

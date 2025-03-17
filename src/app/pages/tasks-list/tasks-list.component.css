@@ -11,6 +11,11 @@
     padding-bottom:3%;
   }
   
+  .text-primary {
+    color: #007bff !important;
+    font-weight: bold;
+  }
+  
   /* Title */
   .title {
     color: #007bff;
@@ -45,7 +50,7 @@
   
   /* View Button */
   .view-btn, .back-btn {
-    padding: 8px 15px;
+    padding: 8px 13px;
     font-size: 14px;
     border-radius: 5px;
     border: none;

@@ -39,7 +39,7 @@ export const routes: Routes = [
     },
     {
         path:'members',
-        loadComponent: ()=> import('./pages/member-page/member-list.component').then((m)=>m.MemberListComponent),
+        loadComponent: ()=> import('./pages/member-page/member-page.component').then((m)=>m.MemberListComponent),
         title:'Members'
     },
     {
@@ -57,14 +57,20 @@ export const routes: Routes = [
         loadComponent: ()=> import('./pages/projects-list/projects-list.component').then((m) => m.ProjectsListComponent),
         title:"projects",
         // canActivate:[hasRoleGuard]
-        canActivate:[authGuard]
+        // canActivate:[authGuard]
     },
     {
         path:'tasks',
         loadComponent:()=> import("./pages/tasks-list/tasks-list.component").then((m)=>m.TasksListComponent),
         title:"Tasks",
         // canActivate:[hasRoleGuard]
-        canActivate:[authGuard]
+        // canActivate:[authGuard]
+    },    {
+        path:'tasks/:status/:prjid',
+        loadComponent:()=> import("./pages/tasks-list/tasks-list.component").then((m)=>m.TasksListComponent),
+        title:"Tasks",
+        // canActivate:[hasRoleGuard]
+        // canActivate:[authGuard]
     },
     {
         path:'assigntask/:prjid',

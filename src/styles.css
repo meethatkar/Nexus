@@ -1,4 +1,19 @@
+/* @font-face {
+    font-family: 'Poppins';
+    src: url('/public/assets/fonts/poppins.light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+
 /* You can add global styles to this file, and also import other style files */
 body{
     background: linear-gradient(135deg, #b3e0ff, #b3e0ff); /* Light blue gradient */
+    font-family: 'Poppins',sans-serif;
+}
+
+h1, p, .custom-text {
+    font-family: 'Poppins', sans-serif;
 }

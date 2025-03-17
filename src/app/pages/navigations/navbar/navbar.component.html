@@ -1,3 +1,4 @@
+<app-loader [isLoading]="isLoading" class="loader"> </app-loader>
 <nav class="navbar navbar-expand-lg navbar-light bg-light-blue shadow">
     <div class="container-fluid">
 
@@ -58,12 +59,18 @@
             <!-- Search Bar -->
             <div class="ms-auto">
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light d-flex justify-content-center align-items-center"
-                        type="submit"> <i class="fa fa-search"></i> </button>
+                    <div class="btn invite-btn" (click)="invite()">
+                        ✉ Invite
+                    </div>
+                                @if(isInvite){
+                <!-- Hidden Email Input Div -->
+            <div id="email-container" class="email-container">
+                <input type="email" placeholder="Enter task email" class="email-input" name="revicerMail" [(ngModel)] = "apiData.receiver" />
+                <button class="send-btn" (click)="sendMail()">Send</button>
+            </div>
+            }
                 </form>
             </div>
-
             }
 
             <!--                    *****************LOGGED OUT****************  -->
@@ -101,27 +108,10 @@
     </div>
 </nav>
 
-<!--                    ***************** SIDE MENU BAR FOR ADMIN***************** -->
-<!-- @if(userDetailsObj.role==="member"){ -->
-<!-- @if(role=="member"){
-<div class="sidebar" [class.open]="isMenuOpen">
-    <ul>
-        <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li>
-        <li><a routerLink="/projects" (click)="toggleMenu()">📂 Projects</a></li>
-        <li><a routerLink="/tasks" (click)="toggleMenu()">✅ Taskshurray</a></li>
-    </ul>
-</div>
-@if(isMenuOpen){
-<button class="overlay" (click)="toggleMenu()"> <i class="fa fa-close"></i>
-</button>
-}
-} -->
-
-
 <!-- SIDE MENU BAR FOR MANAGER  -->
 <!-- @else if (userDetailsObj.role==="manager") { -->
 <!-- @if (role=="manager") { -->
- @if(isLogin){
+@if(isLogin){
 <div class="sidebar" [class.open]="isMenuOpen">
     <ul>
         <!-- <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li> -->
@@ -140,8 +130,8 @@
 <!-- @else {
 <div class="sidebar" [class.open]="isMenuOpen">
     <ul> -->
-        <!-- <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li> -->
-        <!-- <li><a routerLink="/projects" (click)="toggleMenu()">📂 Projects</a></li>
+<!-- <li><a routerLink="/dashboard" (click)="toggleMenu()">📊 Dashboard</a></li> -->
+<!-- <li><a routerLink="/projects" (click)="toggleMenu()">📂 Projects</a></li>
         <li><a routerLink="/tasks" (click)="toggleMenu()">✅ Tasks </a></li>
         <li><a routerLink="/members" (click)="toggleMenu()"> <i class="fa fa-user me-2"></i> Members </a></li>
     </ul>

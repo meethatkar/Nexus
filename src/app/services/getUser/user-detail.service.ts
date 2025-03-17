@@ -21,7 +21,8 @@ export class UserDetailService {
 
   mainApi="http://localhost:5194/api"
   http=inject(HttpClient);
-  
+  // http://localhost:5194/api/UserDetail/UpdateUserDetailsById?userDetailId=119
+
   constructor() { }
 
   public getUserDetailById(id:any):Observable<IResultUserDetailsGet>{
@@ -32,8 +33,8 @@ export class UserDetailService {
     return this.http.get<IResultUserDetailsGet>(`${this.mainApi}/User/GetUserById?userId=${id}`,{});
   }
 
-  public updateUserDetailById(id:any,obj:userSignupData):Observable<IResultUserDetails>{
-    return this.http.put<IResultUserDetails>(`${this.mainApi}/User/UpdateUser?userId${id}`,obj);
+  public updateUserDetailById(id:any,obj:userDetailsGet):Observable<IResultUserDetails>{
+    return this.http.put<IResultUserDetails>(`${this.mainApi}/UserDetail/UpdateUserDetailsById?userDetailId=${id}`,obj);
   }      
 
   
