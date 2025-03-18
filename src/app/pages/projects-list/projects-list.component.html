@@ -2,7 +2,7 @@
 
 <!-- @if(userDetailsObj.role==="manager"){ -->
 <!-- @if(role=="manager"){ -->
-@if(true && !isTaskView){
+@if(true && !isTaskView && !assignedProjectView){
 <div class="container mt-4">
     <h2 class="text-center text-primary">Project List</h2>
 
@@ -19,87 +19,163 @@
                 </tr>
             </thead>
             <tbody *ngFor="let project of projectObj.projects; let i = index">
-                <tr class="project-row">
-                    <td>{{ project.projectName }}</td>
-                    <td>{{ projectObj.getStatus(project.statusId) }}</td>
-                    <td>{{ project.dueDate | date }}</td>
-                    <td>
-                        <button class="btn btn-info btn-sm"
-                            (click)="getDetails(project.projectId); toggleDetails(i)">View</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" (click)="assignTask(project.projectId)">Assign</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-info btn-sm"
-                            (click)="toggleMemberDropdown(i, project.projectId)">Add</button>
-                    </td>
-                </tr>
-
-                <!-- Add Member Dropdown -->
-                <tr *ngIf="expandedIndexMember === i">
-                    <td colspan="6">
-                        <div class="invite-dropdown">
-                            <h5 class="text-primary">Select User to Add in Project</h5>
-                            <select [(ngModel)]="selectedMember" class="form-select">
-                                <option [ngValue]="placeholderUser" disabled>Select a member to add</option>
-                                <option *ngFor="let user of nonMemberUsers" [ngValue]="user">{{ user.username }}
-                                </option>
-                            </select>
-                            <button class="btn btn-success mt-3 w-100"
-                                (click)="addRelation(project.projectId, selectedMember.userId)">Add</button>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- Dropdown section -->
-                @if(expandedIndexDetails===i && !isTaskView){
-                <tr>
-                    <td colspan="6">
-                        <div class="task-dropdown">
-                            <h3 class="text-primary">Project Details </h3>
-                            <ul class="list-group">
-                                <li class="list-group-item" class="list-group-item">
-                                    <table border="solid 1 black">
-                                        <tr>
-                                            <th class="Dropdown"> <strong>Project Name:</strong> </th>
-                                            <td> {{ project.projectName }} </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="Dropdown"> <strong>Description:</strong> </th>
-                                            <td>
-                                                {{ project.description }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="Dropdown"> <strong>No of Members:</strong> </th>
-                                            <td class="d-flex gap-50 align-items-center">
-                                                {{ projectObj.memberCount }}
-                                                <button class="btn btn-info btn-sm ms-auto btn-detail"
-                                                    (click)="seeMemberDetails(project.projectId); toggleDetails(i)"> See
-                                                    Details </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="Dropdown"> <strong>No Of Tasks:</strong> </th>
-                                            <td class="d-flex gap-50 align-items-center">
-                                                {{ projectObj.taskCount }}
-                                                <button class="btn btn-info btn-sm ms-auto btn-detail"
-                                                    (click)="seeTaskDetails(project.projectId); toggleDetails(i)"> See
-                                                    Details </button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
+                @if(project.createdBy == decoded.UserId){
+                    <tr class="project-row">
+                        <td>{{ project.projectName }}</td>
+                        <td>{{ projectObj.getStatus(project.statusId) }}</td>
+                        <td>{{ project.dueDate | date }}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm"
+                                (click)="getDetails(project.projectId); toggleDetails(i)">View</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" (click)="assignTask(project.projectId)">Assign</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-sm"
+                                (click)="toggleMemberDropdown(i, project.projectId)">Add</button>
+                        </td>
+                    </tr>
+    
+                    <!-- Add Member Dropdown -->
+                    <tr *ngIf="expandedIndexMember === i">
+                        <td colspan="6">
+                            <div class="invite-dropdown">
+                                <h5 class="text-primary">Select User to Add in Project</h5>
+                                <select [(ngModel)]="selectedMember" class="form-select">
+                                    <option [ngValue]="placeholderUser" disabled>Select a member to add</option>
+                                    <option *ngFor="let user of nonMemberUsers" [ngValue]="user">{{ user.username }}
+                                    </option>
+                                </select>
+                                <button class="btn btn-success mt-3 w-100"
+                                    (click)="addRelation(project.projectId, selectedMember.userId)">Add</button>
+                            </div>
+                        </td>
+                    </tr>
+    
+                    <!-- Dropdown section -->
+                    @if(expandedIndexDetails===i && !isTaskView){
+                    <tr>
+                        <td colspan="6">
+                            <div class="task-dropdown">
+                                <h3 class="text-primary">Project Details </h3>
+                                <ul class="list-group">
+                                    <li class="list-group-item" class="list-group-item">
+                                        <table border="solid 1 black">
+                                            <tr>
+                                                <th class="Dropdown"> <strong>Project Name:</strong> </th>
+                                                <td> {{ project.projectName }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="Dropdown"> <strong>Description:</strong> </th>
+                                                <td>
+                                                    {{ project.description }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="Dropdown"> <strong>No of Members:</strong> </th>
+                                                <td class="d-flex gap-50 align-items-center">
+                                                    {{ projectObj.memberCount }}
+                                                    <button class="btn btn-info btn-sm ms-auto btn-detail"
+                                                        (click)="seeMemberDetails(project.projectId); toggleDetails(i)"> See
+                                                        Details </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="Dropdown"> <strong>No Of Tasks:</strong> </th>
+                                                <td class="d-flex gap-50 align-items-center">
+                                                    {{ projectObj.taskCount }}
+                                                    <button class="btn btn-info btn-sm ms-auto btn-detail"
+                                                        (click)="seeTaskDetails(project.projectId); toggleDetails(i)"> See
+                                                        Details </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
                 }
             </tbody>
         </table>
     </div>
+    <div class="assigned-prj">
+        Click here to see Assigned Projects:-->
+    <button id="back-btn-man" (click)="seeAssignedProject()">View</button>
 </div>
+</div>
+}
+
+@else if(assignedProjectView){
+    <div class="container mt-4">
+        <h2 class="text-center text-primary mb-4">Project List</h2>
+      
+        <div class="table-responsive">
+          <table class="table table-bordered text-center">
+            <thead class="table-primary">
+              <tr>
+                <th>Project Name</th>
+                <th>Project Manager</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(project of projectObj.projects; track project.projectId;let i=$index){
+                @if(project.createdBy != decoded.UserId){
+              <tr class="project-row">
+                <td>{{ project.projectName }}</td>
+                <td>{{ userSignupDataObj.usersSignupData[i].username }}</td>
+                <td>{{ project.dueDate | date }}</td>
+                <td>
+                  <span class="status-badge">
+                    {{ projectObj.getStatus(project.statusId)}}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-info btn-sm" (click)="toggleTaskView(i,project.projectId)">
+                    View Tasks
+                  </button>
+                </td>
+              </tr>
+              <!-- Task List Dropdown -->
+               @if(selectedProjectIndex===i){
+              <tr>
+                <td colspan="5">
+                  <div class="task-dropdown">
+                    <h5 class="text-primary">Tasks for {{ project.projectName }}</h5>
+                    <ul class="list-group">
+                      <li  *ngFor="let task of taskObj.tasks" class="list-group-item" class="list-group-item">
+                        <table border="solid 1 black">
+                          <tr>
+                          <th class="Dropdown"> <strong>Task:</strong> </th>
+                          <td> {{ task.taskName }} </td>
+                          </tr>
+                          <tr>
+                            <th  class="Dropdown"> <strong>Description:</strong> </th>
+                            <td> {{ task.description }}  </td>
+                          </tr>
+                          <tr>
+                              <th  class="Dropdown"> <strong>Status:</strong> </th>
+                              <td> {{ taskObj.getStatus(task.statusId) }} </td>
+                          </tr>
+                        </table>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            }
+        }
+            }
+            </tbody>
+          </table>
+        </div>
+        <button id="back-btn-man-prj" (click)="backToList()">Back to List</button>
+      </div>  
 }
 
 @else if(isTaskView){

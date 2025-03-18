@@ -10,10 +10,11 @@ import { HttpClient } from '@angular/common/http';
 import { AddMemberService } from '../../services/addmember/add-member.service';
 import { IResultMember, member } from '../../models/member.model';
 import { CommonModule } from '@angular/common';
+import { LoaderComponent } from "../loader/loader.component";
 
 @Component({
   selector: 'app-task-form',
-  imports: [FormsModule,RouterLink, CommonModule],
+  imports: [FormsModule, RouterLink, CommonModule, LoaderComponent],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.css'
 })
@@ -31,9 +32,9 @@ export class TaskFormComponent implements OnInit{
   selectedMember: member  = new member(); // Initialize to null
   routeData:any;
   prjId:number=0;
-  minDate: string = '';  // To restrict past dates
+  minDate:string = "";  // To restrict past dates
   dateError: boolean = false;
-
+  isLoading:boolean = false;
 
   ngOnInit(): void {
     this.route.params.subscribe(routeData => {
@@ -43,6 +44,9 @@ export class TaskFormComponent implements OnInit{
         this.taskObj.projectId = this.prjId;
 
         console.log("PRoject id: "+this.prjId);
+
+        this.setMinDate();
+        console.log("DATE: "+this.minDate)
     
         this.AddMemberServiceObj.getMembersByPrjId(this.prjId).subscribe((res:IResultMember) => {
           if(res.result == true){
@@ -70,18 +74,22 @@ export class TaskFormComponent implements OnInit{
   assignTask(taskFormDate:NgForm){
     this.taskObj.userId = this.selectedMember.userId;
     this.taskObj.type = taskFormDate.value.taskType;
+    this.isLoading = true;
     this.taskServiceObj.assignTaskByProjectId(this.taskObj).subscribe((res:IResultTask) => {
       if(res.result == true){
         this.taskObj.tasks = res.data;
+        this.isLoading = false;
       alert("Task Assigned Successfully");
       this.router.navigate(['/projects']);
       }
       else{
+        this.isLoading = false;
         alert("Else block executed, see console for detail view");
         console.log(res.error);
       }
     }, (error) => {
       this.error = {};
+      this.isLoading = false;
       if (error.status === 400 || error.status === 401) {
         for (let key in error.error.error) {
           console.log(error.error.error[key]);
@@ -90,6 +98,7 @@ export class TaskFormComponent implements OnInit{
       }
 
       else {
+        this.isLoading = false;
         alert("Unexpected error occured" + error.message);
       }
     }
@@ -100,15 +109,31 @@ export class TaskFormComponent implements OnInit{
     // Function to prevent selecting past dates
     setMinDate() {
       const today = new Date();
-      this.minDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+      const day = String(today.getDate()).padStart(2, '0'); // Ensure two digits
+      const month = String(today.getMonth() + 1).padStart(2, '0'); // Ensure two digits
+      const year = today.getFullYear();
+    
+      this.minDate = `${day}-${month}-${year}`;
     }
 
       // Function to validate start and end date
-  validateDates() {
-    if (this.taskObj.startDate && this.taskObj.endtDate) {
-      this.dateError = new Date(this.taskObj.startDate) > new Date(this.taskObj.endtDate);
-    }
-  }
+      validateDates() {
+        const [d, m, y] = this.minDate.split('-').map(Number);
+        const minDateObj = new Date(y, m - 1, d); 
+        const startDateObj = new Date(this.taskObj.startDate);
+      
+        if (this.taskObj.startDate && startDateObj < minDateObj) {
+          alert("Start date must be today or a future date!");
+          this.taskObj.startDate = new Date(Date.parse(this.minDate));
+        }
+      }
+
+      validateEndDate(){
+        if(this.taskObj.endtDate < this.taskObj.startDate){
+          alert("end date must be after start date");
+        }
+      }
+      
 
 
 }

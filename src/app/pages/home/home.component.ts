@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../services/project/project.service.';
 import { forkJoin } from 'rxjs';
 import { LoaderComponent } from "../loader/loader.component";
+import { task } from '../../models/task.model';
+import { TaskService } from '../../services/task/task.service';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit {
   userDetailService = inject(UserDetailService);
   projectServiceObj = inject(ProjectService);
   userSignupService = inject(UserSignupService);
+  taskServiceObj = inject(TaskService);
   userDetailsGetObj = new userDetails();
   error: any = {}
   porjectObj = new project();
@@ -31,6 +34,7 @@ export class HomeComponent implements OnInit {
   // role=this.userDetailService.getUserRole();
 
   projectObj = new project();
+  taskObj = new task();
   token: any = this.UserSignupServiceObj.getToken();
   decoded: any = "";
 
@@ -48,9 +52,10 @@ export class HomeComponent implements OnInit {
       }
       forkJoin({
         userDetails: this.userDetailService.getUserDetailById(this.decoded.UserId),
-        projectDetails: this.projectServiceObj.getProjectByUserId(this.decoded.UserId)
+        projectDetails: this.projectServiceObj.getProjectByUserId(this.decoded.UserId),
+        taskDetails: this.taskServiceObj.getTaskByUserId(this.decoded.UserId)
       }).subscribe(
-        ({ userDetails, projectDetails }) => {
+        ({ userDetails, projectDetails, taskDetails }) => {
           if (userDetails.result) {
             this.userDetailsGetObj = userDetails.data;
             console.log(this.userDetailsGetObj, "my account section (userDetailsObj)");
@@ -67,6 +72,15 @@ export class HomeComponent implements OnInit {
           } else {
             this.isLoading = false;
             alert("Else block executed for project details.");
+          }
+          
+          if(taskDetails.result){
+            this.taskObj.tasks = taskDetails.data;
+            this.isLoading = false;
+          }
+          else{
+            this.isLoading = false;
+            alert("Result is false, else block executed")
           }
         },
         (error) => {

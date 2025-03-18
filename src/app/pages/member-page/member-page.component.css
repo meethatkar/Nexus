@@ -15,7 +15,7 @@
   border: none;
   position: relative;
   width: 400px;  /* Fixed Width */
-  height: 230px; /* Fixed Height */
+  height: 200px; /* Fixed Height */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -37,9 +37,9 @@
   width: 40px;
 }
 
-.gender-icon img {
-  width: 100%;
-  height: auto;
+.gender-icon i{
+  width: 200%;
+  height: 200%;
   border-radius: 50%;
 }
 

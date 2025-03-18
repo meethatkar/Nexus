@@ -1,6 +1,6 @@
 import { IResultProject } from './../../../models/project.model';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { project } from '../../../models/project.model';
@@ -13,18 +13,23 @@ import { LoaderComponent } from "../../loader/loader.component";
   templateUrl: './create-project.component.html',
   styleUrl: './create-project.component.css'
 })
-export class CreateProjectComponent {
+export class CreateProjectComponent implements OnInit{
   router=inject(Router);
   projectObj:project = new project();
   projectServiceObj=inject(ProjectService)
   error:any={};
   isLoading=false;
+  minDueDate:string = "";
 
     // Check if error object is empty
     isErrorNotEmpty(): boolean {
       return this.error && Object.keys(this.error).length > 0;
     }
 
+    ngOnInit(): void {
+      this.setMinDueDate();
+      // this.validateDates();
+    }
   onCreate(createProjectData:NgForm){
     this.isLoading = true;
     this.projectServiceObj.createProject(this.projectObj).subscribe((res:IResultProject)=> {
@@ -56,4 +61,31 @@ export class CreateProjectComponent {
       }
     })
   }
+
+// Function to set the minimum due date (10 days after today)
+setMinDueDate() {
+  const today = new Date();
+  today.setDate(today.getDate() + 10); // Add 10 days
+
+  const day = String(today.getDate()).padStart(2, '0'); // Ensure two digits
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Ensure two digits
+  const year = today.getFullYear();
+
+  this.minDueDate = `${year}-${month}-${day}`; // Format as YYYY-MM-DD for input[type="date"]
+}
+
+// Function to validate start and due date
+validateDates() {
+  if (!this.projectObj.duedate) return; // Skip validation if no due date is set
+
+  const dueDateObj = new Date(this.projectObj.duedate);
+  const minDueDateObj = new Date(this.minDueDate); // 10 days after today
+
+  if (dueDateObj < minDueDateObj) {
+    alert("Due date must be at least 10 days after today!");
+    this.projectObj.duedate = new Date(Date.parse(this.minDueDate)); // Reset to minimum valid date
+  }
+}
+
+
 }

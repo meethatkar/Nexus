@@ -1,23 +1,25 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-4" *ngFor="let member of members">
+    <div class="col-md-4" *ngFor="let member of userDetailList">
       <div class="card member-card">
         <div class="card-body">
           <!-- Gender Icon -->
           <div class="gender-icon">
-            @if(member.gender=="female"){
+            <!-- @if(member.gender=="female"){
             <img src="female-icon.png" alt="Female icon">
             }
             @if(member.gender=="male"){
             <img src="male-icon.png" alt="Male icon">
-            }
+            } -->
+            <i class="fa fa-user"></i>
           </div>
 
-          <h4 class="card-title">{{ member.name }}</h4>
+          <h4 class="card-title">{{ member.firstName }}  {{member.lastName}} </h4>
           <p><strong> Age: </strong> {{ member.age }} years</p>
-          <p><strong> Gender: </strong> {{ member.gender }} years</p>
-          <p><strong> Skills: </strong> {{ member.skills }}</p>
-          <p><strong> Tasks Completed: </strong> {{ member.tasksCompleted }}</p>
+          <p><strong> Gender: </strong> {{ member.gender }} </p>
+          <p><strong> Phone Number: </strong> {{ member.phoneNo }} </p>
+          <!-- <p><strong> Skills: </strong> {{ member.skills }}</p> -->
+          <!-- <p><strong> Tasks Completed: </strong> {{ member.tasksCompleted }}</p> -->
         </div>
       </div>
     </div>
