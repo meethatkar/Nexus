@@ -9,24 +9,29 @@
             <div class="mb-3">
                 <label for="projectName" class="form-label fw-bold">Project Name:</label>
                 <input type="text" class="form-control" id="projectName" placeholder="Enter project name" required
-                    ngModel name="projectName" [(ngModel)]="projectObj.projectName" #projectName="ngModel">
+                    name="projectName" ngModel [(ngModel)]="projectObj.projectName" #projectName="ngModel">
             </div>
 
-            <!-- deadline -->
+            <!-- Deadline -->
             <div class="mb-3">
                 <label for="deadline" class="form-label fw-bold">Deadline:</label>
                 <input type="date" class="form-control" id="deadline" placeholder="Enter deadline" required
-                    name="deadline" ngModel [(ngModel)]="projectObj.duedate" #deadline="ngModel">
+                    name="deadline" [(ngModel)]="projectObj.duedate" (blur)="validateDates()" [min]="minDueDate" ngModel
+                    #deadline="ngModel">
+
+                <div *ngIf="deadline.invalid && deadline.touched" class="text-danger">
+                    Deadline must be at least 10 days from today.
+                </div>
             </div>
 
-            <!-- Description -->
+
+            <!-- Project Description -->
             <div class="mb-3">
                 <label for="description" class="form-label fw-bold">Project Description:</label>
                 <textarea class="form-control" id="description" rows="3" placeholder="Enter project description"
-                    required ngModel name="description" [(ngModel)]="projectObj.description"
-                    #description="ngModel"></textarea>
+                    required name="description" ngModel [(ngModel)]="projectObj.description" #description="ngModel">
+    </textarea>
             </div>
-
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between">

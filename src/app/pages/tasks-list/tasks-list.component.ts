@@ -46,10 +46,10 @@ export class TasksListComponent implements OnInit{
   // METHODS PART
 ngOnInit(): void {
 
-  this.route.params.subscribe(routeData => {
-    this.prjId=routeData['prjid'];
-    this.isViewClicked = routeData['status'];
-  })
+  // this.route.params.subscribe(routeData => {
+  //   this.prjId=routeData['prjid'];
+  //   this.isViewClicked = routeData['status'];
+  // })
 
    this.isLoading = true;
       this.projectServiceObj.getProjectByUserId(this.decoded.UserId).subscribe((res: IResultProject) => {
@@ -91,70 +91,48 @@ ngOnInit(): void {
     this.seeYourTask = false;
   }
 
-  //MANAGERS
-  // viewDetailTaskManager(viewStatus:boolean, memID:number){
-  //   this.isViewClicked=viewStatus;
-  //   this.selectedMember=memID;
-  // }
+  seeMyTask(status: boolean) {
+  this.isViewClicked = status;
+  this.isLoading = true;
 
-  seeMyTask(status:boolean){
-    this.isViewClicked = status;
-    this.isLoading = true;
-    this.taskServiceObj.getTaskByUserId(this.decoded.UserId).subscribe((res:IResultTask) => {
-      if(res.result==true){
-        this.taskObj.tasks = res.data;
-        console.log("My tasks: "+res.data);
-         // Get unique userIds from tasks
-         const userIds = [...new Set(this.taskObj.tasks.map(task => task.userId))];
-  
-         // Call APIs for project details and member details
-         forkJoin({
-           project: this.projectServiceObj.getProjectByUserId(this.decoded.UserId),
-           members: this.memberServiceObj.getMembersByPrjId(this.prjId),
-         }).subscribe(({ project, members }) => {
-           
-           // Store project and members data
-           this.projectObj.projects = project.data;
-           this.memberObj.members = members.data;
-   
-           console.log("Project details:", this.projectObj);
-           console.log("Member details:", this.memberObj);
-   
-           // Map projectName and memberName to tasks
-           this.taskObj.tasks.forEach(task => {
-             const project = this.projectObj.projects.find(p => p.projectId === this.prjId);
-             task.projectName = project ? project.projectName : "Unknown Project";
-             const member = this.memberObj.members.find(m => m.userId === task.userId);
-             task.memberName = member ? member.username : "Unknown";
-           });
-   
-           console.log("Updated tasks with project & member names:", this.taskObj.tasks);
-           this.isLoading = false;
-   
-         }, (error) => {
-           console.error("Error fetching project/member details", error);
-           this.isLoading = false;
-         });
-      }
-      else{
-        this.isLoading = false;
-        alert("result is false, check console");
-        console.log(res.error);
-      }
-    },  (error) => {
-      this.error = {};
-      this.isLoading = false;
-      if (error.status === 400 || error.status === 401) {
-        for (let key in error.error.error) {
-          console.log(error.error.error[key]);
-          this.error[key] = error.error.error[key];
-        }
-      } else {
-        alert("Unexpected error occurred: " + error.message);
-      }
-    })
+  this.taskServiceObj.getTaskByUserId(this.decoded.UserId).subscribe((res: IResultTask) => {
+    if (res.result) {
+      this.taskObj.tasks = res.data;
+      console.log("My tasks:", res.data);
 
+      // Extract unique userIds from tasks
+      const userIds = [...new Set(this.taskObj.tasks.map(task => task.userId))];
+
+ // First API Call: Get projects by User ID
+this.projectServiceObj.getProjectByUserId(this.decoded.UserId).subscribe((projectRes) => {
+  if (projectRes.result) {
+      this.projectObj.projects = projectRes.data;
+      console.log("Project details:", this.projectObj.projects);
+
+      // Map project names to tasks based on matching projectId
+      this.taskObj.tasks.forEach(task => {
+          const project = this.projectObj.projects.find(p => p.projectName === task.projectName);
+          task.projectName = project ? project.projectName : "Unknown Project";
+      });
+
+      console.log("Updated tasks with project names:", this.taskObj.tasks);
+  } else {
+      console.log("No projects found for user.");
   }
+
+  this.isLoading = false;
+}, this.handleError);
+    }
+  });
+}
+
+// Common error handling method
+handleError = (error: any) => {
+  this.isLoading = false;
+  this.error = error.status === 400 || error.status === 401 ? error.error.error : {};
+  if (!Object.keys(this.error).length) alert("Unexpected error occurred: " + error.message);
+};
+
 
   seeTask(prjid: number, viewStatus: boolean) {
     this.isViewClicked = viewStatus;

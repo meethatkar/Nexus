@@ -1,3 +1,4 @@
+<app-loader [isLoading]="isLoading"></app-loader>
 <div class="container mt-4">
     <div class="card shadow-lg p-4">
       <button class="overlay" > <i class="fa fa-close" routerLink="/projects"></i > </button>
@@ -121,8 +122,8 @@
                    name="startDate"
                    required
                    [(ngModel)]="taskObj.startDate"
-                   (change)="validateDates()"
-                   [min]="minDate"
+                   (blur)="validateDates()"
+                   [attr.min]="minDate"
                    ngModel
                    #startDate="ngModel">
             <div *ngIf="startDate.invalid && startDate.touched" class="text-danger">
@@ -139,8 +140,8 @@
                    name="endDate"
                    required
                    [(ngModel)]="taskObj.endtDate"
-                   (change)="validateDates()"
-                   [min]="taskObj.startDate"
+                   (blur)="validateEndDate()"
+                   [attr.min]="minDate"
                    ngModel
                    #endDate="ngModel">
             <div *ngIf="dateError" class="text-danger">

@@ -69,7 +69,7 @@
         </div>
     
         <!-- Notifications Section -->
-        <div class="mt-4">
+        <!-- <div class="mt-4">
             <div class="card p-4 rounded">
                 <h4><i class="fa fa-bell me-2 text-warning"></i> Notifications</h4>
                 <ul class="list-group">
@@ -78,7 +78,7 @@
                     <li class="list-group-item">Deadline for "Website Redesign" is approaching.</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         
     </div>
     
@@ -149,21 +149,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @for(task of taskObj.tasks; track task; let i = $index){
                     <tr>
-                        <td>Design UI</td>
-                        <td>March 5, 2025</td>
-                        <td class="text-warning">Pending</td>
+                        <td> {{task.taskName}} </td>
+                        <td> {{task.endtDate | date }} </td>
+                        <td class="text-warning"> {{taskObj.getStatus(task.statusId)}} </td>
                     </tr>
-                    <tr>
-                        <td>Database Setup</td>
-                        <td>March 3, 2025</td>
-                        <td class="text-success">Completed</td>
-                    </tr>
-                    <tr>
-                        <td>API Integration</td>
-                        <td>March 10, 2025</td>
-                        <td class="text-danger">Overdue</td>
-                    </tr>
+                }
                 </tbody>
             </table>
             
@@ -202,7 +194,7 @@
 
 
 <!-- Notifications Section -->
-<div class="notifications mt-4 p-3 shadow rounded">
+<!-- <div class="notifications mt-4 p-3 shadow rounded">
     <h4><i class="fa fa-bell text-warning me-2"></i> Notifications</h4>
     <ul id="notificationList" class="list-unstyled">
         <li><i class="fa fa-tasks text-success me-2"></i> New Task Assigned: "UI Design Update"</li>
@@ -210,18 +202,18 @@
         <li><i class="fa fa-comments text-info me-2"></i> New Comment on Issue: "Bug in Payment Gateway"</li>
         <li><i class="fa fa-calendar text-danger me-2"></i> Deadline Alert: "API Integration - Due Tomorrow"</li>
     </ul>
-</div>
+</div> -->
 
 
 <!-- Issues Section -->
-<div class="issues mt-4 p-3 shadow rounded">
+<!-- <div class="issues mt-4 p-3 shadow rounded">
     <h4><i class="fa-solid fa-bug text-danger me-2"></i> Issues Assigned</h4>
             <ul id="issuesList" class="list-unstyled">
                 <li><i class="fa-solid fa-exclamation-circle text-warning me-2"></i> "Login page keeps crashing" - High Priority</li>
                 <li><i class="fa-solid fa-exclamation-circle text-danger me-2"></i> "Data sync issue in Reports" - Medium Priority</li>
                 <li><i class="fa-solid fa-exclamation-circle text-info me-2"></i> "Minor UI glitch on Dashboard" - Low Priority</li>
             </ul>
-        </div>
+        </div> -->
     </div>
 
 }

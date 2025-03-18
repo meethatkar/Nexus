@@ -17,6 +17,7 @@ export class project {
         dueDate:Date;
         statusId: number; 
         isActive: boolean; 
+        createdBy:number;
       }[];
 
       statusObj: any = {

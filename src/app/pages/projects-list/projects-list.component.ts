@@ -32,6 +32,7 @@ export class ProjectsListComponent implements OnInit {
   projectObj: project = new project();
   taskObj: task = new task();
   userDetailsObj: userDetails = new userDetails();
+  userSignupDataObj:userSignupData = new userSignupData();
   relationObj = new relation();
   memberObj = new member();
   UserDetailServiceObj = inject(UserDetailService);
@@ -46,46 +47,91 @@ export class ProjectsListComponent implements OnInit {
   decoded: any = jwtDecode(this.token); // Decode JWT
   error: any = {};
   nonMemberUsers: userSignupData[] = [] ;
-  placeholderUser: userSignupData = { userId: 100, username: 'Select a member to add' , email: 'temp', password: 'temp'};
+  placeholderUser: userSignupData = { userId: 100, username: 'Select a member to add' , email: 'temp', password: 'temp', usersSignupData: []};
   selectedMember: userSignupData = this.placeholderUser;
   isTaskView:boolean = false;
+  assignedProjectView:boolean = false;
 
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.projectServiceObj.getProjectByUserId(this.decoded.UserId).subscribe((res: IResultProject) => {
-      this.isLoading = false;
-      if (res.result == true) {
-        this.projectObj.projects = res.data;
-        console.log(this.projectObj.projects);
-      }
-      else {
-        alert("Else block executed");
-      }
-    }, (error) => {
-      this.isLoading = false;
-      this.error = {};
-      if (error.status === 400 || error.status === 401) {
-        for (let key in error.error.error) {
-          console.log(error.error.error[key]);
-          this.error[key] = error.error.error[key];       //Store each error with its key
+  
+    // Fetch all projects
+    this.projectServiceObj.getProjectByUserId(this.decoded.UserId).subscribe(
+      (res: IResultProject) => {
+        this.isLoading = false;
+  
+        if (res.result) {
+          this.projectObj.projects = res.data;
+          console.log("Fetched Projects:", this.projectObj.projects);
+  
+          // Fetch user details for each createdBy ID
+          this.fetchUsersForProjects();
+        } else {
+          alert("Else block executed");
+        }
+      },
+      (error) => {
+        this.isLoading = false;
+        this.error = {};
+        
+        if (error.status === 400 || error.status === 401) {
+          for (let key in error.error.error) {
+            console.log(error.error.error[key]);
+            this.error[key] = error.error.error[key];
+          }
+        } else {
+          alert("Unexpected error occurred: " + error.message);
         }
       }
-
-      else {
-        alert("Unexpected error occured" + error.message);
-      }
-    }
-    )
-
+    );
   }
 
+  // New method to fetch user details
+fetchUsersForProjects() {
+  // Reset user data array
+  this.userSignupDataObj.usersSignupData = [];
+
+  // Loop through each project and fetch createdBy user details
+  this.projectObj.projects.forEach((project) => {
+    this.UserDetailServiceObj.getUserSignupDetaiById(project.createdBy).subscribe(
+      (res: any) => {
+        if (res.result) {
+          this.userSignupDataObj.usersSignupData.push(res.data); // Store user details
+          console.log("User Details Fetched:", res.data);
+        } else {
+          console.error("Failed to fetch user details:", res.error);
+        }
+      },
+      (error) => {
+        console.error("Error fetching user details:", error);
+      }
+    );
+  });
+}
+  
   toggleDetails(index: number) {
     this.expandedIndexDetails = this.expandedIndexDetails === index ? null : index;
   }
 
-  toggleTaskView(index: number) {
+  toggleTaskView(index: number, prjid:number) {
+    this.isLoading = true;
     this.selectedProjectIndex = this.selectedProjectIndex === index ? null : index;
+    this.taskServiceObj.getTaskByPrjId(prjid).subscribe((res:IResultTask) => {
+      if(res.result == true){
+        this.isLoading = false;
+        this.taskObj.tasks = res.data;
+      }
+      else{
+        alert("Result is false, check console for detail");
+        console.log("Result false reason: "+res.error);
+      }
+    }, (error) => {
+      this.isLoading = false;
+      this.error = error.status === 400 || error.status === 401 ? error.error.error : {};
+      if (!Object.keys(this.error).length) alert("Unexpected error occurred: " + error.message);
+    }
+    )
   }
 
   getDetails(id: number) {
@@ -264,8 +310,13 @@ export class ProjectsListComponent implements OnInit {
     this.router.navigate(['/assigntask',prjid]);
   }
 
+  seeAssignedProject(){
+    this.assignedProjectView = true;
+    }
+
   backToList(){
     this.isTaskView = false;
+    this.assignedProjectView = false;
   }
 
 }
