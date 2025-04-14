@@ -20,6 +20,9 @@
                     <th> View Tasks </th>
                 </tr>
             </thead>
+            @if(taskObj.tasks.length==0){
+              <td colspan="5" style="padding-top: 2%;"><u>No Record Found !</u></td>
+            }
             <tbody *ngFor="let project of projectObj.projects; let i = index" >
               @if(project.createdBy == decoded.UserId){
                 <tr class="project-row">
@@ -54,6 +57,9 @@
           <th>Status</th>
         </tr>
       </thead>
+      @if(taskObj.tasks.length==0){
+        <td colspan="6" style="padding-top: 2%;"><u>No Record Found !</u></td>
+      }
       <tbody *ngFor="let task of taskObj.tasks; let i=index">
         <tr>
           <!-- <td>{{ task.memberName }}</td> -->

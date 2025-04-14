@@ -18,6 +18,9 @@
                     <th> Add Member</th>
                 </tr>
             </thead>
+            @if(projectObj.projects.length==0){
+                <td colspan="6" style="padding-top: 2%;"><u>No Record Found !</u></td>
+            }
             <tbody *ngFor="let project of projectObj.projects; let i = index">
                 @if(project.createdBy == decoded.UserId){
                     <tr class="project-row">
@@ -124,6 +127,9 @@
               </tr>
             </thead>
             <tbody>
+                @if(projectObj.projects.length==0){
+                    <td colspan="5" style="padding-top: 2%;"><u>No Record Found !</u></td>
+                }
               @for(project of projectObj.projects; track project.projectId;let i=$index){
                 @if(project.createdBy != decoded.UserId){
               <tr class="project-row">
@@ -148,6 +154,9 @@
                   <div class="task-dropdown">
                     <h5 class="text-primary">Tasks for {{ project.projectName }}</h5>
                     <ul class="list-group">
+                        @if(taskObj.tasks.length){
+                            <td colspan="3" style="padding-top: 2%;"><u>No Record Found !</u></td>
+                        }
                       <li  *ngFor="let task of taskObj.tasks" class="list-group-item" class="list-group-item">
                         <table border="solid 1 black">
                           <tr>

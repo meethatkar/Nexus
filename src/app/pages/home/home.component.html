@@ -148,8 +148,11 @@
                                 <th>Status</th>
                     </tr>
                 </thead>
+                @if(taskObj.tasks.length==0){
+                    <td colspan="3" style="padding-top: 2%;"><u>No Record Found !</u></td>
+                  }
                 <tbody>
-                    @for(task of taskObj.tasks; track task; let i = $index){
+                    @for(task of taskObj.tasks.slice(-3); track task; let i = $index){
                     <tr>
                         <td> {{task.taskName}} </td>
                         <td> {{task.endtDate | date }} </td>
@@ -178,6 +181,9 @@
                         <th>Status</th>
                     </tr>
                 </thead>
+                @if(projectObj.projects.length==0){
+                    <td colspan="3" style="padding-top: 2%;"><u>No Record Found !</u></td>
+                  }
                 <tbody>
                     <tr *ngFor="let project of projectObj.projects.slice(-3); let i = index">
                         <td> {{project.projectName}} </td>
