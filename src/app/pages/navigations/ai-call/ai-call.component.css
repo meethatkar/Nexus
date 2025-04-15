@@ -1,0 +1,22 @@
+.ai_div{
+    right: 1%;
+    bottom: 0%;
+    position:fixed;
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.ai_div img{
+    height: 50px;
+    width: 50px;
+    /* box-shadow: 10px 10px 200px 30px black; */
+}
+
+.ai_div:hover{
+    transform: scale(108%);
+    filter: contrast(139%);
+}
+
+.ai_div p{
+    /* color: transparent; */
+    /* -webkit-text-stroke: 0.7px black; */
+}

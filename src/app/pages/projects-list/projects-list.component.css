@@ -234,11 +234,7 @@
     }
 
 /* ******** Task list CSS ******* */
-/* General Styling */
-body {
-  background: #cfe8fc; /* Light blue background */
-  font-family: 'Poppins', sans-serif; /* Professional font */
-}
+
 
 /* Container */
 .container-task {

@@ -1,27 +1,28 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-4" *ngFor="let member of userDetailList">
-      <div class="card member-card">
-        <div class="card-body">
-          <!-- Gender Icon -->
-          <div class="gender-icon">
-            <!-- @if(member.gender=="female"){
-            <img src="female-icon.png" alt="Female icon">
-            }
-            @if(member.gender=="male"){
-            <img src="male-icon.png" alt="Male icon">
-            } -->
-            <i class="fa fa-user"></i>
-          </div>
+<div class="container py-4">
+  <div class="row row-cols-1 row-cols-md-4">
 
-          <h4 class="card-title">{{ member.firstName }}  {{member.lastName}} </h4>
-          <p><strong> Age: </strong> {{ member.age }} years</p>
-          <p><strong> Gender: </strong> {{ member.gender }} </p>
-          <p><strong> Phone Number: </strong> {{ member.phoneNo }} </p>
-          <!-- <p><strong> Skills: </strong> {{ member.skills }}</p> -->
-          <!-- <p><strong> Tasks Completed: </strong> {{ member.tasksCompleted }}</p> -->
+    @for(member of userDetailList;track member)
+    {
+          <!-- Card Start -->
+    <div class="col">
+      <div class="card text-center p-3">
+        <img src="assets/member_img/profile_men_2.jpg" alt="PP" class="mx-auto profile-img mt-1" />
+        <h5 class="title">  {{member.firstName}}</h5>
+        <hr>
+        <p><strong>Age:</strong> {{member.age}} </p>
+        <p><strong>Gender:</strong> {{member.gender}} </p>
+        <p><strong>Phone:</strong> {{member.phoneNo}} </p>
+        <!-- <p><strong>Email:</strong> {{member.}} </p> -->
+        <p><strong>City:</strong> {{member.city}} </p>
+        <p><strong>Task Assigned:</strong> {{member.city}} </p>
+        <hr>
+        <div class="social-icons mt-2">
+          <a href="#"><i class="fa fa-facebook-f"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
         </div>
       </div>
     </div>
+    }
   </div>
 </div>

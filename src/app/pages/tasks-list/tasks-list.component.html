@@ -57,29 +57,34 @@
           <th>Status</th>
         </tr>
       </thead>
-      @if(taskObj.tasks.length==0){
+      <!-- @if(taskObj.tasks.length===0){
+        <td colspan="6" style="padding-top: 2%;"><u>No Record Found !</u></td>
+      } -->
+      @for(task of taskObj.tasks; track task.taskId){
+        <tbody>
+          <tr>
+            <!-- <td>{{ task.memberName }}</td> -->
+            <td>{{ task.taskName }}</td>
+            <!-- <td>{{ task.projectName }}</td> -->
+            <td>{{ task.type }}</td>
+            <td>
+              <span class="priority" [ngClass]="task.priority">
+                {{ task.priority }}
+              </span>
+            </td>
+            <td>{{ task.startDate| date }}</td>
+            <td>{{ task.endtDate| date }}</td>
+            <td>
+              <span class="status" [ngClass]="taskObj.getStatus(task.statusId).toLowerCase().replace(' ', '-')">
+                {{ taskObj.getStatus(task.statusId)}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      }
+      @empty {
         <td colspan="6" style="padding-top: 2%;"><u>No Record Found !</u></td>
       }
-      <tbody *ngFor="let task of taskObj.tasks; let i=index">
-        <tr>
-          <!-- <td>{{ task.memberName }}</td> -->
-          <td>{{ task.taskName }}</td>
-          <!-- <td>{{ task.projectName }}</td> -->
-          <td>{{ task.type }}</td>
-          <td>
-            <span class="priority" [ngClass]="task.priority">
-              {{ task.priority }}
-            </span>
-          </td>
-          <td>{{ task.startDate| date }}</td>
-          <td>{{ task.endtDate| date }}</td>
-          <td>
-            <span class="status" [ngClass]="taskObj.getStatus(task.statusId).toLowerCase().replace(' ', '-')">
-              {{ taskObj.getStatus(task.statusId)}}
-            </span>
-          </td>
-        </tr>
-      </tbody>
     </table>
     <button id="back-btn-man" (click)="backToList()">Back to List</button>
   </div>

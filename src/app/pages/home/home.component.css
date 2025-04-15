@@ -18,6 +18,9 @@
     font-size: 5.5rem;
     font-weight: bold;
     color: #007bff;
+    /* color: transparent; */
+    /* -webkit-text-stroke: 2px rgb(0, 128, 255); */
+    /* text-shadow: 1px 1px 1000px rgb(0, 123, 255); */
     margin-bottom: -7px;
 }
 
@@ -82,6 +85,7 @@ h3{
     height: 4px;
     background-color: #007bff;
     margin-bottom: 20px;
+    box-shadow: 5px 8px 100px 2px whitesmoke;
 
 }
 
