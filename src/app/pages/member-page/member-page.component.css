@@ -4,28 +4,30 @@
   width: 300px;
   height: 500px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 5%;
 }
 
 .profile-img {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  /* border-radius: 50%;
-  border: 3px solid #0d6efd; */
+  width: 75px;
+  height: 80px;
+  /* object-fit: cover; */
+  border-radius: 50%;
+  /* border: 3px solid #0d6efd; */
+  background: linear-gradient(#E21D2C,#8FE21D,#1DE2D3,#701DE2, 2px);
 }
 
-.icon-box {
+/* .icon-box {
   background-color: #e9f0ff;
   padding: 15px;
   border-radius: 10px;
   margin: 15px 0;
-}
-
+} */
+/* 
 .icon-box i {
   font-size: 20px;
   margin: 0 15px;
   color: #0d6efd;
-}
+} */
 
 .social-icons i {
   font-size: 18px;
@@ -50,4 +52,50 @@
 
 .card:hover {
   transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 90%;
+    margin-top: 5%;
+  }
+
+  .icon-box i,
+  .social-icons i {
+    font-size: 16px;
+    margin: 0 8px;
+  }
+
+  .profile-img {
+    width: 65px;
+    height: 70px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .card-body p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 15px;
+  }
+
+  .icon-box {
+    padding: 10px;
+  }
+
+  .icon-box i {
+    margin: 0 5px;
+    font-size: 16px;
+  }
+
+  .social-icons i {
+    margin: 0 6px;
+    font-size: 16px;
+  }
 }

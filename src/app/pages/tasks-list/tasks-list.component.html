@@ -20,8 +20,8 @@
                     <th> View Tasks </th>
                 </tr>
             </thead>
-            @if(taskObj.tasks.length==0){
-              <td colspan="5" style="padding-top: 2%;"><u>No Record Found !</u></td>
+            @if(projectObj.projects.length==0){
+              <td colspan="6" style="padding-top: 2%;"><u>No Record Found !</u></td>
             }
             <tbody *ngFor="let project of projectObj.projects; let i = index" >
               @if(project.createdBy == decoded.UserId){
@@ -57,10 +57,10 @@
           <th>Status</th>
         </tr>
       </thead>
-      <!-- @if(taskObj.tasks.length===0){
+      <!-- @if(taskObj.tasks.length==0){
         <td colspan="6" style="padding-top: 2%;"><u>No Record Found !</u></td>
       } -->
-      @for(task of taskObj.tasks; track task.taskId){
+      @for(task of taskObj.tasks; track task.taskName){
         <tbody>
           <tr>
             <!-- <td>{{ task.memberName }}</td> -->
@@ -83,7 +83,7 @@
         </tbody>
       }
       @empty {
-        <td colspan="6" style="padding-top: 2%;"><u>No Record Found !</u></td>
+        <td colspan=4 style="padding-top: 2%;"><u>No Record Found !</u></td>
       }
     </table>
     <button id="back-btn-man" (click)="backToList()">Back to List</button>

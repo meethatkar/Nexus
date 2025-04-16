@@ -10,11 +10,12 @@ import { UserSignupService } from '../../services/signup/user-signup.service';
 import { jwtDecode } from 'jwt-decode';
 import { project } from '../../models/project.model';
 import { ProjectService } from '../../services/project/project.service.';
+import { LoaderComponent } from "../loader/loader.component";
 
 @Component({
   selector: 'app-member-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoaderComponent],
   templateUrl: './member-page.component.html',
   styleUrls: ['./member-page.component.css']
 })
@@ -23,6 +24,11 @@ export class MemberListComponent implements OnInit {
   memberObj = new member();
   projectObj = new project();
   userDetailList: userDetails[] = []; // Store user details of all members
+  men_img_loc:string[] = ["assets/member_img/profile_men_2.jpg","assets/member_img/proflie_men_1.jpg","assets/member_img/proflie_men_3.jpg"];
+  women_img_loc:string[] = ["assets/member_img/profile_women_2.jpg","assets/member_img/profile_women_2.jpg","assets/member_img/profile_women_2.jpg"];
+  randomNum?:number;
+  isLoading:boolean=false;
+
 
   memberServiceObj = inject(AddMemberService);
   userServiceObj = inject(UserDetailService);
@@ -39,6 +45,7 @@ export class MemberListComponent implements OnInit {
 
   /** ✅ Fetch Projects by User ID and then get Members & User Details */
   getProjectMembersAndUserDetails() {
+    this.isLoading=true;
     this.projectServiceObj.getProjectByUserId(this.decoded.UserId).subscribe({
       next: (res: IResultProject) => {
         if (res.result) {
@@ -60,6 +67,7 @@ export class MemberListComponent implements OnInit {
 
                 // **Now fetch user details for all members**
                 this.getUserDetailsForMembers();
+                this.isLoading=false;
               },
               error: this.handleError
             });
@@ -77,9 +85,10 @@ export class MemberListComponent implements OnInit {
       console.log("No members available to fetch user details.");
       return;
     }
+    const filteredMembers = this.memberObj.members.filter(member => member.userId != this.decoded.UserId);
 
     // **Fetch user details for each member in parallel**
-    forkJoin(this.memberObj.members.map(member => 
+    forkJoin(filteredMembers.map(member => 
       this.userServiceObj.getUserDetailById(member.userId)
     )).subscribe({
       next: (userResponses) => {
@@ -95,6 +104,7 @@ export class MemberListComponent implements OnInit {
 
   /** ✅ Centralized Error Handling */
   handleError(error: any): void {
+    this.isLoading=false;
     console.error("An error occurred:", error);
     this.error = {};
 
@@ -107,5 +117,10 @@ export class MemberListComponent implements OnInit {
     } else {
       alert("Unexpected error occurred: " + error.message);
     }
+  }
+
+  generateRandomNumber():number{
+    this.randomNum= Math.floor(Math.random()*3);
+    return this.randomNum
   }
 }

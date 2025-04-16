@@ -120,7 +120,7 @@ h3{
 .notifications {
     background: white;
     border-left: 5px solid #f1c40f;
-    animation: fadeIn 0.7s ease-in-out;
+    animation: fadeIn 0.4s ease-in-out;
 }
 
 .notifications ul li {
@@ -181,7 +181,7 @@ h3{
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-5px);
     }
     to {
         opacity: 1;

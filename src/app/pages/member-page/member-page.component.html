@@ -1,20 +1,29 @@
+<app-loader [isLoading]="isLoading"></app-loader>
 <div class="container py-4">
   <div class="row row-cols-1 row-cols-md-4">
 
-    @for(member of userDetailList;track member)
+    @for(member of userDetailList;track member; let i = $index)
     {
           <!-- Card Start -->
     <div class="col">
       <div class="card text-center p-3">
-        <img src="assets/member_img/profile_men_2.jpg" alt="PP" class="mx-auto profile-img mt-1" />
-        <h5 class="title">  {{member.firstName}}</h5>
+        @if(member.gender=="male")
+        {
+        <!-- <img src="assets/member_img/profile_men_2.jpg" alt="PP" class="mx-auto profile-img mt-1" /> -->
+        <img [src]=men_img_loc[generateRandomNumber()] alt="PP" class="mx-auto profile-img mt-1" />
+        }
+        @else if(member.gender=="female")
+        {
+          <img [src]=women_img_loc[generateRandomNumber()] alt="PP" class="mx-auto profile-img mt-1" />
+        }
+        <h5 class="title">  {{member.firstName}} {{member.lastName}}</h5>
         <hr>
         <p><strong>Age:</strong> {{member.age}} </p>
         <p><strong>Gender:</strong> {{member.gender}} </p>
         <p><strong>Phone:</strong> {{member.phoneNo}} </p>
         <!-- <p><strong>Email:</strong> {{member.}} </p> -->
         <p><strong>City:</strong> {{member.city}} </p>
-        <p><strong>Task Assigned:</strong> {{member.city}} </p>
+        <p><strong>State:</strong> {{member.state}} </p>
         <hr>
         <div class="social-icons mt-2">
           <a href="#"><i class="fa fa-facebook-f"></i></a>
